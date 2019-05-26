@@ -270,7 +270,7 @@ if(isset($_SESSION['nombre'])){
                 <!-- radio -->
                 <div class=" col-sm-12 col-xs-12">
                     <fieldset>
-                        <legend>Elige un color</legend>
+                        <legend>Estado</legend>
                         <label>Info<img id="radio" src="imagenes/info.png"><input class="centrado" type="radio"
                                 name="estatus" value="1"
                                 <?php if($estatus1=='1') {echo 'checked="checked"';}if($quitar==true){echo 'disabled=$activo';} ?>></label>
