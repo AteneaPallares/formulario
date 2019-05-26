@@ -1,0 +1,141 @@
+/* contiene los estilos css de la las paginas web */
+
+
+label{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    width:30%;
+    font-weight: bold;
+}
+textarea{
+    background-image: url(Imagenes/area.jpg);
+}
+.imagencheck{
+    background-image: none;
+}
+body{
+    background-color: #F5F6CE;
+}
+input{
+    background-image: url(Imagenes/entrada.jpg)
+}
+.navbar-light .navbar-nav .nav-link {
+    color: orange;
+    }
+    /*  Este es para el elemento activo lo puedes omitir si asi deseas */
+    .navbar-light .navbar-nav .active>.nav-link  {
+     color: red;
+    }
+    .resolver{
+        float:left;
+    }
+    .navbar{
+        background-color: red;
+        }
+        .navbar-custom {
+            color: #FFFFFF;
+            background-color: #CC3333;
+        }
+summary{
+    font-size: 15;
+    margin:0px;
+    
+    display: block;
+}
+details{
+    clear: right;
+}
+input{
+    width: 50%;
+}
+.estilo1{
+    font-size: 100%;
+   
+    background:#F7819F;
+    width: 60%;
+    border:1px;
+    border-radius: 10px;
+    text-align: center;
+}
+select{
+    background-color:#F7D358;
+    background-image: url(Imagenes/fondo.jpg);
+    border-radius: 10px;
+}
+.agregar{
+    align-content: center;
+    float:none;
+    text-align: center;
+    border:1px;
+    background:#F5A9D0;
+    width:50%;   
+    border-radius: 15px;
+}
+.ordenar{
+    background-color: aqua;
+    border-radius: 10px;
+    font-family: "Times New Roman", Times, serif;
+    background-image: url(Imagenes/ordenar.jpg)
+}
+img{
+    width: 50px;
+}
+#radio {
+    white-space: normal;
+  }
+  
+.check {
+width:20px;
+height:20px;
+float:left;
+border-radius: 15px;
+border-style: solid;
+}
+
+.numeroinput{
+    font-size: 15;
+    width: 8%;
+    background:rgba(136, 241, 104, 0.877);
+    border:1px;
+    border-radius: 15px;
+    text-align: center;
+}
+.eliminar{
+    background-color: lightblue;
+    background-image: url(Imagenes/eliminar.jpg)
+}
+.textoordenar{
+    font-size: 30;
+}
+.fecha{
+    font-size:100%;
+    background:palevioletred;
+    border:1px;  
+    border-radius: 15px;
+    text-align: center;
+    width: 16%;
+}
+.estilo2{
+    font-size: 15px;
+    background:#F5A9D0;
+    border:1px;
+    width: 85%;
+    border-radius: 15px;
+    text-align: center;
+    position:relative;
+    
+    white-space: normal;
+    border-color: black;
+    border-style: solid;
+   
+}
+#eliminar{
+    border:1px;
+    height:5%;
+    width:10%;   
+    border-radius: 15px;
+}
+.centrado{
+    text-align: center;
+    align-content: center,
+}

@@ -1,0 +1,4 @@
+localhost+host
+root+user
++password
+form+database
