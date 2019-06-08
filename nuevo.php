@@ -20,6 +20,11 @@
 
 <body onload="cargarimagenes()">
 <?php
+$datos=[];
+for($i=0;$i<15;$i++){
+    $datos[]=$i;
+}
+
 $file = fopen("conexion.txt", "r") or exit("Unable to open file!");
 $datosconexionbd;
 $i=0;
@@ -103,7 +108,8 @@ if(isset($_SESSION['nombre'])){
             $tipoimpre="";$Htipoimpre="enabled";
             $nopapel=0;$Hnopapel="enabled";
             $tipopapel="";$Htipopapel="enabled";
-            $noimpredos=""; $Hnoimpredos="enabled";
+            $noimpredos=0; $Hnoimpredos="enabled";
+            $tablaimpre=""; $Htablaimpre="enabled";
             $registrarse="enabled";
             $borrar="enabled";
             $quitar=false;
@@ -111,7 +117,7 @@ if(isset($_SESSION['nombre'])){
             $eliminar2="enabled";
             $correcto="enabled";
             $activo="enabled";
-            if(!empty($_POST['IDmenu'])){
+            if((!empty($_POST['IDmenu'])) && (isset($_POST['IDmenu']))){
                 $registrarse=$activo;
                 $eliminar1=$activo;
                 $eliminar2=$activo;
@@ -132,7 +138,7 @@ if(isset($_SESSION['nombre'])){
                     $IDS=$_POST['id'];}
 
             $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
-            $sql="SELECT NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,CAPTURA,OBSERVACIONES,AUTORIZA,TIPOIM,NOPAPEL,TIPOPAPEL,NOIMPRESIONES FROM datos WHERE ID=$IDS ORDER BY ID";
+            $sql="SELECT NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,CAPTURA,OBSERVACIONES,AUTORIZA,TIPOIM,NOPAPEL,TIPOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES FROM datos WHERE ID=$IDS ORDER BY ID";
             if ($result=mysqli_query($link,$sql))
             {
             while ($row=mysqli_fetch_row($result))
@@ -166,6 +172,7 @@ if(isset($_SESSION['nombre'])){
                     $nopapel=$row[23];$Hnopapel=$activo;
                     $tipopapel=$row[24];$Htipopapel=$activo;
                     $noimpredos=$row[25];$Hnoimpredos=$activo;
+                    $tablaimpre=$row[26];$Htablaimpre=$activo;
 
                 }
             mysqli_free_result($result);
@@ -176,11 +183,11 @@ if(isset($_SESSION['nombre'])){
     <form action="registro.php" method="POST" enctype="multipart/form-data" id="completo">
         <div class="container">
             <div class="row">
-                <div class=" col-sm-6 col-xs-12"><label> No.Proyecto </label> <input type="number" name="numero"
+                <div class=" col-sm-6 col-xs-12"><label> No.Proyecto </label> <input type="number" name="numero" id="numeroproyecto" onchange="reporte()"
                         value="<?php echo $numero ?>" <?php echo $Hnumero ?> required></div>
                 <div class=" col-sm-6 col-xs-12"><label> Diseñador asignado </label>
                 <label> <?php echo $disenador ?> </label>
-                <select name="disenador" onchange="agregarusuario()" id="disenador">
+                <select name="disenador" onchange="agregarusuario();reporte()"; id="disenador">
                   <?php
                   $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
                 $sql="SELECT NOMBRE,PASSWOR FROM usuario ";
@@ -208,7 +215,7 @@ if(isset($_SESSION['nombre'])){
         <input type="hidden" name="currentuser" id="currentuser" value="<?php echo $nombreuser ?>">
                     </div>
                 <input type="hidden" name="numerodos" value="<?php echo $numero ?>">
-                <input type="hidden" name="fechad" value="<?php echo $fecha ?>">
+                <input type="hidden" onchange="reporte()" id="fechacreacion1"name="fechad" value="<?php echo $fecha ?>">
                 <div class=" col-sm-12 col-xs-12 "><label style="width:20%">Fecha</label><input id="datetime"
                         style="width:70%" name="fechad" value="<?php echo $fecha ?>" <?php echo $Hfecha ?>></div>
                 <div class=" col-sm-12 col-xs-12 "><label style="width:100%;   text-align: center;">SERVICIO DE
@@ -216,16 +223,16 @@ if(isset($_SESSION['nombre'])){
                 </div>
                 <div class=" col-sm-6 col-xs-12"><label> No. Memo </label> <input type="number" name="memo"
                         value="<?php echo $memo ?>" <?php echo $Hmemo ?>></div>
-                <div class=" col-sm-6 col-xs-12"><label> No.Orden </label> <input type="number" name="Orden"
+                <div class=" col-sm-6 col-xs-12"><label> No.Orden </label> <input onchange="reporte()"type="number" name="Orden" id="orden1"
                         value="<?php echo $orden ?>" <?php echo $Horden ?>></div>
-                <div class=" col-sm-12 col-xs-12"><label style="width:20%"> Proyecto </label> <input style="width:70%"
+                <div class=" col-sm-12 col-xs-12"><label style="width:20%"> Proyecto </label> <input onchange="reporte()" style="width:70%"
                         type="text" name="proyecto" id="proyecto" value="<?php echo $proyecto ?>" <?php echo $Hproyecto ?> required>
                 </div>
                 <input type="hidden" name="proyectodos" value="<?php echo $proyecto ?>">
                 <div class=" col-sm-6 col-xs-12"><label> Info Digital Completo </label><input type="text" name="info"
                         value="<?php echo $info ?>" <?php echo $Hinfo ?>> </div>
-                <div class=" col-sm-6 col-xs-12"><label> Detalles del servicio </label><textarea type="text"
-                        name="detalles"  <?php echo $Hdetalles ?>><?php echo $detalles ?></textarea></div>
+                <div class=" col-sm-6 col-xs-12"><label> Detalles del servicio </label><textarea onchange="reporte()"type="text"
+                        name="detalles" id="detalles" <?php echo $Hdetalles ?>><?php echo $detalles ?></textarea></div>
                 
                 
                 <!-- Inicio imagenes -->
@@ -235,7 +242,7 @@ if(isset($_SESSION['nombre'])){
                     <label> Imagenes </label><input type="file" id="cambio" name="img" onchange="inicializar1()"
                         value="<?php echo $imagenes ?>" <?php echo $Himagenes ?>>
                     <input type="button" onclick="eliminar('imagennueva','a');" value="Eliminar" <?php echo $eliminar1 ?>>
-                    <div id="contenedor" style="overflow:scroll;height:100px;width:100%;background-image: url(Imagenes/eliminar.png);">
+                    <div id="contenedor" style="overflow:scroll;height:100px;width:100%;">
 
                     </div>
                 </div>
@@ -244,25 +251,25 @@ if(isset($_SESSION['nombre'])){
                     <label> Logos </label><input type="file" id="cambiodos" name="log" onchange="inicializar2()"
                         value="<?php echo $logos ?>" <?php echo $Hlogos ?>>
                     <input type="button" onclick="eliminar('imagennuevados','b');" value="Eliminar" <?php echo $eliminar2 ?>>
-                    <div id="contenedordos" style="overflow:scroll;height:100px;width:100%;background-image: url(Imagenes/eliminar.png);"> </div>
+                    <div id="contenedordos" style="overflow:scroll;height:100px;width:100%;"> </div>
 
                 </div>
                 <!-- fin imagenes -->
-                <div class=" col-sm-6 col-xs-12"><label> Usuario Responsable </label><input type="text" name="usuario"
+                <div class=" col-sm-6 col-xs-12"><label> Usuario Responsable </label><input onchange="reporte()"type="text" name="usuario" id="usuario"
                         value="<?php echo $responsable ?>" <?php echo $Hresponsable ?>></div>
-                <div class=" col-sm-6 col-xs-12"><label> Telefono </label><input type="text" id="telefono" name="tel"
+                <div class=" col-sm-6 col-xs-12"><label> Telefono </label><input type="text"onchange="reporte()" id="telefono1" name="tel"
                         value="<?php echo $tel ?>" <?php echo $Htel ?>></div>
-                <div class=" col-sm-6 col-xs-12"><label> Area </label><input type="text" name="area"
+                <div class=" col-sm-6 col-xs-12"><label> Area </label><input onchange="reporte()"type="text" name="area" id="area1"
                         value="<?php echo $area ?>" <?php echo $Harea ?>></div>
-                <div class=" col-sm-6 col-xs-12"><label> Correo </label> <input type="text" name="correo"
+                <div class=" col-sm-6 col-xs-12"><label> Correo </label> <input type="text" onchange="reporte()"name="correo" id="correo1"
                         value="<?php echo $correo ?>" <?php echo $Hcorreo ?>></div>
-                <div class=" col-sm-6 col-xs-12"><label> Fecha </label><input id="datetimedos" style="width:70%"
+                <div class=" col-sm-6 col-xs-12"><label> Fecha </label><input onchange="reporte()"id="datetimedos" style="width:70%"
                         name="time" value="<?php echo $fechados ?>" <?php echo $Hfechados ?>></div>
 
-                <div class=" col-sm-6 col-xs-12"><label> Cantidad impresos </label><input type="number" name="impreso"
+                <div class=" col-sm-6 col-xs-12"><label> Cantidad impresos </label><input  onchange="reporte()"type="number" name="impreso" id="cantidadimpresos1"
                         value="<?php echo $noimpresos ?>" <?php echo $Hnoimpresos ?>></div>
 
-                <div class=" col-sm-6 col-xs-12"><label> Orden de Servicio </label><input type="text"
+                <div class=" col-sm-6 col-xs-12"><label> Orden de Servicio </label><input onchange="reporte()" type="text" id="orden1"
                         name="ordenservicio" value="<?php echo $ordenservicio ?>" <?php echo $Hordenservicio ?>></div>
                 <div class=" col-sm-12 col-xs-12"><label style="width:100%;   text-align: center;">ESTATUS DEL
                         SERVICIO</label>
@@ -305,16 +312,43 @@ if(isset($_SESSION['nombre'])){
                 <div class=" col-sm-12 col-xs-12"><label style="width:100%;   text-align: center;"> IMPRESIONES</label>
                 </div>
                 <div class=" col-sm-6 col-xs-12"><label> Tipo de impresión </label><input type="text"
-                        name="tipoimpresion" value="<?php echo $tipoimpre ?>" <?php echo $Htipoimpre ?>></div>
+                        name="tipoimpresion" id="tipoimpresion"value="<?php echo $tipoimpre ?>" <?php echo $Htipoimpre ?>></div>
                 <div class=" col-sm-6 col-xs-12"><label> Cantidad de papel </label><input type="number"
-                        name="cantidadpapel" value="<?php echo $nopapel ?>" <?php echo $Hnopapel ?>></div>
-                <div class=" col-sm-6 col-xs-12"><label> Tipo de papel </label><input type="text" name="tipopapel"
+                        name="cantidadpapel" id="cantidadpapel"value="<?php echo $nopapel ?>" <?php echo $Hnopapel ?>></div>
+                <div class=" col-sm-6 col-xs-12"><label> Tipo de papel </label><input type="text" name="tipopapel" id="tipopapel"
                         value="<?php echo $tipopapel ?>" <?php echo $Htipopapel ?>></div>
                 <div class=" col-sm-6 col-xs-12"><label> Cantidad impresiones </label><input type="number"
-                        name="cantidadimpre" value="<?php echo $noimpredos ?>" <?php echo $Hnoimpredos ?>></div>
+                        name="cantidadimpre" id="cantidadimpresiones"value="<?php echo $noimpredos ?>" <?php echo $Hnoimpredos ?>></div>
+                
+                <input type="hidden" onchange="reporte()" id="tablaimpresiones" name="tablaimpresiones" value="<?php echo $tablaimpre ?>" <?php echo $Htablaimpre ?> onchange="agregarfila()">
+                <div class=" col-sm-12 col-xs-12">
+                <input type="button" value="Agregar"onclick="agregarfila('true');reporte();" <?php echo $Htablaimpre ?>>
+                </div>
+                <div class=" col-sm-12 col-xs-12">
+                <label id="estatusagregar"></label>
+                </div>
+                <div class=" col-sm-12 col-xs-12">
+                <center><label>Fecha Inicio-Fin</label></center>
+                </div>
+                <div class=" col-sm-6 col-xs-12" align="left"><input id="fechauno" style="width:70%"
+                        name="fechauno" value="2019/01/01 21:58"  onchange="cargarimagenes()"></div>
+                <div class=" col-sm-6 col-xs-12" align="right"><input id="fechados" style="width:70%"
+                        name="fechados" value="<?php echo date("Y/m/d H:i"); ?>"  onchange="cargarimagenes()"></div>        
+               
+                <table id="tablaimpresionescompleta" <?php echo $Htablaimpre ?>>
+                <tr id="tablaimpresiones">
+                        <th>Fecha</th>
+                        <th>Tipo Impresión</th>
+                        <th>Tipo de papel</th>
+                        <th>No. Papel</th>
+                        <th>No.Impresiones</th>
+                        <th></th>
+                </tr>
+                </table>
+                
                 <div class=" col-sm-12 col-xs-12"><label style="width:100%;   text-align: center;"> BITÁCORA</label>
                 </div>
-                <div class=" col-sm-12 col-xs-12"><textarea style="width:100%;   text-align: center; height:100px"
+                <div class=" col-sm-12 col-xs-12"><textarea onchange="reporte()" style="width:100%;   text-align: center; height:100px" id="bitacora1"
                         type="text" name="bitacora" <?php echo $Hbitacora ?>><?php echo $bitacora ?></textarea></div>
                 <div class=" col-sm-12 col-xs-12">
                     <input style="width:30%;   text-align: center;" type="submit" name="submitdos" value="Guardar"
@@ -323,9 +357,28 @@ if(isset($_SESSION['nombre'])){
                     <a href="encabezado.php"><input style="width:30%;   text-align: center;" type="button"
                             value="Regresar" /></a>
                 </div>
-                <div class=" col-sm-12 col-xs-12">></div>
+                <div class=" col-sm-12 col-xs-12"></div>
             </div>
     </form>
+    <form action="reporte.php" method="post" target="_blank">
+       <input type="hidden" name="Noproyecto" id="Noproyecto"value="">
+       <input type="hidden" name="disenador2" id="disenador2"value="">
+       <input type="hidden" name="fechacreacion" id="fechacreacion" value="">
+       <input type="hidden" name="Noorden" id="Noorden" value="">
+       <input type="hidden" name="Nombredelproyecto" id="Nombredelproyecto" value="">
+       <input type="hidden" name="Detalles" id="Detalles" value="">
+       <input type="hidden" name="Usuarioresponsable" id="Usuarioresponsable"value="">
+       <input type="hidden" name="area" id="area"value="">
+       <input type="hidden" name="fechaultima" id="fechaultima"value="">
+       <input type="hidden" name="telefono"id="telefono"value="">
+       <input type="hidden" name="correo" id="correo" value="">
+       <input type="hidden" name="ordenservicio" id="ordenservicio"value="">
+       <input type="hidden" name="cantidadimpresos" id="cantidadimpresos"value="">
+       <input type="hidden" name="tabla" id="tabla" value="">
+       <input type="hidden" name="bitacora" id="bitacora" value="">
+    <input type="submit"  name="valor" style="width:100%;" value="Generar Reporte">
+
+    </form>          
     <?php
             if(isset($_POST['submitdos'])){
                 require("registro.php");
@@ -335,7 +388,146 @@ if(isset($_SESSION['nombre'])){
 
  <!-- FUNCIONES DE JAVASCRIPT -->
  <script>
+ function reporte(){
+    document.getElementById('Noproyecto').value=$("#numeroproyecto").val();
+    document.getElementById('disenador2').value=$("#disenador").val();
+    document.getElementById('fechacreacion').value=$("#fechacreacion1").val();
+    document.getElementById('Noorden').value=$("#orden1").val();
+    document.getElementById('Nombredelproyecto').value=$("#proyecto").val();
+    document.getElementById('Detalles').value=$("#detalles").val();
+    document.getElementById('Usuarioresponsable').value=$("#usuario").val();
+    document.getElementById('area').value=$("#area1").val();
+    document.getElementById('fechaultima').value=$("#datetimedos").val();
+    document.getElementById('telefono').value=$("#telefono1").val();
+    document.getElementById('correo').value=$("#correo1").val();
+    document.getElementById('ordenservicio').value=$("#orden1").val();
+    document.getElementById('cantidadimpresos').value=$("#cantidadimpresos1").val();
+    document.getElementById('tabla').value=$("#tablaimpresiones").val();
+    document.getElementById('bitacora').value=$("#bitacora1").val();
+ }
+ var condicional=false;
+ var eliminandofila=false;
+       function eliminarfila(fila){
+        
+           var cadena=$("#tablaimpresiones").val();
+           var res = cadena.replace(fila, "");
+           document.getElementById('tablaimpresiones').value=res;
+           eliminandofila=true;
+           condicional=true;
+           agregarfila("false");
+        
+           
+       }
+       function agregarfila(valor){
+       
+           if((($("#tipoimpresion").val()!="")&&($("#tipopapel").val()!=""))|| condicional==true)
+           {
+            
+            var hoy = new Date();
+            var dd = hoy.getDate();
+            var mm = hoy.getMonth()+1;
+            var yyyy = hoy.getFullYear();
+            var minutos=hoy.getMinutes();
+            if(dd<10) {
+                dd='0'+dd;
+            } 
+            
+            if(mm<10) {
+                mm='0'+mm;
+            } 
+            if(minutos<10) {
+                minutos='0'+minutos;
+            } 
+            var fecha=yyyy + "/" + mm + "/" + dd+ " "+hoy.getHours()+":"+minutos; 
+            if(valor=="true"){
+        document.getElementById('fechados').value=fecha;
+       }
+            if($("#cantidadpapel").val()==""){document.getElementById('cantidadpapel').value=0;}
+            if($("#cantidadimpresiones").val()==""){document.getElementById('cantidadimpresiones').value=0;}
+            document.getElementById('estatusagregar').innerHTML="";
+            if(eliminandofila==true){
+            var nuevafila=$("#tablaimpresiones").val();
+            }
+            else{
+            var nuevafila=$("#tablaimpresiones").val()+fecha+"?FS.?"+$("#tipoimpresion").val()+"?FS.?"+$("#tipopapel").val()+"?FS.?"+$("#cantidadpapel").val()+"?FS.?"+$("#cantidadimpresiones").val()+"?CFS.?";
+            }
+            separador = "?CFS.?", // un espacio en blanco
+            filas = nuevafila.split(separador);
+            filas.pop();
+            var table = document.getElementById("tablaimpresionescompleta");
+            var rowtable=table.rows.length;
+            if(table.rows.length>1){
+                for(var i=1;i<rowtable;i++){
+                    document.getElementById("tablaimpresionescompleta").deleteRow(1);
+                     
+                }
+            }
+            var sumapapel=0;
+            var sumaimpresiones=0;
+            filas.forEach( function(valor, indice, array) {
+                
+                var rowCount = table.rows.length;
+                var row = table.insertRow(rowCount);
+                separador = "?FS.?", // un espacio en blanco
+                filas = valor.split(separador);
+                var i=0;
+                var fechafila=filas[0];
+                var fecha1=$("#fechauno").val();
+                var fecha2=$("#fechados").val();
+
+                if(fechafila>=fecha1 && fechafila<=fecha2){
+                filas.forEach( function(columna, indice, array) {
+                   
+                    var cell = row.insertCell(i);
+                    cell.innerHTML=columna;
+                    if(i==3){
+                        sumapapel=sumapapel+parseInt(columna);
+                    }
+                    if(i==4){
+                        sumaimpresiones=sumaimpresiones+parseInt(columna);
+                    }
+                    i++;
+                });
+               
+                var cellimg = row.insertCell(5);
+                var myvar = <?php echo json_encode($Htablaimpre); ?>;
+                if(myvar=="enabled"){
+                var input = "<img style='cursor: pointer' name='"+valor+"?CFS.?"+"' src='Imagenes/tache.jpg' onclick='eliminarfila(this.name);reporte();'; >";
+               
+                cellimg.innerHTML=input;
+                }}
+            });
+            rowCount = table.rows.length;
+            row = table.insertRow(rowCount);
+            vcell = row.insertCell(0);
+            vcell.innerHTML="";
+            vcell = row.insertCell(1);
+            vcell.innerHTML="";
+            vcell = row.insertCell(2);
+            vcell.innerHTML="Total";
+            vcell = row.insertCell(3);
+            vcell.innerHTML=sumapapel;
+            vcell = row.insertCell(4);
+            vcell.innerHTML=sumaimpresiones;
+            vcell = row.insertCell(5);
+            vcell.innerHTML="";
+            document.getElementById('tablaimpresiones').value=nuevafila;
+            document.getElementById('tipoimpresion').value="";
+            document.getElementById('tipopapel').value="";
+            document.getElementById('cantidadpapel').value=0;
+            document.getElementById('cantidadimpresiones').value=0;
+            eliminandofila=false;
+            condicional=false;
+                    
+           }
+           else{
+               document.getElementById('estatusagregar').innerHTML="Faltan datos por llenar ";
+              
+           }
+                
+            }
      function agregarusuario(){
+         
         var dato = $(disenador).val();
         var nombreproyecto = $(proyecto).val();
         var select = document.getElementById("disenador");
@@ -416,6 +608,8 @@ if(isset($_SESSION['nombre'])){
                 contenedor2="#contenedordos";
                 inicio(idimagen1,contenedor1,"a");
                 inicio(idimagen2,contenedor2,"b");
+                eliminarfila("");
+                reporte();
             }
     // Esta función se encarga de eliminar todos los elementos de los div contenedores de imagenes
             function limpiar() {
@@ -426,6 +620,7 @@ if(isset($_SESSION['nombre'])){
                 while (c.hasChildNodes())
                 c.removeChild(c.firstChild);
             }
+          
     // Esta función se activa cuando se oprime el botón eliminar. Se encarga de cambiar la cadena que contiene
     // las direcciones de las imagenes y manda actualizar los div
             function eliminar(id,check){
@@ -533,6 +728,8 @@ if(isset($_SESSION['nombre'])){
         // Este apartado es para hacer los calendarios de tipo datetimepicker
             $('#datetimedos').datetimepicker();
             $('#datetime').datetimepicker();
+            $('#fechauno').datetimepicker();
+            $('#fechados').datetimepicker();
     </script>
 <?php }
   else{

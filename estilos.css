@@ -7,18 +7,24 @@ label{
     width:30%;
     font-weight: bold;
 }
-textarea{
-    background-image: url(Imagenes/area.jpg);
-}
 .imagencheck{
     background-image: none;
 }
-body{
-    background-color: #F5F6CE;
-}
-input{
-    background-image: url(Imagenes/entrada.jpg)
-}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
 .navbar-light .navbar-nav .nav-link {
     color: orange;
     }

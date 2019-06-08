@@ -9,6 +9,8 @@ y permite el filtro y ordenamiento de los datos -->
             <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
             <script src="bootstrap/js/bootstrap.js"></script>
             <link rel="stylesheet" href="estilos.css">
+            <script type="text/javascript" src="/details-shim/details-shim.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="/details-shim/details-shim.min.css">
 <script type="text/javascript">
 </script>
 </head>
@@ -158,12 +160,12 @@ if ($result=mysqli_query($link,$sql))
                 $ultimodato=$aux;
                 ?>
                 <form action="nuevo.php" method="POST" enctype="multipart/form-data">
-                <details>
+                <details >
                     <summary><input type="hidden"  name="IDmenu" value="<?php echo $ultimodato ?>">
                     <div class="input-group">
-                      <input class="numeroinput" value="<?php echo $numero?>">
-                    <input class="estilo1" type="submit" name="submitmenu" value="<?php echo $nomb?>"/>
-                    <input class="fecha" value="<?php echo  $fecha?>">
+                      <input class="numeroinput" value="<?php echo $numero?>" type="button" style="cursor: default">
+                    <input class="estilo1" type="submit" name="submitmenu" value="<?php echo $nomb?>">
+                    <input class="fecha" value="<?php echo  $fecha?>" type="button" style="cursor: default">
                     
                     <span ><label ><input id="<?php echo $numero?>" class="check" type="checkbox" value="<?php echo $numero?>" ></label></span>
                     
