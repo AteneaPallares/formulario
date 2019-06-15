@@ -59,16 +59,14 @@ if(isset($_POST['nombreusuarionuevo'])&& isset($_POST['passwordusuarionuevo']) &
      $CAPTURA=$_POST['captura'];if(empty($CAPTURA)){$CAPTURA="";}
      $OBSERVACIONES=$_POST['observaciones'];if(empty($OBSERVACIONES)){$OBSERVACIONES="";}
      $AUTORIZA=$_POST['autoriza'];if(empty($AUTORIZA)){$AUTORIZA="";}
-     $TIPOIM=$_POST['tipoimpresion'];if(empty($TIPOIM)){$TIPOIM="";}
      $NOPAPEL=$_POST['cantidadpapel'];if(empty($NOPAPEL)){$NOPAPEL=0;}
-     $TIPOPAPEL=$_POST['tipopapel'];if(empty($TIPOPAPEL)){$TIPOPAPEL="";}
      $NOIMPRESIONES=$_POST['cantidadimpre'];if(empty($NOIMPRESIONES)){$NOIMPRESIONES=0;}
      $tablaimpresiones=$_POST['tablaimpresiones'];if(empty($tablaimpresiones)){$tablaimpresiones="";}
  
 mysqli_multi_query($link,"INSERT INTO datos(NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,
-IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,CAPTURA,OBSERVACIONES,AUTORIZA,TIPOIM,NOPAPEL,TIPOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES) 
+IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,CAPTURA,OBSERVACIONES,AUTORIZA,NOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES,ACTIVO) 
 VALUES('$numero','$FECHA','$MEMO','$ORDEN','$PROYECTO','$INFO','$IMAGEN','$LOGOS','$DETALLES','$RESPONSABLE','$TEL','$AREA','$CORREO','$FECHADOS',
-'$IMPRESO','$BITACORA','$ESTATUS1','$DISENADOR','$ORDENDOS','$CAPTURA','$OBSERVACIONES','$AUTORIZA','$TIPOIM','$NOPAPEL','$TIPOPAPEL','$NOIMPRESIONES','$tablaimpresiones')") or die("<h2>Error Guardando los datos</h2>");
+'$IMPRESO','$BITACORA','$ESTATUS1','$DISENADOR','$ORDENDOS','$CAPTURA','$OBSERVACIONES','$AUTORIZA','$NOPAPEL','$NOIMPRESIONES','$tablaimpresiones','1')") or die("<h2>Error Guardando los datos</h2>");
 
 echo'
     <script>

@@ -15,6 +15,7 @@ y permite el filtro y ordenamiento de los datos -->
 </script>
 </head>
 <body>
+  
   <?php
   $file = fopen("conexion.txt", "r") or exit("Unable to open file!");
   $datosconexionbd;
@@ -69,14 +70,13 @@ if(isset($_SESSION['nombre'])){
         </ul>
         </li>';
         echo '
-          <li class="dropdown ">
-          <a class="btn  dropdown-toggle" data-toggle="dropdown" href="#">Administrar
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          <li><a href="recuperar.php" class="dropdown-item">Recuperar</a></li>
-        </ul>
-        </li>';
-        
+        <li class="dropdown ">
+        <a class="btn  dropdown-toggle" data-toggle="dropdown" href="#">Administrar
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        <li><a href="recuperar.php" class="dropdown-item">Recuperar</a></li>
+      </ul>
+      </li>';
         }
         ?>
       
@@ -84,7 +84,7 @@ if(isset($_SESSION['nombre'])){
     </ul>
   </div>
 </nav>
-
+<h2>"Recuperar Proyectos Eliminados"</h2>
 <form action="encabezado.php" method="post" target="_self">
   <label class="textoordenar">Ordenar y Filtrar datos</label>
   <br></br>
@@ -111,7 +111,7 @@ if(isset($_SESSION['nombre'])){
 <label style="width:8%;" ><center>No. Proyecto</center></label>
 <label style="width:60%;"><center>Proyecto</center></label>
 <label style="width:16%;"><center>Fecha</center></label>
-<img src="Imagenes/tache.jpg" onclick="eliminar()" width="5%" ></div>
+<img src="Imagenes/paloma.png" onclick="eliminar()" width="5%" height="5%" ></div>
 
 <?php
 
@@ -170,7 +170,7 @@ if ($result=mysqli_query($link,$sql))
               $filtrobool=false;
                 while($sele=mysqli_fetch_row($rep)){
                   
-                  if((($sele[6]==$filtro or $filtro=='7') &&($sele[7]==$username || $username=="admin"))&&($sele[8]=="1")){
+                  if((($sele[6]==$filtro or $filtro=='7'))&&($sele[8]=="0")){
                     $filtrobool=true;
                     $aux=$sele[0];
                     $nomb=$sele[2];
@@ -265,7 +265,7 @@ mysqli_close($link);
                 if(d){
                   var parametros = {
                 "valor" : valor,
-                "cambiar": 0
+                "cambiar": 1
         };
         $.ajax({
                 data:  parametros,

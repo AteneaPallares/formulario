@@ -25,6 +25,9 @@ $bitacora=$_POST['bitacora'];
     <link rel="stylesheet" href="datetimepicker-master/build/jquery.datetimepicker.min.css">
     <script src="datetimepicker-master/jquery.js"></script>
     <script src="script.js"></script>
+    <script type="text/javascript" src="./js/jquery-latest.js"></script> 
+    <script type="text/javascript" src="./js/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.tablesorter.pager.js"></script> 
     <script src="datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="estilos.css">
@@ -70,9 +73,10 @@ $bitacora=$_POST['bitacora'];
                         name="fechauno" value="2019/01/01 21:58"  onchange="cargar()">
                         <center><label style="width:20%;float:left;">Fecha Inicio-Fin</label></center>
                    <input id="fechados" style="width:40%;float:left; "
-                        name="fechados" value="<?php echo date("Y/m/d H:i"); ?>"  onchange="cargar()"></div>        
+                        name="fechados" value=""  onchange="cargar()"></div>        
                
-                <table id="tablaimpresionescompleta"  >
+                <table id="tablaimpresionescompleta" >
+                <thead>
                 <tr id="tablaimpresiones">
                         <th>Fecha</th>
                         <th>Tipo Impresión</th>
@@ -80,12 +84,18 @@ $bitacora=$_POST['bitacora'];
                         <th>No. Papel</th>
                         <th>No.Impresiones</th>
                 </tr>
+                </thead>
                 </table>
                 <label>Bitácora: <?php echo  $bitacora?></label> 
                 </br>
                 <input type="button" value="Imprimir" onclick="imprimir();"  >
                
  <script>
+     $(document).ready(function() 
+    { 
+        $("#tablaimpresionescompleta").tablesorter(); 
+    } );
+    
  var sumapapel=0;
 var sumaimpresiones=0;
  function imprimir(){
@@ -229,7 +239,26 @@ var sumaimpresiones=0;
                
            }
           function cargar(){
-              eliminarfila('');
+              
+              var hoy = new Date();
+            var dd = hoy.getDate()+1;
+            var mm = hoy.getMonth()+1;
+            var yyyy = hoy.getFullYear();
+            var minutos=hoy.getMinutes();
+            if(dd<10) {
+                dd='0'+dd;
+            } 
+            
+            if(mm<10) {
+                mm='0'+mm;
+            } 
+            if(minutos<10) {
+                minutos='0'+minutos;
+            } 
+            var fecha=yyyy + "/" + mm + "/" + dd+ " "+hoy.getHours()+":"+minutos; 
+            
+        document.getElementById('fechados').value=fecha;
+        eliminarfila('');
               cambiar();
           }
           $('#fechauno').datetimepicker();

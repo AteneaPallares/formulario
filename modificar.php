@@ -15,13 +15,13 @@ $password = explode("+", $datosconexionbd[2]);
 $database = explode("+", $datosconexionbd[3]);
 
 
-$resultado = $_POST['valor'];
-$cambiar = $_POST['cambiar'];
+$cambiar = $_POST['valor'];
+$id = $_POST['valor1'];
+$tabla=$_POST['tabla'];
  // porción1
 $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
+$sql="SELECT NOMBRE,ID FROM $tabla";
+mysqli_multi_query($link,"UPDATE $tabla SET NOMBRE = '$cambiar' WHERE ID = '$id'") or die("<h2>Error Guardando los datos</h2>");
 
-mysqli_multi_query($link,"UPDATE datos SET ACTIVO = $cambiar WHERE NUMERO = '$resultado'") or die("<h2>Error Guardando los datos</h2>");
-
-mysqli_query($link,$sql);
 mysqli_close($link);
 ?>

@@ -43,7 +43,7 @@ if(isset($_SESSION['nombre'])){
     $nombreuser=$_SESSION['nombre'];
   ?>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light " style="background-color: red;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light " style="background-color: red;">
   <a class="navbar-brand" href="encabezado.php" >Registro</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -59,15 +59,40 @@ if(isset($_SESSION['nombre'])){
       </li>
       <li class="nav-item">
         <a class="nav-link" href="password.php" style="color:#4C0B5F;" >Configuración</a>
-      </li>
+      </li>  
       <a class="nav-link " style="color:#086A87;" >Usuario:  <?php echo $_SESSION['nombre']?></a>
       <li class="nav-item">
         <a class="nav-link" href="session.php" style="color:#8A0808;" >Cerrar sesión</a>
+      </li>
+      <?php 
+        
+        if($nombreuser=="admin"){
+          echo '
+          <li class="dropdown ">
+          <a class="btn  dropdown-toggle" data-toggle="dropdown" href="#">Catálogos
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          <li><a href="catalogo1.php" class="dropdown-item">Tipo de Impresión</a></li>
+          <li><a href="catalogo2.php" class="dropdown-item">Tipo de Papel</a></li>
+          <li><a href="catalogo3.php" class="dropdown-item">Recibir</a></li>
+        </ul>
+        </li>';
+        echo '
+          <li class="dropdown ">
+          <a class="btn  dropdown-toggle" data-toggle="dropdown" href="#">Administrar
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          <li><a href="recuperar.php" class="dropdown-item">Recuperar</a></li>
+        </ul>
+        </li>';
+        }
+        ?>
       </li>
       
     </ul>
   </div>
 </nav>
+
 
     <!-- Ver el historial -->
     <?php
@@ -138,7 +163,7 @@ if(isset($_SESSION['nombre'])){
                     $IDS=$_POST['id'];}
 
             $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
-            $sql="SELECT NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,CAPTURA,OBSERVACIONES,AUTORIZA,TIPOIM,NOPAPEL,TIPOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES FROM datos WHERE ID=$IDS ORDER BY ID";
+            $sql="SELECT NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,CAPTURA,OBSERVACIONES,AUTORIZA,NOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES FROM datos WHERE ID=$IDS ORDER BY ID";
             if ($result=mysqli_query($link,$sql))
             {
             while ($row=mysqli_fetch_row($result))
@@ -168,11 +193,9 @@ if(isset($_SESSION['nombre'])){
                     $capturaservicio=$row[19];$Hcapturaservicio=$activo;
                     $observaciones=$row[20];$Hobservaciones=$activo;
                     $autoriza=$row[21];$Hautoriza=$activo;
-                    $tipoimpre=$row[22];$Htipoimpre=$activo;
-                    $nopapel=$row[23];$Hnopapel=$activo;
-                    $tipopapel=$row[24];$Htipopapel=$activo;
-                    $noimpredos=$row[25];$Hnoimpredos=$activo;
-                    $tablaimpre=$row[26];$Htablaimpre=$activo;
+                    $nopapel=$row[22];$Hnopapel=$activo;
+                    $noimpredos=$row[23];$Hnoimpredos=$activo;
+                    $tablaimpre=$row[24];$Htablaimpre=$activo;
 
                 }
             mysqli_free_result($result);
@@ -185,9 +208,9 @@ if(isset($_SESSION['nombre'])){
             <div class="row">
                 <div class=" col-sm-6 col-xs-12"><label> No.Proyecto </label> <input type="number" name="numero" id="numeroproyecto" onchange="reporte()"
                         value="<?php echo $numero ?>" <?php echo $Hnumero ?> required></div>
-                <div class=" col-sm-6 col-xs-12"><label> Diseñador asignado </label>
+                <div class=" col-sm-6 col-xs-12"><label> Diseñador</label>
                 <label> <?php echo $disenador ?> </label>
-                <select name="disenador" onchange="agregarusuario();reporte()"; id="disenador">
+                <select style="width:30%;" name="disenador" onchange="agregarusuario();reporte()"; id="disenador">
                   <?php
                   $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
                 $sql="SELECT NOMBRE,PASSWOR FROM usuario ";
@@ -223,8 +246,19 @@ if(isset($_SESSION['nombre'])){
                 </div>
                 <div class=" col-sm-6 col-xs-12"><label> No. Memo </label> <input type="number" name="memo"
                         value="<?php echo $memo ?>" <?php echo $Hmemo ?>></div>
-                <div class=" col-sm-6 col-xs-12"><label> No.Orden </label> <input onchange="reporte()"type="number" name="Orden" id="orden1"
-                        value="<?php echo $orden ?>" <?php echo $Horden ?>></div>
+                <div class=" col-sm-6 col-xs-12"><label> Recepción por: </label> 
+                        <select class="cselect" name="Orden"  id="orden1" onchange="reporte()" >
+                  <?php
+                 $sql="SELECT NOMBRE FROM recibir ";
+                        if ($result=mysqli_query($link,$sql))
+                        {
+                        while ($row=mysqli_fetch_row($result))
+                            {
+                               ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>><?php echo $row[0]?></option><?php
+                            }
+                        }
+                        ?>
+                        </select></div>
                 <div class=" col-sm-12 col-xs-12"><label style="width:20%"> Proyecto </label> <input onchange="reporte()" style="width:70%"
                         type="text" name="proyecto" id="proyecto" value="<?php echo $proyecto ?>" <?php echo $Hproyecto ?> required>
                 </div>
@@ -311,12 +345,36 @@ if(isset($_SESSION['nombre'])){
                         name="autoriza" value="<?php echo $autoriza ?>" <?php echo $Hautoriza ?>></div>
                 <div class=" col-sm-12 col-xs-12"><label style="width:100%;   text-align: center;"> IMPRESIONES</label>
                 </div>
-                <div class=" col-sm-6 col-xs-12"><label> Tipo de impresión </label><input type="text"
-                        name="tipoimpresion" id="tipoimpresion"value="<?php echo $tipoimpre ?>" <?php echo $Htipoimpre ?>></div>
+                <div class=" col-sm-6 col-xs-12"><label> Tipo de impresión </label>
+                        <select class="cselect" name="tipoimpresion"  id="tipoimpresion" <?php echo $Htipoimpre ?>>
+                  <?php
+                 $sql="SELECT NOMBRE FROM tipoimpre ";
+                        if ($result=mysqli_query($link,$sql))
+                        {
+                        while ($row=mysqli_fetch_row($result))
+                            {
+                               ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>><?php echo $row[0]?></option><?php
+                            }
+                        }
+                        ?>
+                        </select></div>
                 <div class=" col-sm-6 col-xs-12"><label> Cantidad de papel </label><input type="number"
                         name="cantidadpapel" id="cantidadpapel"value="<?php echo $nopapel ?>" <?php echo $Hnopapel ?>></div>
-                <div class=" col-sm-6 col-xs-12"><label> Tipo de papel </label><input type="text" name="tipopapel" id="tipopapel"
-                        value="<?php echo $tipopapel ?>" <?php echo $Htipopapel ?>></div>
+                        
+                <div class=" col-sm-6 col-xs-12"><label> Tipo de papel </label>
+                        <select class="cselect" name="tipopapel"  id="tipopapel" <?php echo $Htipopapel ?>>
+                  <?php
+                 $sql="SELECT NOMBRE FROM tipopapel ";
+                        if ($result=mysqli_query($link,$sql))
+                        {
+                        while ($row=mysqli_fetch_row($result))
+                            {
+                               ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>><?php echo $row[0]?></option><?php
+                            }
+                        }
+                        ?>
+                        </select>
+                        </div>
                 <div class=" col-sm-6 col-xs-12"><label> Cantidad impresiones </label><input type="number"
                         name="cantidadimpre" id="cantidadimpresiones"value="<?php echo $noimpredos ?>" <?php echo $Hnoimpredos ?>></div>
                 
@@ -420,7 +478,7 @@ if(isset($_SESSION['nombre'])){
        }
        function agregarfila(valor){
        
-           if((($("#tipoimpresion").val()!="")&&($("#tipopapel").val()!=""))|| condicional==true)
+           if((($("#tipoimpresion").val()!=null)&&($("#tipopapel").val()!=null))|| condicional==true)
            {
             
             var hoy = new Date();

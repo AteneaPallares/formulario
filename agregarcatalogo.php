@@ -16,12 +16,11 @@ $database = explode("+", $datosconexionbd[3]);
 
 
 $resultado = $_POST['valor'];
-$cambiar = $_POST['cambiar'];
+$tabla=$_POST['tabla'];
  // porción1
 $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
-
-mysqli_multi_query($link,"UPDATE datos SET ACTIVO = $cambiar WHERE NUMERO = '$resultado'") or die("<h2>Error Guardando los datos</h2>");
-
-mysqli_query($link,$sql);
+$sql="SELECT NOMBRE,ID FROM $tabla";
+mysqli_multi_query($link,"INSERT INTO $tabla(NOMBRE) 
+VALUES('$resultado')") or die("<h2>Error Guardando los datos</h2>");
 mysqli_close($link);
 ?>
