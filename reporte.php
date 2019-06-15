@@ -21,18 +21,17 @@ $bitacora=$_POST['bitacora'];
 <script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="datetimepicker-master/build/jquery.datetimepicker.min.css">
     <script src="datetimepicker-master/jquery.js"></script>
     <script src="script.js"></script>
-    <script type="text/javascript" src="./js/jquery-latest.js"></script> 
-    <script type="text/javascript" src="./js/jquery.tablesorter.min.js"></script>
-    <script type="text/javascript" src="./js/jquery.tablesorter.pager.js"></script> 
     <script src="datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./themes/blue/style.css" type="text/css" media="print, projection, screen" />
+<script type="text/javascript" src="./js/jquery.tablesorter.min.js"></script>
+<link rel="stylesheet" href="datetimepicker-master/build/jquery.datetimepicker.min.css">
+    
+    
 
-    <title> Reporte </title>
+    <link rel="stylesheet" href="./themes/blue/style.css" type="text/css" media="print, projection, screen" />
 </head>
 <body onload="cargar();">
 <h4>Nombre del proyecto: "<?php echo  $Nombredelproyecto?>"</h4> 
@@ -76,27 +75,10 @@ $bitacora=$_POST['bitacora'];
                    <input id="fechados" style="width:40%;float:left; "
                         name="fechados" value=""  onchange="cargar()"></div>        
                
-                <table id="tablaimpresionescompleta" class="tablesorter">
-                <thead>
-                <tr>
-                        <th>Fecha</th>
-                        <th>Tipo Impresión</th>
-                        <th>Tipo de papel</th>
-                        <th>No. Papel</th>
-                        <th>No.Impresiones</th>
-                </tr>
-                </thead>
-                <tbody>
+               
                 <?php
                 addrow($tabla);
                ?>
-               </tbody>
-               <?php
-               echo '<tr>';
-                echo '<td colspan="5"><hr></td>';
-            echo '</tr>';
-            ?>
-                </table>
                 <label onload="agregarfila('vsf');">Bitácora: <?php echo  $bitacora?></label> 
                 </br>
                 <input type="button" value="Imprimir" onclick="imprimir();"  >
@@ -105,6 +87,17 @@ function addrow($tabla){
    
     $filaacomodar = explode("?CFS.?", $tabla);
     $elimult = array_pop($filaacomodar);
+    echo ' <table id="tablaimpresionescompleta" class="tablesorter" ">
+    <thead>
+    <tr>
+            <th>Fecha</th>
+            <th>Tipo Impresión</th>
+            <th>Tipo de papel</th>
+            <th>No. Papel</th>
+            <th>No.Impresiones</th>
+    </tr>
+    </thead>
+    <tbody>';
         foreach ($filaacomodar as $value) {
            echo '<script>alert("fila")</script>';
             echo '<tr>';
@@ -115,7 +108,12 @@ function addrow($tabla){
             }
             echo '</tr>';
         }
-    
+    echo '</tbody>
+    <tr>
+    <td colspan="5"><hr></td>
+ </tr>
+
+     </table>';
 }
 ?>   
  <script>
@@ -128,6 +126,17 @@ function addrow($tabla){
 var sumaimpresiones=0;
  function imprimir(){
      window.print();
+ }
+ function eliminar(){
+    
+    var table = document.getElementById("tablaimpresionescompleta");
+        var rowtable=table.rows.length;
+        alert(rowtable);
+        for(var y=1;y<rowtable;y++){
+             document.getElementById("tablaimpresionescompleta").deleteRow(1);
+        }
+        
+        
  }
  function cambiar(){
      document.getElementById('totalimpre').innerHTML=$("#precioimpresiones").val()*sumaimpresiones;
@@ -204,7 +213,9 @@ var sumaimpresiones=0;
            condicional=false;
            }
           function cargar(){
+             
             agregarfila('efa');
+
             cambiar();
           }
           $('#fechauno').datetimepicker();
