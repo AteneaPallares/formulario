@@ -30,7 +30,8 @@ $bitacora=$_POST['bitacora'];
     <script type="text/javascript" src="./js/jquery.tablesorter.pager.js"></script> 
     <script src="datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="./themes/blue/style.css" type="text/css" media="print, projection, screen" />
+
     <title> Reporte </title>
 </head>
 <body onload="cargar();">
@@ -75,9 +76,9 @@ $bitacora=$_POST['bitacora'];
                    <input id="fechados" style="width:40%;float:left; "
                         name="fechados" value=""  onchange="cargar()"></div>        
                
-                <table id="tablaimpresionescompleta" >
+                <table id="tablaimpresionescompleta" class="tablesorter">
                 <thead>
-                <tr id="tablaimpresiones">
+                <tr>
                         <th>Fecha</th>
                         <th>Tipo Impresión</th>
                         <th>Tipo de papel</th>
@@ -85,11 +86,38 @@ $bitacora=$_POST['bitacora'];
                         <th>No.Impresiones</th>
                 </tr>
                 </thead>
+                <tbody>
+                <?php
+                addrow($tabla);
+               ?>
+               </tbody>
+               <?php
+               echo '<tr>';
+                echo '<td colspan="5"><hr></td>';
+            echo '</tr>';
+            ?>
                 </table>
-                <label>Bitácora: <?php echo  $bitacora?></label> 
+                <label onload="agregarfila('vsf');">Bitácora: <?php echo  $bitacora?></label> 
                 </br>
                 <input type="button" value="Imprimir" onclick="imprimir();"  >
-               
+<?php
+function addrow($tabla){
+   
+    $filaacomodar = explode("?CFS.?", $tabla);
+    $elimult = array_pop($filaacomodar);
+        foreach ($filaacomodar as $value) {
+           echo '<script>alert("fila")</script>';
+            echo '<tr>';
+            $columnaacomodar=explode("?FS.?",$value);
+            foreach ($columnaacomodar as $value2) {
+                echo '<td>'.$value2.'</td>';
+    
+            }
+            echo '</tr>';
+        }
+    
+}
+?>   
  <script>
      $(document).ready(function() 
     { 
@@ -105,78 +133,24 @@ var sumaimpresiones=0;
      document.getElementById('totalimpre').innerHTML=$("#precioimpresiones").val()*sumaimpresiones;
      document.getElementById('totalpapel').innerHTML=$("#preciopapel").val()*sumapapel;
  }
- function eliminarfila(fila){
-          var cadena=$("#tablaimpresiones").val();
-          var res = cadena.replace(fila, "");
-          document.getElementById('tablaimpresiones').value=res;
-          eliminandofila=true;
-          condicional=true;
-          agregarfila("false");
-       
-          
-      }
        function agregarfila(valor){
-      
-          if((($("#tipoimpresion").val()!="")&&($("#tipopapel").val()!=""))|| condicional==true)
-          {
-           
-           var hoy = new Date();
-           var dd = hoy.getDate();
-           var mm = hoy.getMonth()+1;
-           var yyyy = hoy.getFullYear();
-           var minutos=hoy.getMinutes();
-           if(dd<10) {
-               dd='0'+dd;
-           } 
-           
-           if(mm<10) {
-               mm='0'+mm;
-           } 
-           if(minutos<10) {
-               minutos='0'+minutos;
-           } 
-           var fecha=yyyy + "/" + mm + "/" + dd+ " "+hoy.getHours()+":"+minutos; 
-           if(valor=="true"){
-       document.getElementById('fechados').value=fecha;
-      }
-           if($("#cantidadpapel").val()==""){document.getElementById('cantidadpapel').value=0;}
-           if($("#cantidadimpresiones").val()==""){document.getElementById('cantidadimpresiones').value=0;}
-           document.getElementById('estatusagregar').innerHTML="";
-           if(eliminandofila==true){
+      alert("entrando");
+           var table = document.getElementById("tablaimpresionescompleta");
+           var rowtable=table.rows.length;
+           sumapapel=0;
+           sumaimpresiones=0;
            var nuevafila=$("#tablaimpresiones").val();
-           }
-           else{
-           var nuevafila=$("#tablaimpresiones").val()+fecha+"?FS.?"+$("#tipoimpresion").val()+"?FS.?"+$("#tipopapel").val()+"?FS.?"+$("#cantidadpapel").val()+"?FS.?"+$("#cantidadimpresiones").val()+"?CFS.?";
-           }
            separador = "?CFS.?", // un espacio en blanco
            filas = nuevafila.split(separador);
            filas.pop();
            var table = document.getElementById("tablaimpresionescompleta");
            var rowtable=table.rows.length;
-           if(table.rows.length>1){
-               for(var i=1;i<rowtable;i++){
-                   document.getElementById("tablaimpresionescompleta").deleteRow(1);
-                    
-               }
-           }
-           sumapapel=0;
-           sumaimpresiones=0;
            filas.forEach( function(valor, indice, array) {
-               
                var rowCount = table.rows.length;
-               var row = table.insertRow(rowCount);
                separador = "?FS.?", // un espacio en blanco
                filas = valor.split(separador);
                var i=0;
-               var fechafila=filas[0];
-               var fecha1=$("#fechauno").val();
-               var fecha2=$("#fechados").val();
-
-               if(fechafila>=fecha1 && fechafila<=fecha2){
                filas.forEach( function(columna, indice, array) {
-                  
-                   var cell = row.insertCell(i);
-                   cell.innerHTML=columna;
                    if(i==3){
                        sumapapel=sumapapel+parseInt(columna);
                    }
@@ -185,8 +159,6 @@ var sumaimpresiones=0;
                    }
                    i++;
                });
-              
-               }
            });
            rowCount = table.rows.length;
            row = table.insertRow(rowCount);
@@ -230,39 +202,13 @@ var sumaimpresiones=0;
            vcell.innerHTML=input;
            eliminandofila=false;
            condicional=false;
-                   
-          }
-          else{
-              document.getElementById('estatusagregar').innerHTML="Faltan datos por llenar ";
-             
-          }
-               
            }
           function cargar(){
-              
-              var hoy = new Date();
-            var dd = hoy.getDate()+1;
-            var mm = hoy.getMonth()+1;
-            var yyyy = hoy.getFullYear();
-            var minutos=hoy.getMinutes();
-            if(dd<10) {
-                dd='0'+dd;
-            } 
-            
-            if(mm<10) {
-                mm='0'+mm;
-            } 
-            if(minutos<10) {
-                minutos='0'+minutos;
-            } 
-            var fecha=yyyy + "/" + mm + "/" + dd+ " "+hoy.getHours()+":"+minutos; 
-            
-        document.getElementById('fechados').value=fecha;
-        eliminarfila('');
-              cambiar();
+            agregarfila('efa');
+            cambiar();
           }
           $('#fechauno').datetimepicker();
-            $('#fechados').datetimepicker();
+         $('#fechados').datetimepicker();
  </script>               
 </body>
 </html>
