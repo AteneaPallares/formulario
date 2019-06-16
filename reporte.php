@@ -70,10 +70,10 @@ $bitacora=$_POST['bitacora'];
                 </div>
                 <h4>Filtrar Tabla</h4>
                 <div class=" col-sm-12 col-xs-12" align="left"><input id="fechauno" style="width:40%;float:left;"
-                        name="fechauno" value="2019/01/01 21:58"  onchange="cargar()">
+                        name="fechauno" value="2019/01/01 21:58"  onchange="movimientos();">
                         <center><label style="width:20%;float:left;">Fecha Inicio-Fin</label></center>
                    <input id="fechados" style="width:40%;float:left; "
-                        name="fechados" value=""  onchange="cargar()"></div>        
+                        name="fechados" value="<?php echo date("Y/m/d H:i");?>"  onchange="movimientos();"></div>        
                
                
                 <?php
@@ -98,14 +98,28 @@ function addrow($tabla){
     </tr>
     </thead>
     <tbody>';
+    $fi=1;
         foreach ($filaacomodar as $value) {
-           echo '<script>alert("fila")</script>';
-            echo '<tr>';
+            $i=1;
+            echo '<tr id="fil'.$fi.'">';
             $columnaacomodar=explode("?FS.?",$value);
             foreach ($columnaacomodar as $value2) {
-                echo '<td>'.$value2.'</td>';
-    
+                if($i==1){
+                    echo '<td id="filcol'.$fi.'">'.$value2.'</td>';
+                }elseif($i==4){
+                    echo '<td id="filpap'.$fi.'">'.$value2.'</td>';
+                }
+                elseif($i==5){
+                    echo '<td id="filimpre'.$fi.'">'.$value2.'</td>';
+
+                }
+                else{
+                    echo '<td>'.$value2.'</td>';
+                }
+                
+                $i++;
             }
+            $fi++;
             echo '</tr>';
         }
     echo '</tbody>
@@ -117,33 +131,57 @@ function addrow($tabla){
 }
 ?>   
  <script>
-     $(document).ready(function() 
+ var sumapapel=0;
+var sumaimpresiones=0;
+   $(document).ready(function() 
     { 
         $("#tablaimpresionescompleta").tablesorter(); 
     } );
+ function movimientos(){
+    var fecha1=$("#fechauno").val();
+    var fecha2=$("#fechados").val();
+    var table = document.getElementById("tablaimpresionescompleta");
+    var rowtable=table.rows.length;
+    sumapapel=0;
+    sumaimpresiones=0;
+    for(var y=1;y<rowtable-4;y++){
+        var fechafila=$("#filcol"+y+"").text();
+        if(fechafila>=fecha1 && fechafila<=fecha2){
+        var papelcampo1=$("#filpap"+y+"").text();
+        var papelcampo=parseInt(papelcampo1);
+        
+        sumapapel=sumapapel+papelcampo;
+        var impresionescampo1=$("#filimpre"+y+"").text();
+        var impresionescampo=parseInt(impresionescampo1);
+        sumaimpresiones=sumaimpresiones+impresionescampo;
+        var fila=document.getElementById("fil"+y+"");
+        fila.style.display = ""; 
+        }
+        else{
+            var fila=document.getElementById("fil"+y+"");
+        fila.style.display = "none"; 
+        }
+    }
+    cambiar();
+    document.getElementById('subtotalpapel').innerHTML=sumapapel;
+    document.getElementById('subtotalimpresiones').innerHTML=sumaimpresiones;
     
- var sumapapel=0;
-var sumaimpresiones=0;
+ }
+  
+    // document.getElementById("tablaimpresionescompleta").deleteRow(1);
+ 
+   
+    
+ 
  function imprimir(){
      window.print();
  }
- function eliminar(){
-    
-    var table = document.getElementById("tablaimpresionescompleta");
-        var rowtable=table.rows.length;
-        alert(rowtable);
-        for(var y=1;y<rowtable;y++){
-             document.getElementById("tablaimpresionescompleta").deleteRow(1);
-        }
-        
-        
- }
+ 
  function cambiar(){
      document.getElementById('totalimpre').innerHTML=$("#precioimpresiones").val()*sumaimpresiones;
      document.getElementById('totalpapel').innerHTML=$("#preciopapel").val()*sumapapel;
  }
        function agregarfila(valor){
-      alert("entrando");
            var table = document.getElementById("tablaimpresionescompleta");
            var rowtable=table.rows.length;
            sumapapel=0;
@@ -178,9 +216,11 @@ var sumaimpresiones=0;
            vcell = row.insertCell(2);
            vcell.innerHTML="SubTotal";
            vcell = row.insertCell(3);
-           vcell.innerHTML=sumapapel;
+           input = "<label id='subtotalpapel'>"+sumapapel+"</label>";
+           vcell.innerHTML=input;
            vcell = row.insertCell(4);
-           vcell.innerHTML=sumaimpresiones;
+           input = "<label id='subtotalimpresiones'>"+sumaimpresiones+"</label>";
+           vcell.innerHTML=input;
            rowCount = table.rows.length;
            row = table.insertRow(rowCount);
            vcell = row.insertCell(0);
