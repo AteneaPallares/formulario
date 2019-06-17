@@ -138,14 +138,18 @@ var sumaimpresiones=0;
         $("#tablaimpresionescompleta").tablesorter(); 
     } );
  function movimientos(){
-    var fecha1=$("#fechauno").val();
-    var fecha2=$("#fechados").val();
+    var fecha1a=$("#fechauno").val();
+    var fecha1 = Date.parse(fecha1a);
+    var fecha2a=$("#fechados").val();
+    var fecha2 = Date.parse(fecha2a);
     var table = document.getElementById("tablaimpresionescompleta");
     var rowtable=table.rows.length;
     sumapapel=0;
     sumaimpresiones=0;
     for(var y=1;y<rowtable-4;y++){
-        var fechafila=$("#filcol"+y+"").text();
+        var fechafila1=$("#filcol"+y+"").text();
+        var fechafila = Date.parse(fechafila1);
+        
         if(fechafila>=fecha1 && fechafila<=fecha2){
         var papelcampo1=$("#filpap"+y+"").text();
         var papelcampo=parseInt(papelcampo1);
