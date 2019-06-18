@@ -114,14 +114,14 @@ $ultimodato=null;
 $repetido="";
 $numpro=0;
 ?>
-<table id="tablaproyec" class="display">
+<table id="tablaproyec" class="display" onchange="cerrar()">
   <thead>
     <tr >
-      <th>Column 1</th>
-      <th>Column 2</th>
-      <th>Column 2</th>
-      <th>Column 2</th>
-      <th>Column 2</th>
+      <th onclick="cerrar()">Column 1</th>
+      <th onclick="cerrar()">Column 2</th>
+      <th onclick="cerrar()">Column 2</th>
+      <th onclick="cerrar()">Column 2</th>
+      <th onclick="cerrar()">Column 2</th>
 
     </tr>
 </thead>
@@ -174,7 +174,7 @@ if ($result=mysqli_query($link,$sql))
                 ?>
                 
                 
-                <tr>
+                <tr id="proyecto<?php echo $numpro;?>">
                     
                     <td onclick="nue('proyecto<?php echo $numpro;?>')"></td>
                     <td ><?php echo $numero?></td>
@@ -207,12 +207,19 @@ if ($result=mysqli_query($link,$sql))
                     $estatus="Entregado";
                   }
                    ?> 
-                  
-                   <tr>
-                   <td style="display:none"colspan="5" class="proyecto<?php echo $numpro;?>">
+                     <input type="hidden" id="IDmenu" name="IDmenu" value="<?php echo $ultimodato ?>">
+                  <tr   colspan="5" class="proyecto<?php echo $numpro;?>">
+                  <td>
                   <button onclick="enviarsecond('<?php echo $seleccion[0]?>')"><?php echo "<b>Fecha:</b> ".$seleccion[5]." <br><b> Diseñador:</b>  ".$seleccion[7]."<br><b>Estatus:</b> ".$estatus."<br><b>Observaciones:</b>".$seleccion[4]?></button>
                 </td>
-                </tr>
+                    <td></td>
+                    <td ></td>
+                    <td></td>
+                    <td></td>
+                    
+                    
+                    </tr>
+                   
                 
             <form id="enviaranuevo"action="nuevo.php" method="post" enctype="multipart/form-data">
             <input type="hidden" id="IDmenu" name="IDmenu" value="<?php echo $ultimodato ?>">
@@ -252,9 +259,19 @@ var cadena="'.$repetido.'";
 mysqli_close($link);
 ?>
 <script>
+  function cerrar(){
+    // alert("cerrando");
+    // var x = document.getElementsByName("cerrando");
+    //     var i;
+    //           if (x.style.display != "none") {
+    //               x.style.display = "none"; //ocultar fila 
+    //           }
+  }
     function nue(nombreproyec){
         // 
-        
+        // alert("entrando");
+        // var table2 = document.getElementById(nombreproyec);
+        // $("<span>Hello world!</span>").insertAfter(table2);
         var filas2 = document.getElementsByClassName(nombreproyec);
         var i;
           for (i = 0; i < filas2.length; i++) {
@@ -262,6 +279,8 @@ mysqli_close($link);
                   filas2[i].style.display = "none"; //ocultar fila 
             } else {
               filas2[i].style.display = ""; //mostrar fila 
+              var table2 = document.getElementById(nombreproyec);
+              $(filas2[i]).insertAfter(table2);
             }
           }
     }

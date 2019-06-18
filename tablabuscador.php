@@ -5,33 +5,64 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script>
-$(document).ready( function () {
-    $('#tablaproyec').DataTable( {
-    language: {
-        "sProcessing":     "Procesando...",
-    "sLengthMenu":     "Mostrar _MENU_ registros",
-    "sZeroRecords":    "No se encontraron resultados",
-    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-    "sInfoPostFix":    "",
-    "sSearch":         "Buscar:",
-    "sUrl":            "",
-    "sInfoThousands":  ",",
-    "sLoadingRecords": "Cargando...",
-    "oPaginate": {
-        "sFirst":    "Primero",
-        "sLast":     "Último",
-        "sNext":     "Siguiente",
-        "sPrevious": "Anterior"
-    },
-    "oAria": {
-        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }
-    }
-} );
+function format ( d ) {
+    return 'Full name: '+d.first_name+' '+d.last_name+'<br>'+
+        'Salary: '+d.salary+'<br>'+
+        'The child row can contain any data you wish, including links, images, inner tables etc.';
+}
+ 
+$(document).ready(function() {
+    var dt = $('#tablaproyec').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax": "datos.json",
+        "columns": [ 
+            {
+                "class":          "details-control",
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ""
+            },
+            { "data": "first_name" },
+            { "data": "last_name" },
+            { "data": "position" },
+            { "data": "office" }
+        ],
+        "order": [[1, 'asc']]
+    } );
+ 
+    // Array to track the ids of the details displayed rows
+    var detailRows = [];
+ 
+    $('#example tbody').on( 'click', 'tr td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = dt.row( tr );
+        var idx = $.inArray( tr.attr('id'), detailRows );
+ 
+        if ( row.child.isShown() ) {
+            tr.removeClass( 'details' );
+            row.child.hide();
+ 
+            // Remove from the 'open' array
+            detailRows.splice( idx, 1 );
+        }
+        else {
+            tr.addClass( 'details' );
+            row.child( format( row.data() ) ).show();
+ 
+            // Add to the 'open' array
+            if ( idx === -1 ) {
+                detailRows.push( tr.attr('id') );
+            }
+        }
+    } );
+ 
+    // On each draw, loop over the `detailRows` array and show any child rows
+    dt.on( 'draw', function () {
+        $.each( detailRows, function ( i, id ) {
+            $('#'+id+' td.details-control').trigger( 'click' );
+        } );
+    } );
 } );
 </script>
 </head>
@@ -47,7 +78,7 @@ $(document).ready( function () {
     <tbody>
 
         <tr id="mostrar">
-            <td>Row 1 Data 1</td>
+            <td class="details-control"></td>
             <td>Row 1 Data 2</td>
         </tr>
         <tr>
