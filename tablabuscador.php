@@ -1,21 +1,5 @@
 <html>
 <head>
-<style>
-    .estilo2{
-    font-size: 15px;
-    background:#F5A9D0;
-    border:1px;
-    width: 85%;
-    border-radius: 15px;
-    text-align: center;
-    position:relative;
-    
-    white-space: normal;
-    border-color: black;
-    border-style: solid;
-   
-}
-</style>  
 <script type='text/javascript' src="js/jquery-3.4.1.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
@@ -49,16 +33,12 @@ $(document).ready( function () {
     }
 } );
 } );
-function cambiar(){
-    var fila=document.getElementById("mostrar");
-        fila.style.display = "none"; 
-}
 </script>
 </head>
 <body>
 <table id="tablaproyec" class="display">
     <thead>
-        <tr >
+        <tr>
             <th>Column 1</th>
             <th>Column 2</th>
 
@@ -66,8 +46,8 @@ function cambiar(){
     </thead>
     <tbody>
 
-        <tr style="height:100px; " id="mostrar">
-            <td><button style=" width:50px;">hofeTambién es una composición de caracteres imprimibles (con grafema) generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona, sí puede ser descifrado por su destinatario original. En otras palabras, un texto es un entramado de signos con una intención comunicativa que adquiere sentido en determinado contexto. </button></td>
+        <tr id="mostrar">
+            <td>Row 1 Data 1</td>
             <td>Row 1 Data 2</td>
         </tr>
         <tr>
@@ -76,7 +56,7 @@ function cambiar(){
         </tr>
     </tbody>
 </table>
-<input type="button" value="Cambiar"onclick="cambiar();" >
+<input type="button" value="Agregar"onclick="agregarfila('true');reporte();" >
                 
 </body>
 </html>

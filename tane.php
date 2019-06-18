@@ -3,38 +3,15 @@ y permite el filtro y ordenamiento de los datos -->
 <html>
 <head>
     <title>Lista</title>
-    <script type='text/javascript' src="js/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-<script>
-$(document).ready( function () {
-    $('#tablaproyec').DataTable( {
-    language: {
-        "sProcessing":     "Procesando...",
-    "sLengthMenu":     "Mostrar _MENU_ registros",
-    "sZeroRecords":    "No se encontraron resultados",
-    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-    "sInfoPostFix":    "",
-    "sSearch":         "Buscar:",
-    "sUrl":            "",
-    "sInfoThousands":  ",",
-    "sLoadingRecords": "Cargando...",
-    "oPaginate": {
-        "sFirst":    "Primero",
-        "sLast":     "Último",
-        "sNext":     "Siguiente",
-        "sPrevious": "Anterior"
-    },
-    "oAria": {
-        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }
-    }
-} );
-} );
+<script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>
+
+            <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+            <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script src="bootstrap/js/bootstrap.js"></script>
+            <link rel="stylesheet" href="estilos.css">
+            <script type="text/javascript" src="/details-shim/details-shim.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="/details-shim/details-shim.min.css">
+<script type="text/javascript">
 </script>
 </head>
 <body>
@@ -56,6 +33,57 @@ $(document).ready( function () {
 if(isset($_SESSION['nombre'])){ 
   $username=$_SESSION['nombre'];
   ?>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light " style="background-color: red;">
+  <a class="navbar-brand" href="encabezado.php" >Registro</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="encabezado.php" style="color:#FF8000;">Inicio <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="nuevo.php" style="color:#FF0040;" >Agregar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="password.php" style="color:#4C0B5F;" >Configuración</a>
+      </li>  
+      <a class="nav-link " style="color:#086A87;" >Usuario:  <?php echo $_SESSION['nombre']?></a>
+      <li class="nav-item">
+        <a class="nav-link" href="session.php" style="color:#8A0808;" >Cerrar sesión</a>
+      </li>
+    
+        <?php 
+        
+        if($username=="admin"){
+          echo '
+          <li class="dropdown ">
+          <a class="btn  dropdown-toggle" data-toggle="dropdown" href="#">Catálogos
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          <li><a href="catalogo1.php" class="dropdown-item">Tipo de Impresión</a></li>
+          <li><a href="catalogo2.php" class="dropdown-item">Tipo de Papel</a></li>
+          <li><a href="catalogo3.php" class="dropdown-item">Recibir</a></li>
+        </ul>
+        </li>';
+        echo '
+          <li class="dropdown ">
+          <a class="btn  dropdown-toggle" data-toggle="dropdown" href="#">Administrar
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          <li><a href="recuperar.php" class="dropdown-item">Recuperar</a></li>
+        </ul>
+        </li>';
+        
+        }
+        ?>
+      
+      
+    </ul>
+  </div>
+</nav>
 
 <form action="encabezado.php" method="post" target="_self">
   <label class="textoordenar">Ordenar y Filtrar datos</label>
@@ -103,8 +131,9 @@ if(isset($_POST['orden']) && !empty($_POST['orden'])){
 }
 else{
     $orden="ASC";
-
 }
+
+
 $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
 $sql="SELECT ID,NUMERO,PROYECTO,FECHA,FECHADOS FROM datos  ORDER BY  $seleccion $orden";
 $arreglo;
@@ -113,20 +142,6 @@ $comparar=0;
 $ultimodato=null;
 $repetido="";
 $numpro=0;
-?>
-<table id="tablaproyec" class="display">
-  <thead>
-    <tr >
-      <th>Column 1</th>
-      <th>Column 2</th>
-      <th>Column 2</th>
-      <th>Column 2</th>
-      <th>Column 2</th>
-
-    </tr>
-</thead>
-<tbody>
-<?php
 if ($result=mysqli_query($link,$sql))
   {
   while ($row=mysqli_fetch_row($result))
@@ -150,7 +165,6 @@ if ($result=mysqli_query($link,$sql))
             $fecha1;
             $i=0;
             $arreglo[$i]=$comparar;
-           
             $nuevo="SELECT ID,NUMERO,PROYECTO,FECHA,OBSERVACIONES,FECHADOS,ESTATUS1,DISENADOR,ACTIVO FROM datos WHERE NUMERO=$arreglo[$i] ORDER BY FECHADOS";
             if($rep=mysqli_query($link,$nuevo)){
               $filtrobool=false;
@@ -173,13 +187,13 @@ if ($result=mysqli_query($link,$sql))
                 $numpro++;
                 ?>
                 
-                
+                <table>
                 <tr>
                     
-                    <td onclick="nue('proyecto<?php echo $numpro;?>')"></td>
-                    <td ><?php echo $numero?></td>
-                    <td onclick="enviar('<?php echo $nomb?>','<?php echo $ultimodato ?>')"><?php echo $nomb?></td>
-                    <td ><?php echo  $fecha?></td>
+                    <td style="width: 20%;"onclick="nue('proyecto<?php echo $numpro;?>')"></td>
+                    <td style="width: 20%;" ><?php echo $numero?></td>
+                    <td style="width: 20%;" onclick="enviar('<?php echo $nomb?>','<?php echo $ultimodato ?>')"><?php echo $nomb?></td>
+                    <td style="width: 20%;"><?php echo  $fecha?></td>
                     
                     <td style="width: 20%;"><label ><input id="<?php echo $numero?>" class="check" type="checkbox" value="<?php echo $numero?>" ></label></td>
                     
@@ -225,7 +239,8 @@ if ($result=mysqli_query($link,$sql))
                 }}}
               
                 ?>
-                
+               </table>
+            
            
             <?php
            
@@ -237,9 +252,7 @@ if ($result=mysqli_query($link,$sql))
         ?>
 
        <input type="button" value="Agregar"onclick="nue()" >
-       </tbody>
-               </table>
-             
+                
    
     
 <?php
