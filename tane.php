@@ -1,3 +1,8 @@
+<tr>
+                   <td style="display:none"colspan="5" class="proyecto<?php echo $numpro;?>">
+                  <button onclick="enviarsecond('<?php echo $seleccion[0]?>')"><?php echo "<b>Fecha:</b> ".$seleccion[5]." <br><b> Diseñador:</b>  ".$seleccion[7]."<br><b>Estatus:</b> ".$estatus."<br><b>Observaciones:</b>".$seleccion[4]?></button>
+                </td>
+                </tr>
 <!-- es la pagina principal, se encarga de mostrar los proyectos disponibles de cada usuario
 y permite el filtro y ordenamiento de los datos -->
 <html>

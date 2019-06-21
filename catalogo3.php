@@ -1,18 +1,32 @@
 <html>
 <head>
+<style>
+  .w3-input{
+    background: #D8D8D8;
+   border: 1px solid #393939;
+   border-radius: 5px 5px 5px 5px;
+   color: black;
+   text-align: center;
+   font-size: 12px;
+   padding: 5px;
+  }
+  </style>
 <script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="datetimepicker-master/build/jquery.datetimepicker.min.css">
     <script src="datetimepicker-master/jquery.js"></script>
     <script src="script.js"></script>
     <script src="datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="estilos.css">
+<script type="text/javascript" src="./js/jquery.tablesorter.min.js"></script>
+<link rel="stylesheet" href="datetimepicker-master/build/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="./themes/blue/style.css" type="text/css" media="print, projection, screen" />
 <head>
+
 <?php
 session_start();
+ 
 $file = fopen("conexion.txt", "r") or exit("Unable to open file!");
 $datosconexionbd;
 $i=0;
@@ -28,7 +42,7 @@ $password = explode("+", $datosconexionbd[2]);
 $database = explode("+", $datosconexionbd[3]);
 $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
 $sql="SELECT NOMBRE,ID FROM recibir";
-if(isset($_SESSION['nombre'])&& ($_SESSION['nombre']=="admin")){
+if(isset($_SESSION['nombre']) && ($_SESSION['nombre']=="admin")){
   $nombreuser=$_SESSION['nombre'];
 ?>
 <body>
@@ -80,37 +94,43 @@ if(isset($_SESSION['nombre'])&& ($_SESSION['nombre']=="admin")){
     </ul>
   </div>
 </nav>
+<center>
+<label style="font-size:20px;">Recibir por:</label><br>
+<input class="w3-input" type="text" name="nombre" id="nom"><span><label style="color:red"id="agregando"></label></span><br>
+<label><button  type="button" class="btn btn-info" onclick="enviar(); return false;">Agregar</button></label>
 
-<label style="width:8%;" ><center>Nombre</center></label>
-<input type="text" name="nombre" id="nom">
-<button  type="button" onclick="enviar(); return false;">Agregar</button>
-<label id="agregando"></label>
+      </center>
 <?php
 if ($result=mysqli_query($link,$sql))
   {?>
-  <table id="tabla" >
+  <table id="tabla" class="tablesorter" >
+  <thead>
   <tr>
       <th><center>NOMBRE</center></th>
       <th><center>--------</center></th>
       <th><center>--------</center></th>
   </tr>
+  </thead>
+  <tbody>
       <?php
       $i=1;
   while ($row=mysqli_fetch_row($result))
     {
         
         ?>
+        
        <tr>
-        <td id="table<?php echo $i?>" ><?php echo $row[0] ?></td>
-        <td id="modific<?php echo $i?>"><button id="boton<?php echo $i?>" type="button" onclick="modificar('<?php echo $row[0]?>','<?php echo $i?>','<?php echo $row[1]?>'); return false;"><p id="p<?php echo $i?>">Modificar</p></button></td>
-        <td id="eliminar<?php echo $i?>"><button id="eli<?php echo $i?>" type="button" onclick="eliminar('<?php echo $row[0]?>','<?php echo $i?>','<?php echo $row[1]?>'); return false;">Eliminar</button></td>
+        <td id="table<?php echo $i?>"><?php echo $row[0] ?></td>
+        <td style="width:10%"id="modific<?php echo $i?>"><label><button style="width:100%" class="btn btn-success" id="boton<?php echo $i?>" type="button" onclick="modificar('<?php echo $row[0]?>','<?php echo $i?>','<?php echo $row[1]?>'); return false;"><label id="p<?php echo $i?>">Modificar</label></button></label></td>
+        <td style="width:10%"id="eliminar<?php echo $i?>"><label><button class="btn btn-success" id="eli<?php echo $i?>" type="button" onclick="eliminar('<?php echo $row[0]?>','<?php echo $i?>','<?php echo $row[1]?>'); return false;"><label>Eliminar</label></button></label></td>
         
         </tr>
+        
     
 <?php
 $i++;
     }?>
-    
+    </tbody>
     </table>
     </body>
     <?php
@@ -120,6 +140,10 @@ mysqli_close($link);
  
 ?>
 <script>
+$(document).ready(function() 
+    { 
+        $("#tabla").tablesorter(); 
+    } );
 var modific=true;
 function enviar(){
     document.getElementById("agregando").innerHTML="";
@@ -174,10 +198,10 @@ function modificar(elemento,numero,id){
             document.getElementById('eli'+j).disabled=true;
         }
     }
-    
+  
     var name=document.getElementById("table"+numero);
     name.innerHTML="<input id='entrada"+numero+"'type='text' value='"+elemento+"'>";
-    document.getElementById("p"+numero).innerHTML="Aceptar";
+    document.getElementById("p"+numero).innerHTML="  Aceptar  ";
     modific=false;
 }
 else{

@@ -3,15 +3,19 @@ table.tablesorter {
 	font-family:arial;
 	background-color: #CDCDCD;
 	margin:10px 0pt 15px;
-	font-size: 8pt;
+	font-size: 12pt;
+	border: 1px solid black;
 	width: 100%;
-	text-align: left;
+	text-align: center;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #e6EEEE;
+	
+	background-color: #246355;
+	border-bottom: solid 5px #0F362D;
+	color: white;
 	border: 1px solid #FFF;
-	font-size: 8pt;
-	padding: 4px;
+	font-size: 12pt;
+	padding: 15px;
 }
 table.tablesorter thead tr .header {
 	background-image: url(bg.gif);
@@ -19,10 +23,18 @@ table.tablesorter thead tr .header {
 	background-position: center right;
 	cursor: pointer;
 }
-table.tablesorter tbody td {
+
+table.tablesorter tr:hover td{
+
+	background-color: #369681;
+
+	color: white;
+
+}
+table.tablesorter tbody tr:nth-child(even) {
 	color: #3D3D3D;
 	padding: 4px;
-	background-color: #FFF;
+	background-color: white;
 	vertical-align: top;
 }
 table.tablesorter tbody tr.odd td {
@@ -35,5 +47,6 @@ table.tablesorter thead tr .headerSortDown {
 	background-image: url(desc.gif);
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-background-color: #8dbdd8;
+background-color: #0489B1;
 }
+

@@ -8,7 +8,7 @@ y permite el filtro y ordenamiento de los datos -->
             text-align:center;
         }
         </style>
-    <title>Lista</title>
+    <title>Historial</title>
     <script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
