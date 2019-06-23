@@ -25,19 +25,9 @@ for($i=0;$i<15;$i++){
     $datos[]=$i;
 }
 
-$file = fopen("conexion.txt", "r") or exit("Unable to open file!");
 $datosconexionbd;
 $i=0;
-while(!feof($file))
-{
-    $datosconexionbd[$i]=fgets($file);
-    $i++;
-}
-fclose($file);
-$host = explode("+", $datosconexionbd[0]);
-$user = explode("+", $datosconexionbd[1]);
-$password = explode("+", $datosconexionbd[2]);
-$database = explode("+", $datosconexionbd[3]);
+include 'php/conectar.php';
   session_start();
 if(isset($_SESSION['nombre'])){
     $nombreuser=$_SESSION['nombre'];
@@ -96,7 +86,6 @@ if(isset($_SESSION['nombre'])){
 
     <!-- Ver el historial -->
     <?php
-            $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
             $sql="SELECT ID,NUMERO FROM datos  ORDER BY NUMERO ASC";
             $aux=0;
             if ($result=mysqli_query($link,$sql))
@@ -162,7 +151,6 @@ if(isset($_SESSION['nombre'])){
                     $correcto="disabled";
                     $IDS=$_POST['id'];}
 
-            $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
             $sql="SELECT NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,CAPTURA,OBSERVACIONES,AUTORIZA,NOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES FROM datos WHERE ID=$IDS ORDER BY ID";
             if ($result=mysqli_query($link,$sql))
             {
@@ -203,7 +191,7 @@ if(isset($_SESSION['nombre'])){
             mysqli_close($link);}
             ?>
     <!-- Código para crear el nuevo registro -->
-    <form action="registro.php" method="POST" enctype="multipart/form-data" id="completo">
+    <form action="php/registro.php" method="POST" enctype="multipart/form-data" id="completo">
         <div class="container">
             <div class="row">
                 <div class=" col-sm-6 col-xs-12"><label> No.Proyecto </label> <input type="number" name="numero" id="numeroproyecto" onchange="reporte()"
@@ -212,8 +200,7 @@ if(isset($_SESSION['nombre'])){
                 <label> <?php echo $disenador ?> </label>
                 <select style="width:30%;" name="disenador" onchange="agregarusuario();reporte()"; id="disenador">
                   <?php
-                  $link = mysqli_connect($host[0],$user[0],$password[0],$database[0]) or die("<h2>No se encuentra el servidor</h2>");
-                $sql="SELECT NOMBRE,PASSWOR FROM usuario ";
+                 $sql="SELECT NOMBRE,PASSWOR FROM usuario ";
                         if ($result=mysqli_query($link,$sql))
                         {
                         while ($row=mysqli_fetch_row($result))
