@@ -25,7 +25,7 @@
 
 <?php
 session_start();
-include 'conectar.php';
+include ("php/conectar.php");  
 $sql="SELECT NOMBRE,ID FROM tipoimpre";
 if(isset($_SESSION['nombre']) && ($_SESSION['nombre']=="admin")){
   $nombreuser=$_SESSION['nombre'];
@@ -50,7 +50,7 @@ if(isset($_SESSION['nombre']) && ($_SESSION['nombre']=="admin")){
       </li>  
       <a class="nav-link " style="color:#086A87;" >Usuario:  <?php echo $_SESSION['nombre']?></a>
       <li class="nav-item">
-        <a class="nav-link" href="session.php" style="color:#8A0808;" >Cerrar sesión</a>
+        <a class="nav-link" href="php/session.php" style="color:#8A0808;" >Cerrar sesión</a>
       </li>
       <?php 
         

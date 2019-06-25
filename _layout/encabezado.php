@@ -1,5 +1,4 @@
 <head>
-    <title>Lista</title>
     <script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -10,7 +9,6 @@
     <script src="datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="funciones.js"></script>
-    <title> Inicio </title>
     <script type='text/javascript' src="js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
@@ -71,7 +69,7 @@ if(isset($_SESSION['nombre'])){
       </li>  
       <a class="nav-link " style="color:#086A87;" >Usuario:  <?php echo $_SESSION['nombre']?></a>
       <li class="nav-item">
-        <a class="nav-link" href="session.php" style="color:#8A0808;" >Cerrar sesión</a>
+        <a class="nav-link" href="php/session.php" style="color:#8A0808;" >Cerrar sesión</a>
       </li>
       <?php 
         
