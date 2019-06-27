@@ -4,13 +4,15 @@
 label{
     font-family: 'Times New Roman', Times, serif;
     font-size: 15px;
-    width:30%;
+    width:45%;
     font-weight: bold;
 }
 .imagencheck{
     background-image: none;
 }
 table {
+    display: block;
+    overflow-x: auto;
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -59,12 +61,7 @@ input{
 }
 .estilo1{
     font-size: 100%;
-   
-    background:#F7819F;
     width: 60%;
-    border:1px;
-    border-radius: 10px;
-    text-align: center;
 }
 select{
     border-radius: 10px;
@@ -94,40 +91,31 @@ width:20px;
 height:20px;
 float:left;
 border-radius: 15px;
-border-style: solid;
+
 }
 
 .numeroinput{
     font-size: 15;
     width: 8%;
-    background:rgba(136, 241, 104, 0.877);
-    border:1px;
-    border-radius: 15px;
-    text-align: center;
+    border:none;
+    border-radius: 0px;
+    border-bottom: 1px;
+    border-top:1px;
+    border-left: 1px;
+    border-bottom-style: solid;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
 }
 .textoordenar{
     font-size: 20;
 }
 .fecha{
     font-size:100%;
-    background:palevioletred;
-    border:1px;  
-    border-radius: 15px;
-    text-align: center;
     width: 16%;
 }
 .estilo2{
-    font-size: 15px;
-    background:#F5A9D0;
-    border:1px;
-    width: 85%;
-    border-radius: 15px;
-    text-align: center;
-    position:relative;
-    
-    white-space: normal;
-    border-color: black;
-    border-style: solid;
+    width: 100%;
    
 }
 #eliminar{
@@ -135,9 +123,6 @@ border-style: solid;
     height:5%;
     width:10%;   
     border-radius: 15px;
-}
-.cselect{
-    width:50%;
 }
 .centrado{
     text-align: center;

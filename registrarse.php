@@ -1,7 +1,7 @@
 <!-- formulario para crear nuevo usuario -->
 <html>
 
-<?php include '_layout/navbar.php';?>
+<?php include '_layout/loginyregistrarse.php';?>
     <h1>Registrarse</h1>
            <br>
         <form method="POST" action="php/validarregistro.php">

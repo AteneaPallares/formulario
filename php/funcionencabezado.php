@@ -22,19 +22,21 @@ function enviarsecond(dato){
         // filas2.style.display = "none"; 
     
   function eliminar(valor){
+          
         var parametros = {
         "valor" : valor,
         "cambiar": 0
         };
         $.ajax({
                 data:  parametros,
-                url:   'eliminar.php',
+                url:   'php/eliminar.php',
                 type:  'post',
                 beforeSend: function () {
                         $("#resultado").html("Procesando, espere por favor...");
                 },
                 success:  function (response) {
                         $("#resultado").html(response);
+                        
                         location.reload(true);
                 }
         });

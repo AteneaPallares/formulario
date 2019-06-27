@@ -12,57 +12,12 @@ y permite el filtro y ordenamiento de los datos -->
   include 'php/conectar.php';
   $username=$_SESSION['nombre'];
   ?>
-<h2>"Recuperar Proyectos Eliminados"</h2>
-<form action="recuperar.php" method="post" target="_self">
-  <label class="textoordenar">Ordenar y Filtrar datos</label>
-  <br></br>
-<select name="ordenar" id="ordenarlista">
-<option value="NUMERO" >Número de proyecto</option>
-<option value="PROYECTO" >Nombre de proyecto</option>
-</select>
-<select name="filtro" id="filtro">
-<option value="7" >Todo</option>
-<option value="1" >Info</option>
-<option value="2" >Propuesta</option>
-<option value="3" >Revisión</option>
-<option value="4" >Vobo</option>
-<option value="5" >Impresión</option>
-<option value="6" >Entregado</option>
-</select>
-<select name="orden" id="orden">
-<option value="ASC" >Ascendente</option>
-<option value="DESC" >Descendente</option>
-</select>
-<button type="submit" class="ordenar">Ordenar y filtrar</button>
-</form>
-
-<label style="width:8%;" ><center>No. Proyecto</center></label>
-<label style="width:60%;"><center>Proyecto</center></label>
-<label style="width:16%;"><center>Fecha</center></label>
-<img src="Imagenes/paloma.png" onclick="eliminar()" width="5%" height="5%" ></div>
 
 <?php
 
-if(isset($_POST['ordenar']) && !empty($_POST['ordenar'])){
-    $seleccion=$_POST['ordenar'];
-}
-else{
-    $seleccion="PROYECTO";
-}
-if(isset($_POST['filtro']) && !empty($_POST['ordenar'])) {
-  $filtro=$_POST['filtro'];
-} else{
-  $filtro=7;
-}
-if(isset($_POST['orden']) && !empty($_POST['orden'])){
-    $orden=$_POST['orden'];
-}
-else{
-    $orden="ASC";
-}
 
 
-$sql="SELECT ID,NUMERO,PROYECTO,FECHA,FECHADOS FROM datos  ORDER BY  $seleccion $orden";
+$sql="SELECT ID,NUMERO,PROYECTO,FECHA,FECHADOS FROM datos ";
 $arreglo;
 $i=0;
 $comparar=0;
@@ -97,7 +52,7 @@ if ($result=mysqli_query($link,$sql))
               $filtrobool=false;
                 while($sele=mysqli_fetch_row($rep)){
                   
-                  if((($sele[6]==$filtro or $filtro=='7'))&&($sele[8]=="0")){
+                  if(($sele[7]==$username)){
                     $filtrobool=true;
                     $aux=$sele[0];
                     $nomb=$sele[2];
@@ -120,7 +75,7 @@ if ($result=mysqli_query($link,$sql))
                     <input class="estilo1" type="submit" name="submitmenu" value="<?php echo $nomb?>">
                     <input class="fecha" value="<?php echo  $fecha?>" type="button" style="cursor: default">
                     
-                    <span ><label ><input id="<?php echo $numero?>" class="check" type="checkbox" value="<?php echo $numero?>" ></label></span>
+                    <span ><label ><button onclick="eliminar('<?php echo $numero;?>')" ></label></span>
                     
                   </div>
                  </summary>
@@ -180,16 +135,7 @@ var cadena="'.$repetido.'";
 mysqli_close($link);
 ?>
 <script>
-  function eliminar(){
-   
-    separador = "+", // un espacio en blanco
-        arregloDeSubCadenas = cadena.split(separador);
-        arregloDeSubCadenas.shift();
-        arregloDeSubCadenas.forEach( function(valor, indice, array) {
-          
-          var d=document.getElementById(''+valor+'').checked;
-          
-                if(d){
+  function eliminar(valor){
                   var parametros = {
                 "valor" : valor,
                 "cambiar": 1
@@ -207,7 +153,7 @@ mysqli_close($link);
                 }
         });
                  
-      }});
+      
     }
   </script>
   

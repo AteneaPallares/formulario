@@ -1,0 +1,64 @@
+.encabezado{
+    margin-bottom:10px;
+    
+    background-color: rgb(161, 161, 161);
+    
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+.titulo{
+    width: 100%;
+    text-align: center;
+    font-family: arial;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.seccion{
+    margin:.5em 0em;
+    padding:10px;
+    width: 100%;
+    border-width:10px;
+    border-color:black;
+    border-style: solid;
+    display: inline;
+}
+.elementos{
+    display: inline-block;
+    float: left;
+}
+.designer{
+    width: 20%;
+}
+.tabla{
+    overflow-x: scroll;
+    display: block;
+}
+
+.boton:hover{
+    background-color: gray;
+}
+
+
+select{
+    width: 50%;
+    float: right;
+    margin: .5em 0em;
+}
+textarea{
+    width: 50%;
+    float: right;
+    margin: .5em 0em;
+}
+input{
+    width: 50%;
+    float: right;
+    margin: .5em 0em;
+}
+label{
+    margin:.5em .2em .5em 0em;
+}
+body{
+    font-size: 100%;
+}
