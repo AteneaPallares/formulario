@@ -1,68 +1,26 @@
 <!-- es la pagina principal, se encarga de mostrar los proyectos disponibles de cada usuario
 y permite el filtro y ordenamiento de los datos -->
 <html>
-    <title>Lista</title>
-<?php include '_layout/encabezado.php'?>
-<head>
-<link rel="stylesheet" href="estilos.css">
-</head>
-<body>
-  
-  <?php
-  include 'php/conectar.php';
-  $username=$_SESSION['nombre'];
-  ?>
-<h2>"Recuperar Proyectos Eliminados"</h2>
-<form action="recuperar.php" method="post" target="_self">
-  <label class="textoordenar">Ordenar y Filtrar datos</label>
-  <br></br>
-<select name="ordenar" id="ordenarlista">
-<option value="NUMERO" >Número de proyecto</option>
-<option value="PROYECTO" >Nombre de proyecto</option>
-</select>
-<select name="filtro" id="filtro">
-<option value="7" >Todo</option>
-<option value="1" >Info</option>
-<option value="2" >Propuesta</option>
-<option value="3" >Revisión</option>
-<option value="4" >Vobo</option>
-<option value="5" >Impresión</option>
-<option value="6" >Entregado</option>
-</select>
-<select name="orden" id="orden">
-<option value="ASC" >Ascendente</option>
-<option value="DESC" >Descendente</option>
-</select>
-<button type="submit" class="ordenar">Ordenar y filtrar</button>
-</form>
+<?php include '_layout/catalogos.php'?>;
 
-<label style="width:8%;" ><center>No. Proyecto</center></label>
-<label style="width:60%;"><center>Proyecto</center></label>
-<label style="width:16%;"><center>Fecha</center></label>
-<img src="Imagenes/paloma.png" onclick="eliminar()" width="5%" height="5%" ></div>
-
-<?php
-
-if(isset($_POST['ordenar']) && !empty($_POST['ordenar'])){
-    $seleccion=$_POST['ordenar'];
-}
-else{
-    $seleccion="PROYECTO";
-}
-if(isset($_POST['filtro']) && !empty($_POST['ordenar'])) {
-  $filtro=$_POST['filtro'];
-} else{
-  $filtro=7;
-}
-if(isset($_POST['orden']) && !empty($_POST['orden'])){
-    $orden=$_POST['orden'];
-}
-else{
-    $orden="ASC";
-}
-
-
-$sql="SELECT ID,NUMERO,PROYECTO,FECHA,FECHADOS FROM datos  ORDER BY  $seleccion $orden";
+<body >
+<table id="tablaimpresionescompleta" class="tablesorter" ">
+    <thead>
+    <tr>
+            <th>Fecha</th>
+            <th>Tipo Impresión</th>
+            <th>Tipo de papel</th>
+            <th>No. Papel</th>
+            <th>No.Impresiones</th>
+            <th>No. Papel</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    <?php
+    include 'php/conectar.php';
+        $username=$_SESSION['nombre'];
+$sql="SELECT ID,NUMERO,PROYECTO,FECHA,FECHADOS FROM datos ";
 $arreglo;
 $i=0;
 $comparar=0;
@@ -97,11 +55,12 @@ if ($result=mysqli_query($link,$sql))
               $filtrobool=false;
                 while($sele=mysqli_fetch_row($rep)){
                   
-                  if((($sele[6]==$filtro or $filtro=='7'))&&($sele[8]=="0")){
+                  if(($sele[8]=='0')){
                     $filtrobool=true;
                     $aux=$sele[0];
                     $nomb=$sele[2];
                     $numero=$sele[1];
+                    $disenador=$sele[7];
                     $fecha=strftime("%d/%m/%Y", strtotime($sele[5]));
                   }
                   else{
@@ -112,18 +71,28 @@ if ($result=mysqli_query($link,$sql))
                   $repetido=$repetido."+".$numero;
                 $ultimodato=$aux;
                 ?>
-                <form action="nuevo.php" method="POST" enctype="multipart/form-data">
+                
+                <tr>
+                <td  valign="top"><?php echo $disenador?></td>
+                <td valign="top">
+                <?php echo $nomb?>
+                </td>
+                <form action="nuevo.php" method="post" enctype="multipart/form-data">
+                <td valign="top">
+                <input class="btn btn-info" style="width:100%;" type="submit" name="submitmenu" value="<?php echo $nomb?>">
+                </td>
+                <td style="width:40%;" valign="top">
+                
                 <details>
                     <summary ><input type="hidden"  name="IDmenu" value="<?php echo $ultimodato ?>">
-                    <div class="input-group">
-                      <input class="numeroinput" value="<?php echo $numero?>" type="button" style="cursor: default">
-                    <input class="estilo1" type="submit" name="submitmenu" value="<?php echo $nomb?>">
-                    <input class="fecha" value="<?php echo  $fecha?>" type="button" style="cursor: default">
-                    
-                    <span ><label ><input id="<?php echo $numero?>" class="check" type="checkbox" value="<?php echo $numero?>" ></label></span>
-                    
-                  </div>
+                   
+                    <input type="hidden" name="submitmenu" value="<?php echo $nomb?>">
+                      <input class="btn btn-info" style="width:50%;" type="submit"  value="Historial">
+                  
                  </summary>
+                 </form>
+                 <form action="nuevo.php" method="post" enctype="multipart/form-data">
+                 <input type="hidden"  name="IDmenu" value="<?php echo $ultimodato ?>">
                 <?php 
                 if($tabla=mysqli_query($link,$nuevo)){
                 while($seleccion=mysqli_fetch_row($tabla)){
@@ -147,18 +116,25 @@ if ($result=mysqli_query($link,$sql))
                     $estatus="Entregado";
                   }
                    ?> 
-                   <div class=" col-sm-12 col-xs-12 ">
-                  
-                  <button class="estilo2" type="submit" name="id" value="<?php echo $seleccion[0]?>"><?php echo "<b>Fecha:</b> ".$seleccion[5]." <br><b> Diseñador:</b>  ".$seleccion[7]."<br><b>Estatus:</b> ".$estatus."<br><b>Observaciones:</b>".$seleccion[4]?></button>
-                   </div>
-                </form>
+                  <button class="btnhistorial"style="width:100%;" type="submit" name="id" value="<?php echo $seleccion[0]?>"><?php echo "<b>Fecha:</b> ".$seleccion[5]." <br><b> Diseñador:</b>  ".$seleccion[7]."<br><b>Estatus:</b> ".$estatus."<br><b>Observaciones:</b>".$seleccion[4]?></button>
+                
+                
                    
                     <?php
-                }}}
-              
+                }
                 ?>
-               
+                </td>
+                <td valign="top">
+                <span ><label ><button class="btn btn-success" onclick="eliminar('<?php echo $numero;?>')" >Restaurar</button></label></span>
+                </td>
+                <td valign="top">
+                <?php echo  $fecha?>
+                </td><?php }}
+                ?>
+                </form>
             </details>
+            
+            </tr>
             <?php
            
         }
@@ -166,6 +142,10 @@ if ($result=mysqli_query($link,$sql))
         }
     }
         ?>
+        
+        </tbody>
+
+        </table>
 
        
    
@@ -178,18 +158,24 @@ var cadena="'.$repetido.'";
     }
   mysqli_free_result($result);
 mysqli_close($link);
-?>
-<script>
-  function eliminar(){
+
    
-    separador = "+", // un espacio en blanco
-        arregloDeSubCadenas = cadena.split(separador);
-        arregloDeSubCadenas.shift();
-        arregloDeSubCadenas.forEach( function(valor, indice, array) {
-          
-          var d=document.getElementById(''+valor+'').checked;
-          
-                if(d){
+
+?>   
+ <script>
+   $(document).ready(function() 
+    { 
+        $("#tablaimpresionescompleta").tablesorter(); 
+    } );
+ 
+  
+    // document.getElementById("tablaimpresionescompleta").deleteRow(1);
+
+
+          $('#fechauno').datetimepicker();
+         $('#fechados').datetimepicker();
+  function eliminar(valor){
+      alert(valor);
                   var parametros = {
                 "valor" : valor,
                 "cambiar": 1
@@ -207,9 +193,9 @@ mysqli_close($link);
                 }
         });
                  
-      }});
+      
     }
-  </script>
-  
+ </script>               
 </body>
 </html>
+

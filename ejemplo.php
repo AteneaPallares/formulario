@@ -72,6 +72,7 @@ if ($result=mysqli_query($link,$sql))
                     $aux=$sele[0];
                     $nomb=$sele[2];
                     $numero=$sele[1];
+                    $disenador=$sele[7];
                     $fecha=strftime("%d/%m/%Y", strtotime($sele[5]));
                   }
                   else{
@@ -84,13 +85,13 @@ if ($result=mysqli_query($link,$sql))
                 ?>
                 
                 <tr>
-                <td  valign="top"><?php echo $numero?></td>
+                <td  valign="top"><?php echo $disenador?></td>
                 <td valign="top">
                 <?php echo $nomb?>
                 </td>
-                <form action="nuevo.php" method="POST" enctype="multipart/form-data">
+                <form action="nuevo.php" method="post" enctype="multipart/form-data">
                 <td valign="top">
-                <input style="width:100%;" type="submit" name="submitmenu" value="<?php echo $nomb?>">
+                <input class="btn btn-info" style="width:100%;" type="submit" name="submitmenu" value="<?php echo $nomb?>">
                 </td>
                 <td style="width:40%;" valign="top">
                 
@@ -98,9 +99,12 @@ if ($result=mysqli_query($link,$sql))
                     <summary ><input type="hidden"  name="IDmenu" value="<?php echo $ultimodato ?>">
                    
                     <input type="hidden" name="submitmenu" value="<?php echo $nomb?>">
-                      <input style="width:50%;" type="submit"  value="Historial">
+                      <input class="btn btn-info" style="width:50%;" type="submit"  value="Historial">
                   
                  </summary>
+                 </form>
+                 <form action="nuevo.php" method="post" enctype="multipart/form-data">
+                 <input type="hidden"  name="IDmenu" value="<?php echo $ultimodato ?>">
                 <?php 
                 if($tabla=mysqli_query($link,$nuevo)){
                 while($seleccion=mysqli_fetch_row($tabla)){
@@ -124,22 +128,22 @@ if ($result=mysqli_query($link,$sql))
                     $estatus="Entregado";
                   }
                    ?> 
-                  <button style="width:100%;" type="submit" name="id" value="<?php echo $seleccion[0]?>"><?php echo "<b>Fecha:</b> ".$seleccion[5]." <br><b> Diseñador:</b>  ".$seleccion[7]."<br><b>Estatus:</b> ".$estatus."<br><b>Observaciones:</b>".$seleccion[4]?></button>
+                  <button class="btnhistorial"style="width:100%;" type="submit" name="id" value="<?php echo $seleccion[0]?>"><?php echo "<b>Fecha:</b> ".$seleccion[5]." <br><b> Diseñador:</b>  ".$seleccion[7]."<br><b>Estatus:</b> ".$estatus."<br><b>Observaciones:</b>".$seleccion[4]?></button>
                 
-                </form>
+                
                    
                     <?php
                 }
                 ?>
                 </td>
                 <td valign="top">
-                <span ><label ><button onclick="eliminar('<?php echo $numero;?>')" >Restaurar</button></label></span>
+                <span ><label ><button class="btn btn-success" onclick="eliminar('<?php echo $numero;?>')" >Restaurar</button></label></span>
                 </td>
                 <td valign="top">
                 <?php echo  $fecha?>
                 </td><?php }}
                 ?>
-                
+                </form>
             </details>
             
             </tr>

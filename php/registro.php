@@ -24,7 +24,7 @@ if(isset($_POST['nombreusuarionuevo'])&& isset($_POST['passwordusuarionuevo']) &
      if(isset($_POST['proyecto'])){$PROYECTO=$_POST['proyecto'];}else{$PROYECTO=$_POST['proyectodos'];}
      if(empty($PROYECTO)){$PROYECTO=$_POST['proyectodos'];}
      $MEMO=$_POST['memo'];if(empty($MEMO)){$MEMO=0;}
-     $ORDEN=$_POST['Orden'];if(empty($ORDEN)){$ORDEN=0;}
+     if(isset($_POST['Orden'])){$ORDEN=$_POST['Orden'];}else{$ORDEN="";}
      $INFO=$_POST['info'];if(empty($INFO)){$INFO="";}
      $IMAGEN=$_POST['imagennueva'];if(empty($IMAGEN)){$IMAGEN="";}
     $LOGOS=$_POST['imagennuevados'];if(empty($IMAGEN)){$LOGOS="";}
@@ -58,7 +58,7 @@ VALUES('$numero','$FECHA','$MEMO','$ORDEN','$PROYECTO','$INFO','$IMAGEN','$LOGOS
 echo'
     <script>
         alert("Registro Exitoso");
-        location.href = "encabezado.php";
+        location.href = "../encabezado.php";
     </script>
 ';
 mysqli_close($link);
@@ -67,7 +67,7 @@ mysqli_close($link);
         echo'
         <script>
             alert("Error Guardando Datos. Este error se puede deber a que agrego un archivo .rar,.zip o un archivo excedente de 2MB");
-            location.href = "encabezado.php";
+            location.href = "../encabezado.php";
         </script>
     ';
      }
