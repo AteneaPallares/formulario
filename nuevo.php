@@ -151,7 +151,7 @@ if(isset($_SESSION['nombre'])){
                         
                         <label class="designer"> Diseñador</label>
                         <label class="designer"> <?php echo $disenador ?> </label>
-                        <select >
+                        <select name="disenador" onchange="agregarusuario();reporte()"; id="disenador">
                             <?php
                             include 'php/conectar.php';
                      $sql="SELECT NOMBRE,PASSWOR FROM usuario ";
@@ -226,28 +226,29 @@ if(isset($_SESSION['nombre'])){
                             <?php echo $Hdetalles ?>><?php echo $detalles ?></textarea></div>
 
 
-                    <!-- Inicio imagenes -->
+                  <!-- Inicio imagenes -->
 
-                    <div class=" col-sm-6 col-xs-12 elementos">
-                        <input type="hidden" id="imagennueva" name="imagennueva" value="<?php echo $imagenes ?>">
-                        <label > Imagenes </label><input type="file" id="cambio" name="img"
-                            onchange="inicializar1()" value="<?php echo $imagenes ?>" <?php echo $Himagenes ?>>
-                        <input class="boton" type="button" onclick="eliminar('imagennueva','a');" value="Eliminar"
-                            <?php echo $eliminar1 ?>>
-                        <div id="contenedor" style="overflow:scroll;height:100px;width:100%;">
 
-                        </div>
+
+                <div class=" col-sm-6 col-xs-12 elementos">
+                    <input type="hidden" id="imagennueva" name="imagennueva" value="<?php echo $imagenes ?>">
+                    <label > Imagenes </label><input type="file" id="cambio" name="img"
+                        onchange="inicializar1()" value="<?php echo $imagenes ?>" <?php echo $Himagenes ?>>
+                    <input class="boton" type="button" onclick="eliminar('imagennueva','a');" value="Eliminar"
+                        <?php echo $eliminar1 ?>>
+                    <div id="contenedor" style="overflow:scroll;height:100px;width:100%;">
+                    </div>
                     </div>
                     <div class=" col-sm-6 col-xs-12 elementos">
-                        <input type="hidden" id="imagennuevados" name="imagennuevados" value="<?php echo $logos ?>">
-                        <label > Logos </label><input type="file" id="cambiodos" name="log"
-                            onchange="inicializar2()" value="<?php echo $logos ?>" <?php echo $Hlogos ?>>
-                        <input class="boton" type="button" onclick="eliminar('imagennuevados','b');" value="Eliminar"
-                            <?php echo $eliminar2 ?>>
-                        <div id="contenedordos" style="overflow:scroll;height:100px;width:100%;"> </div>
+                    <input type="hidden" id="imagennuevados" name="imagennuevados" value="<?php echo $logos ?>">
+                    <label > Logos </label><input type="file" id="cambiodos" name="log"
+                        onchange="inicializar2()" value="<?php echo $logos ?>" <?php echo $Hlogos ?>>
+                    <input class="boton" type="button" onclick="eliminar('imagennuevados','b');" value="Eliminar"
+                        <?php echo $eliminar2 ?>>
+                    <div id="contenedordos" style="overflow:scroll;height:100px;width:100%;"> </div>
+                </div>
 
-                    </div>
-                    <!-- fin imagenes -->
+<!-- fin imagenes -->
                     <div class=" col-sm-6 col-xs-12 elementos"><label> Usuario Responsable
                         </label><input onchange="reporte()" type="text" name="usuario" id="usuario"
                             value="<?php echo $responsable ?>" <?php echo $Hresponsable ?>></div>
@@ -611,6 +612,7 @@ if(isset($_SESSION['nombre'])){
                     document.getElementById('passwordusuarionuevo').value = "password123";
                     document.getElementById('correousuarionuevo').value = correo;
                     document.getElementById('disenador').value = nombre;
+                    alert(nombre);
                     var parametros = {
                         "username": nombre,
                         "passworduser": "password123",
@@ -619,7 +621,7 @@ if(isset($_SESSION['nombre'])){
                     };
                     $.ajax({
                         data: parametros,
-                        url: 'registrarnuevo.php',
+                        url: 'php/registrarnuevo.php',
                         type: 'post',
                         beforeSend: function () {
                             $("#resultado").html("Procesando, espere por favor...");
@@ -645,133 +647,131 @@ if(isset($_SESSION['nombre'])){
 
 
         }
-        // Esta función se encarga de actualizar los contenedores de las imagenes
-        function cargarimagenes() {
-            arreglo = [$("#imagennueva").val(), $("#imagennuevados").val()];
-            idimagen1 = "#imagennueva";
-            contenedor1 = "#contenedor";
-            idimagen2 = "#imagennuevados";
-            contenedor2 = "#contenedordos";
-            inicio(idimagen1, contenedor1, "a");
-            inicio(idimagen2, contenedor2, "b");
-            eliminarfila("");
-            reporte();
-        }
-        // Esta función se encarga de eliminar todos los elementos de los div contenedores de imagenes
-        function limpiar() {
-            var d = document.getElementById("contenedor");
-            while (d.hasChildNodes())
+     // Esta función se encarga de actualizar los contenedores de las imagenes
+     function cargarimagenes(){
+                arreglo= [$("#imagennueva").val(),$("#imagennuevados").val()];
+                idimagen1="#imagennueva";
+                contenedor1="#contenedor";
+                idimagen2="#imagennuevados";
+                contenedor2="#contenedordos";
+                inicio(idimagen1,contenedor1,"a");
+                inicio(idimagen2,contenedor2,"b");
+                eliminarfila("");
+                reporte();
+            }
+    // Esta función se encarga de eliminar todos los elementos de los div contenedores de imagenes
+            function limpiar() {
+                var d = document.getElementById("contenedor");
+                while (d.hasChildNodes())
                 d.removeChild(d.firstChild);
-            var c = document.getElementById("contenedordos");
-            while (c.hasChildNodes())
+                var c = document.getElementById("contenedordos");
+                while (c.hasChildNodes())
                 c.removeChild(c.firstChild);
-        }
+            }
+    // Esta función se activa cuando se oprime el botón eliminar. Se encarga de cambiar la cadena que contiene
+    // las direcciones de las imagenes y manda actualizar los div
+            function eliminar(id,check){
+                    nuevacadena= $("#"+id+"").val();
+                    x=0;
+                    separador = "?", // un espacio en blanco
+                    arregloDeSubCadenas2 = nuevacadena.split(separador);
+                    arregloDeSubCadenas2.pop();
+                    arregloDeSubCadenas2.forEach( function(valor, indice, array) {
+                        var d=document.getElementById(''+check+x+'').checked;
+                        if(d){
+                            aux=$("#"+check+x+"").val();
+                            patron = aux+"?",
+                            nuevoValor    = "",
+                            nuevacadena = nuevacadena.replace(patron, nuevoValor);
 
-        // Esta función se activa cuando se oprime el botón eliminar. Se encarga de cambiar la cadena que contiene
-        // las direcciones de las imagenes y manda actualizar los div
-        function eliminar(id, check) {
-            nuevacadena = $("#" + id + "").val();
-            x = 0;
-            separador = "?", // un espacio en blanco
-                arregloDeSubCadenas2 = nuevacadena.split(separador);
-            arregloDeSubCadenas2.pop();
-            arregloDeSubCadenas2.forEach(function (valor, indice, array) {
-                var d = document.getElementById('' + check + x + '').checked;
-                if (d) {
-                    aux = $("#" + check + x + "").val();
-                    patron = aux + "?",
-                        nuevoValor = "",
-                        nuevacadena = nuevacadena.replace(patron, nuevoValor);
-
-                }
-                x++;
-            });
-            document.getElementById('' + id + '').value = nuevacadena;
-            limpiar();
-            cargarimagenes();
-        }
-        // En esta funcion se asignan las imagenes, los checkbox, y añade los elementos a los div de las imagenes
-        function inicio(idimagen, idcontenedor, check) {
-            i = 0;
-            var URLactual = window.location;
-            var urldos = String(URLactual);
-            patron = '/nuevo.php',
-                nuevoValor = "",
-                nuevaCadena = urldos.replace(patron, nuevoValor);
-            var cadena = $(idimagen).val();
-            separador = "?", // un espacio en blanco
-                arregloDeSubCadenas = cadena.split(separador);
-            arregloDeSubCadenas.pop();
-            arregloDeSubCadenas.forEach(function (valor, indice, array) {
-                ruta = nuevaCadena + "/" + valor;
-                var principio = (valor.length) - 5;
-                var fin = valor.length;
-                word = valor.substring(principio, fin);
-                iniciop = (valor.length) - 4;
-                pdf = valor.substring(iniciop, fin);
-                if (word == ".docx") {
-                    $(idcontenedor).append('<label><a href="' + ruta + '" target="_blank"><img src="imagenes/word.jpg" height="70px"><input class="imagencheck" type="checkbox" id="' + check + i + '"  value="' + valor + '"></a></label>');
-                }
-                else if (pdf == ".pdf") {
-                    $(idcontenedor).append('<label><a href="' + ruta + '" target="_blank"><img src="imagenes/pdf.jpg" height="70px"><input class="imagencheck" type="checkbox" id="' + check + i + '"  value="' + valor + '"></a></label>');
-                }
-                else {
-                    $(idcontenedor).append('<label><a href="' + ruta + '" target="_blank"><img src="' + valor + '" height="70px"><input class="imagencheck" type="checkbox" id="' + check + i + '"  value="' + valor + '"></a></label>');
-                }
-
-                i++;
-            });
-        }
-
-        // Esta función se llama al insertar una nueva imagen en Imagenes
-        function inicializar1() {
-            insertarimagenes('cambio', "#cambio", "#contenedor", 0, 'imagennueva');
-        }
-        // Esta función se llama al insertar una nueva imagen en Logos
-        function inicializar2() {
-            insertarimagenes('cambiodos', "#cambiodos", "#contenedordos", 1, 'imagennuevados');
-        }
-        //  Esta funcion se encarga de modificar la cadena de las direcciones de las imagenes con ajax, llamando
-        //  a actualizar.php para copiar los archivos a la carpeta archivosbd
-        function insertarimagenes(cambio, cambioid, contenedor, iterador, imagennuevatex) {
-            var URLactual = window.location;
-            var urldos = String(URLactual);
-            patron = '/nuevo.php',
-                nuevoValor = "",
-                nuevaCadena = urldos.replace(patron, nuevoValor);
-            var inputFileImage = document.getElementById(cambio);
-            var urlimagen = $(cambioid).val();
-            urlimagen = urlimagen.split('\\');
-            var file = inputFileImage.files[0];
-            var data = new FormData();
-            data.append('archivo', file);
-            var url = "actualizar.php";
-            $.ajax({
-                url: url,
-                type: 'POST',
-                contentType: false,
-                data: data,
-                processData: false,
-                cache: false,
-                success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                    valor = "archivosbd/imagenes/" + urlimagen[urlimagen.length - 1];
-                    ruta = nuevaCadena + "/archivosbd/imagenes/" + urlimagen[urlimagen.length - 1];
-                    arreglo[iterador] += valor;
-                    arreglo[iterador] += "?";
-                    document.getElementById(imagennuevatex).value = arreglo[iterador];
+                        }
+                        x++;
+                });
+                    document.getElementById(''+id+'').value=nuevacadena;
                     limpiar();
                     cargarimagenes();
                 }
+    // En esta funcion se asignan las imagenes, los checkbox, y añade los elementos a los div de las imagenes
+            function inicio(idimagen,idcontenedor,check){
+                        i=0;
+                        var URLactual = window.location;
+                        var urldos=String(URLactual);
+                        patron = '/nuevo.php',
+                        nuevoValor = "",
+                        nuevaCadena = urldos.replace(patron, nuevoValor);
+                        var cadena= $(idimagen).val();
+                        separador = "?", // un espacio en blanco
+                        arregloDeSubCadenas = cadena.split(separador);
+                        arregloDeSubCadenas.pop();
+                        arregloDeSubCadenas.forEach( function(valor, indice, array) {
+                        ruta=nuevaCadena+"/"+valor;
+                        var principio = (valor.length)-5;
+                        var  fin    = valor.length;
+                        word= valor.substring(principio, fin);
+                        iniciop = (valor.length)-4;
+                        pdf = valor.substring(iniciop, fin);
+                        if(word==".docx"){
+                            $(idcontenedor).append('<label><a href="'+ruta+'" target="_blank"><img src="imagenes/word.jpg" height="70px"><input class="imagencheck" type="checkbox" id="'+check+i+'"  value="'+valor+'"></a></label>');
+                        }
+                        else if(pdf==".pdf"){
+                            $(idcontenedor).append('<label><a href="'+ruta+'" target="_blank"><img src="imagenes/pdf.jpg" height="70px"><input class="imagencheck" type="checkbox" id="'+check+i+'"  value="'+valor+'"></a></label>');
+                        }
+                        else {
+                            $(idcontenedor).append('<label><a href="'+ruta+'" target="_blank"><img src="'+valor+'" height="70px"><input class="imagencheck" type="checkbox" id="'+check+i+'"  value="'+valor+'"></a></label>'); }
 
-            }).done(function (data) {
-                if (data.ok) {
+                        i++;
+                     });
+                 }
 
-                } else {
-                    alert(data.msg)
-
+        // Esta función se llama al insertar una nueva imagen en Imagenes
+            function inicializar1(){
+                insertarimagenes('cambio',"#cambio","#contenedor",0,'imagennueva');
                 }
-            })
-        }
+         // Esta función se llama al insertar una nueva imagen en Logos
+            function inicializar2(){
+                insertarimagenes('cambiodos',"#cambiodos","#contenedordos",1,'imagennuevados');
+            }
+        //  Esta funcion se encarga de modificar la cadena de las direcciones de las imagenes con ajax, llamando
+        //  a actualizar.php para copiar los archivos a la carpeta archivosbd
+            function insertarimagenes(cambio,cambioid,contenedor,iterador,imagennuevatex) {
+                var URLactual = window.location;
+                var urldos=String(URLactual);
+                patron = '/nuevo.php',
+                nuevoValor = "",
+                nuevaCadena = urldos.replace(patron, nuevoValor);
+                var inputFileImage = document.getElementById(cambio);
+                var urlimagen = $(cambioid).val();
+                urlimagen = urlimagen.split('\\');
+                var file = inputFileImage.files[0];
+                var data = new FormData();
+                data.append('archivo', file);
+                var url = "php/actualizar.php";
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: false,
+                    data: data,
+                    processData: false,
+                    cache: false,
+                    success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                        valor="archivosbd/imagenes/"+urlimagen[urlimagen.length-1];
+                        ruta=nuevaCadena+"/archivosbd/imagenes/"+urlimagen[urlimagen.length-1];
+                        arreglo[iterador]+=valor;
+                        arreglo[iterador]+="?";
+                        document.getElementById(imagennuevatex).value=arreglo[iterador];
+                        limpiar();
+                        cargarimagenes();
+                            }
+
+                }).done(function(data){
+                    if(data.ok){
+
+                    }else {
+                        alert(data.msg)
+
+                    }
+                })
+            }
         // Este apartado es para hacer los calendarios de tipo datetimepicker
         $('#datetimedos').datetimepicker();
         $('#datetime').datetimepicker();

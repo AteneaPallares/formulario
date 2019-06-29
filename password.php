@@ -1,7 +1,7 @@
 <!-- formulario para crear nuevo usuario -->
 <html>
 
-<?php include '_layout/catalogos.php';?>
+<?php include '_layout/encabezado.php';?>
 <head>
 <link rel="stylesheet" href="estilos.css">
 </head>    

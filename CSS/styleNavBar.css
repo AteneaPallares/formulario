@@ -1,0 +1,14 @@
+
+.nav-item{
+    border-radius: 10%;
+    font-weight: bold;
+}
+.nav-item:hover{
+    background-color:rgb(190, 189, 189);
+}
+.user{
+    color:red;
+}
+.logout{
+    color:green;
+}

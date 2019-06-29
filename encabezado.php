@@ -61,6 +61,7 @@ if ($result=mysqli_query($link,$sql))
                     $aux=$sele[0];
                     $nomb=$sele[2];
                     $numero=$sele[1];
+                    $disenador=$sele[7];
                     $fecha=strftime("%d/%m/%Y", strtotime($sele[5]));
                   }
                   else{
@@ -99,7 +100,7 @@ if ($result=mysqli_query($link,$sql))
                     <td onclick="agre('proyecto<?php echo $numero?>','fila<?php echo $numero?>')" id="fila<?php echo $numero?>"><?php echo $nomb?></td>
                     <td ><?php echo  $estatus?></td>
                     <td ><?php echo $row[6]?></td>
-                    <td ><?php echo $row[7]?></td>
+                    <td ><?php echo $disenador?></td>
                     <td>
                     <div class="input-group">
                     <form id="enviaranuevo"action="nuevo.php" method="post" enctype="multipart/form-data">

@@ -175,7 +175,6 @@ mysqli_close($link);
           $('#fechauno').datetimepicker();
          $('#fechados').datetimepicker();
   function eliminar(valor){
-      alert(valor);
                   var parametros = {
                 "valor" : valor,
                 "cambiar": 1

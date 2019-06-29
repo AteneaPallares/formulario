@@ -1,7 +1,7 @@
 <?php
 // Se guardan las imagenes que son ingresadas en imagenes y logos
 $return = Array('ok'=>TRUE);
-$upload_folder="archivosbd/imagenes";
+$upload_folder="../archivosbd/imagenes";
 $nombre_archivo = $_FILES['archivo']['name'];
 $tipo_archivo = $_FILES['archivo']['type'];
 $tamano_archivo = $_FILES['archivo']['size'];

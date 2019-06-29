@@ -27,23 +27,7 @@ table {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
-.navbar-light .navbar-nav .nav-link {
-    color: orange;
-    }
-    /*  Este es para el elemento activo lo puedes omitir si asi deseas */
-    .navbar-light .navbar-nav .active>.nav-link  {
-     color: red;
-    }
-    .resolver{
-        float:left;
-    }
-    .navbar{
-        background-color: red;
-        }
-        .navbar-custom {
-            color: #FFFFFF;
-            background-color: #CC3333;
-        }
+
 summary{
     font-size: 15;
     margin:0px;
