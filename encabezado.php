@@ -21,7 +21,11 @@ $numpro=0;
       <th >Nombre</th>
       <th >Estatus</th>
       <th >Cliente</th>
-      <th >Diseñador</th>
+      <?php if($username=="admin"){
+        echo '<th >Diseñador</th>';
+      }
+      ?>
+      
       <th >------------</th>
     </tr>
 </thead>
@@ -100,7 +104,10 @@ if ($result=mysqli_query($link,$sql))
                     <td onclick="agre('proyecto<?php echo $numero?>','fila<?php echo $numero?>')" id="fila<?php echo $numero?>"><?php echo $nomb?></td>
                     <td ><?php echo  $estatus?></td>
                     <td ><?php echo $row[6]?></td>
-                    <td ><?php echo $disenador?></td>
+                    <?php if($username=="admin"){
+                  echo '<td >'.$disenador.'</td>';
+                  }?>
+                    
                     <td>
                     <div class="input-group">
                     <form id="enviaranuevo"action="nuevo.php" method="post" enctype="multipart/form-data">

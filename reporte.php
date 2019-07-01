@@ -17,7 +17,6 @@ $tabla=$_POST['tabla'];
 $bitacora=$_POST['bitacora'];
 ?>
 <html>
-<head>
 <script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -25,6 +24,7 @@ $bitacora=$_POST['bitacora'];
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="datetimepicker-master/jquery.js"></script>
     <script src="script.js"></script>
+    <link rel="stylesheet" href="CSS/style.css">
     <script src="datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
 <script type="text/javascript" src="./js/jquery.tablesorter.min.js"></script>
 <link rel="stylesheet" href="datetimepicker-master/build/jquery.datetimepicker.min.css">
@@ -34,30 +34,35 @@ $bitacora=$_POST['bitacora'];
     <link rel="stylesheet" href="./themes/blue/style.css" type="text/css" media="print, projection, screen" />
 </head>
 <body onload="cargar();">
-<h4>Nombre del proyecto: "<?php echo  $Nombredelproyecto?>"</h4> 
-   <label>Número del proyecto: <?php echo  $Noproyecto?></label> 
+<div class="container">
+            <div class="row">
+<div class="seccion">
+<table width="100%" border="1" bordercolor="black" cellspacing="10" cellpadding="10">
+<tr ><td colspan="2"><center><h4>Nombre del proyecto: "<?php echo  $Nombredelproyecto?>"</h4><center></td> </tr>
+  <tr> 
+  <td><label>Número del proyecto: <?php echo  $Noproyecto?></label> </td>
+  <td> <label>Diseñador asignado: <?php echo  $disenador?></label> </td>
+  </tr>
+  <tr>
+  <td><label>Fecha  <?php echo date("Y/m/d H:i"); ?></label> </td>
+  <td> <label>Número de Orden: <?php echo $Noorden ?></label> </td>
+  </tr>
+  <tr>
+  <tr><td colspan="2"> <label>Detalles: <?php echo  $Detalles?></label> </td></tr>
+ <tr>
+  <td colspan="2"><center><h4>Datos del cliente </h4> </center></td>
+  </tr>
+  <tr>
+  <td> <label>Usuario Responsable: <?php echo $Usuariosresponsable ?></label> </td>
+  <td> <label>Área: <?php echo $area ?></label> </td>
+  </tr>
+ 
   
-   <label>Diseñador asignado: <?php echo  $disenador;?></label> 
- 
-   <label>Fecha inicial: <?php echo  $fechacreacion?></label> 
- 
-   <label>Número de Orden: <?php echo $Noorden ?></label> 
- 
-   
- 
-   <label>Detalles: <?php echo  $Detalles?></label> 
- 
-   <h4>Datos del cliente </h4> 
-   <label>Usuario Responsable: <?php echo $Usuariosresponsable ?></label> 
- 
-   <label>Área: <?php echo $area ?></label> 
- 
-   <label>Última fecha: <?php echo date("Y/m/d H:i");  ?></label> 
-  
-   <label>Teléfono: <?php echo $telefono ?></label> 
-  
-   <label>Correo: <?php echo  $correo?></label> 
-
+  <tr> 
+  <td><label>Teléfono: <?php echo $telefono ?></label> </td>
+  <td><label>Correo: <?php echo  $correo?></label></td>
+   </tr>
+</table>
  
    <input type="hidden"  id="tablaimpresiones" name="tablaimpresiones" value="<?php echo $tabla ?>"   onchange="agregarfila()">
                 
@@ -79,9 +84,16 @@ $bitacora=$_POST['bitacora'];
                 <?php
                 addrow($tabla);
                ?>
-                <label onload="agregarfila('vsf');">Bitácora: <?php echo  $bitacora?></label> 
+                <label onload="agregarfila('vsf');">Bitácora: </label> 
+                <textarea 
+                            style="width:100%;   text-align: center; height:100px" id="bitacora1" type="text"
+                            name="bitacora"><?php echo $bitacora ?></textarea>
                 </br>
                 <input type="button" value="Imprimir" onclick="imprimir();"  >
+                </div>
+ </div>
+            </div>
+               
 <?php
 function addrow($tabla){
    

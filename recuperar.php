@@ -7,12 +7,12 @@ y permite el filtro y ordenamiento de los datos -->
 <table id="tablaimpresionescompleta" class="tablesorter" ">
     <thead>
     <tr>
+            <th>Diseñador</th>
+            <th>Proyecto</th>
+            <th>Examinar</th>
+            <th>Historial</th>
+            <th>Restaurar</th>
             <th>Fecha</th>
-            <th>Tipo Impresión</th>
-            <th>Tipo de papel</th>
-            <th>No. Papel</th>
-            <th>No.Impresiones</th>
-            <th>No. Papel</th>
     </tr>
     </thead>
     <tbody>
