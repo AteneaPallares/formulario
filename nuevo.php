@@ -190,8 +190,18 @@ include 'php/funcionesnuevo/agregarvalores.php';?>
                     <div class=" col-sm-6 col-xs-12 elementos"><label> Observaciones del Servicio
                         </label><textarea type="text" name="observaciones"
                             <?php echo $Hobservaciones ?>><?php echo $observaciones ?></textarea></div>
-                    <div class=" col-sm-6 col-xs-12 elementos"><label> Autoriza SRIA. GENERAL</label><input type="text"
-                            name="autoriza" value="<?php echo $autoriza ?>" <?php echo $Hautoriza ?>></div>
+                    <div class=" col-sm-6 col-xs-12"><label> Autoriza SRIA. GENERAL
+                        <fieldset>
+                            <label>Si<input type="radio"
+                                    name="autoriza" value="1"
+                                    <?php if($autoriza=='1') {echo 'checked="checked"';}if($quitar==true){echo 'disabled=$activo';} ?>></label>
+                            <label>No<input type="radio"
+                                    name="autoriza" value="2"
+                                    <?php if($autoriza=='2') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>></label>
+                            
+                        </fieldset>
+                        </label>
+                    </div>
                 </div>
                 <div class="col-sm-12 col-xs-12 seccion">
                     <div class=" col-sm-12 col-xs-12 encabezado">
