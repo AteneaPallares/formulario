@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="CSS/styleLogin.css">
     <script src="funciones.js"></script>
-        <title>Iniciar Sesión</title>
 </head>
     <body>
 

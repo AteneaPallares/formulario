@@ -1,6 +1,8 @@
 <!-- Formulario para el inicio de sesion -->
 <html>
-
+<head>
+<title>Iniciar sesión</title>
+</head>
 <?php include '_layout/loginyregistrarse.php';?>
 
         <form class="centrar" method="POST" action="php/validar.php">

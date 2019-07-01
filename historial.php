@@ -2,6 +2,7 @@
 y permite el filtro y ordenamiento de los datos -->
 <html>
 <head>
+<title>Historial</title>
     <style>
         h2{
             color:#084B8A;

@@ -65,8 +65,11 @@
                         filas = valor.split(separador);
                     var i = 0;
                     var fechafila = filas[0];
-                    var fecha1 = $("#fechauno").val();
-                    var fecha2 = $("#fechados").val();
+                    fechafila=Date.parse(fechafila);
+                    var fecha1a=$("#fechauno").val();
+                    var fecha1 = Date.parse(fecha1a);
+                    var fecha2a=$("#fechados").val();
+                    var fecha2 = Date.parse(fecha2a);
 
                     if (fechafila >= fecha1 && fechafila <= fecha2) {
                         filas.forEach(function (columna, indice, array) {

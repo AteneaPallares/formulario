@@ -2,6 +2,9 @@
 y permite el filtro y ordenamiento de los datos -->
 <html>
 <?php include '_layout/encabezado.php';?>
+<head>
+<title>Proyectos</title>
+</head>
 <body>
   <?php
 include 'php/conectar.php';

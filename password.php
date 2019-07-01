@@ -1,6 +1,8 @@
 <!-- formulario para crear nuevo usuario -->
 <html>
-
+<head>
+<title>Contraseña</title>
+</head>
 <?php include '_layout/encabezado.php';?>
 <head>
 <link rel="stylesheet" href="estilos.css">

@@ -5,7 +5,9 @@
 <?php
 include '_layout/nuevobarra.php';
 ?>
-
+<head>
+<title>Detalles</title>
+</head>
 <body onload="cargarimagenes()">
 <?php
 include 'php/conectar.php';

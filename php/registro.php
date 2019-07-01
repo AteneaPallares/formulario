@@ -42,6 +42,14 @@ if(isset($_POST['nombreusuarionuevo'])&& isset($_POST['passwordusuarionuevo']) &
      $BITACORA=$_POST['bitacora'];if(empty($BITACORA)){$BITACORA="";}
      if (isset($_POST['estatus']))$ESTATUS1=$_POST['estatus'];else $ESTATUS1=1;
      $DISENADOR=$_POST['disenador'];if(empty($DISENADOR)){$DISENADOR="";}
+     if($DISENADOR=="AnAdIr123asd45gfdert76")
+     {
+         session_start();
+         if(isset($_SESSION['nombre'])){ 
+           $username=$_SESSION['nombre'];
+           $DISENADOR=$username;
+         }
+     }
      $ORDENDOS=$_POST['ordenservicio'];if(empty($ORDENDOS)){$ORDENDOS="";}
      $CAPTURA=$_POST['captura'];if(empty($CAPTURA)){$CAPTURA="";}
      $OBSERVACIONES=$_POST['observaciones'];if(empty($OBSERVACIONES)){$OBSERVACIONES="";}

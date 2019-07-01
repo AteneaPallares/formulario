@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="estilos.css">
     <script src="funciones.js"></script>
-    <title> Nuevo Registro </title>
 </head>
 <body>
 <?php

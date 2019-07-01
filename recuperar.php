@@ -2,7 +2,9 @@
 y permite el filtro y ordenamiento de los datos -->
 <html>
 <?php include '_layout/catalogos.php'?>;
-
+<head>
+<title>Recuperar Proyecto</title>
+</head>
 <body >
 <table id="tablaimpresionescompleta" class="tablesorter" ">
     <thead>

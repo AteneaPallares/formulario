@@ -1,6 +1,8 @@
 <!-- formulario para crear nuevo usuario -->
 <html>
-
+<head>
+<title>Registro</title>
+</head>
 <?php include '_layout/loginyregistrarse.php';?>
     <h1>Registrarse</h1>
            <br>

@@ -1,4 +1,5 @@
 <?php 
+
 date_default_timezone_set('America/Mexico_City');
 $Noproyecto=$_POST['Noproyecto'];
 $disenador=$_POST['disenador2'];
@@ -17,23 +18,25 @@ $tabla=$_POST['tabla'];
 $bitacora=$_POST['bitacora'];
 ?>
 <html>
+<head>
+<title>Reporte</title>
 <script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.js"></script>
-    <script src="datetimepicker-master/jquery.js"></script>
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="CSS/style.css">
-    <script src="datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
-<script type="text/javascript" src="./js/jquery.tablesorter.min.js"></script>
-<link rel="stylesheet" href="datetimepicker-master/build/jquery.datetimepicker.min.css">
-    
-    
-
+        <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+        <script src="datetimepicker-master/jquery.js"></script>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="CSS/style.css">
+        <script src="datetimepicker-master/build/jquery.datetimepicker.full.js"></script>
+    <script type="text/javascript" src="./js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="datetimepicker-master/build/jquery.datetimepicker.min.css">
     <link rel="stylesheet" href="./themes/blue/style.css" type="text/css" media="print, projection, screen" />
 </head>
 <body onload="cargar();">
+<br></br>
+<br></br>
+<br></br>
 <div class="container">
             <div class="row">
 <div class="seccion">
@@ -73,10 +76,9 @@ $bitacora=$_POST['bitacora'];
                 <div class=" col-sm-12 col-xs-12">
                 
                 </div>
-                <h4>Filtrar Tabla</h4>
+                <h4>Filtrar Tabla (Inicio-Fin)</h4>
                 <div class=" col-sm-12 col-xs-12" align="left"><input id="fechauno" style="width:40%;float:left;"
                         name="fechauno" value="2019/01/01 21:58"  onchange="movimientos();">
-                        <center><label style="width:20%;float:left;">Fecha Inicio-Fin</label></center>
                    <input id="fechados" style="width:40%;float:left; "
                         name="fechados" value="<?php echo date("Y/m/d H:i");?>"  onchange="movimientos();"></div>        
                

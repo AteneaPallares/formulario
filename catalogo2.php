@@ -1,5 +1,8 @@
 <html>
 <?php include '_layout/catalogos.php'?>;
+<head>
+<title>Catálogo de Papel</title>
+</head>
 <center>
 <label style="font-size:20px;">Tipo de Papel</label><br>
 <input class="w3-input" type="text" name="nombre" id="nom"><span><label style="color:red"id="agregando"></label></span><br>
@@ -25,7 +28,7 @@ if ($result=mysqli_query($link,$sql))
     {
         ?>
        <tr>
-        <td id="table<?php echo $i?>"><?php echo $row[0] ?></td>
+        <td valign="top" id="table<?php echo $i?>"><?php echo $row[0] ?></td>
         <td style="width:10%"id="modific<?php echo $i?>"><label><button style="width:100%" class="btn btn-success" id="boton<?php echo $i?>" type="button" onclick="modificar('<?php echo $row[0]?>','<?php echo $i?>','<?php echo $row[1]?>'); return false;"><label id="p<?php echo $i?>">Modificar</label></button></label></td>
         <td style="width:10%"id="eliminar<?php echo $i?>"><label><button class="btn btn-success" id="eli<?php echo $i?>" type="button" onclick="eliminar('<?php echo $row[0]?>','<?php echo $i?>','<?php echo $row[1]?>'); return false;"><label>Eliminar</label></button></label></td>
         </tr>
