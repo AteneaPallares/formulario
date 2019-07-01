@@ -183,14 +183,14 @@ include 'php/funcionesnuevo/agregarvalores.php';?>
 
                         </fieldset>
                     </div>
-
+                    
                     <!-- fin radio -->
-                    <div class=" col-sm-6 col-xs-12 elementos"><label> Captura de servicio </label><input type="text"
-                            name="captura" value="<?php echo $capturaservicio ?>" <?php echo $Hcapturaservicio ?>></div>
+                    <div class="col-sm-6 col-xs-12 elementos"><label> Captura de servicio </label>
+                    <input type="text"  name="captura" value="<?php echo $capturaservicio ?>"></div>
                     <div class=" col-sm-6 col-xs-12 elementos"><label> Observaciones del Servicio
                         </label><textarea type="text" name="observaciones"
                             <?php echo $Hobservaciones ?>><?php echo $observaciones ?></textarea></div>
-                    <div class=" col-sm-6 col-xs-12"><label> Autoriza SRIA. GENERAL
+                    <div class=" col-sm-6 col-xs-12 elementos"><label> Autoriza SRIA. GENERAL</label>
                         <fieldset>
                             <label>Si<input type="radio"
                                     name="autoriza" value="1"
@@ -200,7 +200,7 @@ include 'php/funcionesnuevo/agregarvalores.php';?>
                                     <?php if($autoriza=='2') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>></label>
                             
                         </fieldset>
-                        </label>
+                        
                     </div>
                 </div>
                 <div class="col-sm-12 col-xs-12 seccion">
