@@ -63,7 +63,7 @@ if ($result=mysqli_query($link,$sql))
               $filtrobool=false;
                 while($sele=mysqli_fetch_row($rep)){
                   
-                  if((($sele[7]==$username || $username=="admin"))&&($sele[8]=="1")){
+                  if((($sele[7]==$username || $username=="admin" || $username=="gestor"))&&($sele[8]=="1")){
                     $filtrobool=true;
                     $aux=$sele[0];
                     $nomb=$sele[2];

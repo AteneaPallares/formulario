@@ -11,10 +11,17 @@
       <li class="nav-item active">
         <a class="nav-link" href="encabezado.php" ">Inicio <span
             class="sr-only">(current)</span></a>
+            
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="nuevo.php" ">Agregar</a>
-      </li>
+      <?php
+            if($username=="gestor" || $username=="admin"){
+              echo '
+              <li class="nav-item">
+              <a class="nav-link" href="nuevo.php" ">Agregar</a>
+            </li>';
+            }
+            ?>
+    
       <li class="nav-item">
         <a class="nav-link" href="password.php" ">Configuración</a>
       </li>

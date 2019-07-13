@@ -45,6 +45,8 @@
             $eliminar2="enabled";
             $correcto="enabled";
             $activo="enabled";
+            echo $username;
+           
             if((!empty($_POST['IDmenu'])) && (isset($_POST['IDmenu']))){
                 $registrarse=$activo;
                 $eliminar1=$activo;
@@ -91,7 +93,7 @@
                     $estatus1=$row[16];
                     $disenador=$row[17];$Hdisenador=$activo;
                     $ordenservicio=$row[18];$Hordenservicio=$activo;
-
+                    echo $ordenservicio;
                     $capturaservicio=$row[19];$Hcapturaservicio=$activo;
                     $observaciones=$row[20];$Hobservaciones=$activo;
                     $autoriza=$row[21];$Hautoriza=$activo;
@@ -103,4 +105,78 @@
             mysqli_free_result($result);
             }
             mysqli_close($link);}
+            if($username=="gestor"){
+                
+                $desactivar="enabled";
+                $Hnumero="disabled";
+                $Hmemo="enabled";
+                $Horden="enabled";
+                $Hinfo="enabled";$Hinfo="enabled";
+                $Himagenes="enabled";
+                $Hlogos="enabled";
+                $detalles="";$Hdetalles="enabled";
+                $Hresponsable="enabled";
+                $Htel="enabled";
+                $Harea="enabled";
+                $Hcorreo="enabled";
+                $Hfechados="enabled";
+                $Hnoimpresos="enabled";
+                $Hbitacora="enabled";
+                $estatus1=0;
+                $Hdisenador="disabled";
+                $Hordenservicio="disabled";
+                $Hcapturaservicio="disabled";
+                $Hobservaciones="disabled";
+                $Hautoriza="disabled";
+                $Htipoimpre="disabled";
+                $Hnopapel="disabled";
+                $Htipopapel="disabled";
+                $Hnoimpredos="disabled";
+                $Htablaimpre="disabled";
+                $registrarse="enabled";
+                $borrar="enabled";
+                $quitar=false;
+                $eliminar1="enabled";
+                $eliminar2="enabled";
+                $correcto="disabled";
+                $activo="enabled";
+                $Hbitacora="disabled";
+        
+    }
+    elseif($username!="admin"){
+        $Htablaimpre="enabled";
+            $Hnumero="disabled";
+            $Hfecha="disabled";
+            $Hmemo="disabled";
+            $Horden="disabled";
+            $Hproyecto="disabled";
+            $Hinfo="disabled";$Hinfo="disabled";
+            $Himagenes="disabled";
+            $Hlogos="disabled";
+            $detalles="";$Hdetalles="disabled";
+            $Hresponsable="disabled";
+            $Htel="disabled";
+            $Harea="disabled";
+            $Hcorreo="disabled";
+            $Hfechados="disabled";
+            $Hnoimpresos="disabled";
+            $Hbitacora="enabled";
+            $estatus1=0;
+            $Hdisenador="disabled";
+            $Hordenservicio="disabled";
+            $Hcapturaservicio="disabled";
+            $Hobservaciones="disabled";
+            $Hautoriza="disabled";
+            $Htipoimpre="enabled";
+            $Hnopapel="enabled";
+            $Htipopapel="enabled";
+            $Hnoimpredos="enabled";
+            $registrarse="enabled";
+            $borrar="enabled";
+            $quitar=false;
+            $eliminar1="disabled";
+            $eliminar2="disabled";
+            $correcto="disabled";
+            $activo="enabled";
+    }
             ?>
