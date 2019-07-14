@@ -54,7 +54,7 @@ if(isset($_POST['nombreusuarionuevo'])&& isset($_POST['passwordusuarionuevo']) &
      $NOPAPEL=$_POST['cantidadpapel'];if(empty($NOPAPEL)){$NOPAPEL=0;}
      $NOIMPRESIONES=$_POST['cantidadimpre'];if(empty($NOIMPRESIONES)){$NOIMPRESIONES=0;}
      $tablaimpresiones=$_POST['tablaimpresiones'];if(empty($tablaimpresiones)){$tablaimpresiones="";}
- 
+
 mysqli_multi_query($link,"INSERT INTO datos(NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,
 IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,NOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES,ACTIVO) 
 VALUES('$numero','$FECHA','$MEMO','$ORDEN','$PROYECTO','$INFO','$IMAGEN','$LOGOS','$DETALLES','$RESPONSABLE','$TEL','$AREA','$CORREO','$FECHADOS',

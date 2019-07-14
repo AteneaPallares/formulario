@@ -78,6 +78,11 @@ include 'php/funcionesnuevo/agregarvalores.php';
 
     </div>
 
+    <div class=" col-sm-12 col-xs-12">
+            <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
+                value="Guardar" <?php echo $registrarse ?> />
+    </div>
+
 
     <div class="col-sm-12 col-xs-12 seccion">
         <div class=" col-sm-12 col-xs-12 encabezado">
@@ -157,6 +162,11 @@ include 'php/funcionesnuevo/agregarvalores.php';
         
     </div>
 
+    <div class=" col-sm-12 col-xs-12">
+            <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
+                value="Guardar" <?php echo $registrarse ?> />
+    </div>
+
     <div class="col-sm-12 col-xs-12 seccion">
         <div class=" col-sm-12 col-xs-12 encabezado">
             <label class="titulo">ESTATUS DELSERVICIO</label>
@@ -191,6 +201,12 @@ include 'php/funcionesnuevo/agregarvalores.php';
         
         <!-- fin radio -->
     </div>
+
+    <div class=" col-sm-12 col-xs-12">
+            <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
+                value="Guardar" <?php echo $registrarse ?> />
+    </div>
+
     <div class="col-sm-12 col-xs-12 seccion">
         <div class=" col-sm-12 col-xs-12 encabezado">
             <label class="titulo"> IMPRESIONES</label>
@@ -267,6 +283,11 @@ include 'php/funcionesnuevo/agregarvalores.php';
 
     </div>
 
+    <div class=" col-sm-12 col-xs-12">
+            <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
+                value="Guardar" <?php echo $registrarse ?> />
+    </div>
+
     <div class="seccion col-sm-12 col-xs-12">
         <div class=" col-sm-12 col-xs-12 encabezado">
             <label class="titulo"> BITÁCORA</label>
@@ -274,17 +295,10 @@ include 'php/funcionesnuevo/agregarvalores.php';
         <div class=" col-sm-12 col-xs-12"><textarea onchange="reporte()"
                 style="width:100%;   text-align: center; height:100px" id="bitacora1" type="text"
                 name="bitacora" <?php echo $Hbitacora ?>><?php echo $bitacora ?></textarea></div>
-        
-
-        <div class=" col-sm-12 col-xs-12">
-            <input class="boton" style="width:30%;   text-align: center;" type="submit" name="submitdos"
+    </div>
+    <div class=" col-sm-12 col-xs-12">
+            <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
                 value="Guardar" <?php echo $registrarse ?> />
-            <input class="boton" style="width:30%;   text-align: center;" type="reset"
-                <?php echo $borrar ?> />
-            <a href="encabezado.php"><input class="boton" style="width:30%;   text-align: center;"
-                    type="button" value="Regresar" /></a>
-        </div>
-        <div class=" col-sm-12 col-xs-12"></div>
     </div>
 
 </div>   
@@ -305,7 +319,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
         <input type="hidden" name="cantidadimpresos" id="cantidadimpresos" value="">
         <input type="hidden" name="tabla" id="tabla" value="">
         <input type="hidden" name="bitacora" id="bitacora" value="">
-        <input class="boton" type="submit" name="valor" style="width:100%;" value="Generar Reporte">
+        <input class="boton guardar" type="submit" name="valor" style="width:100%;" value="Generar Reporte">
 
     </form>
     <?php

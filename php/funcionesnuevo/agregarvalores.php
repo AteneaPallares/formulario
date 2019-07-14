@@ -106,7 +106,6 @@
             }
             mysqli_close($link);}
             if($username=="gestor"){
-                
                 $desactivar="enabled";
                 $Hnumero="disabled";
                 $Hmemo="enabled";
@@ -114,17 +113,16 @@
                 $Hinfo="enabled";$Hinfo="enabled";
                 $Himagenes="enabled";
                 $Hlogos="enabled";
-                $detalles="";$Hdetalles="enabled";
+                $Hdetalles="enabled";
                 $Hresponsable="enabled";
                 $Htel="enabled";
                 $Harea="enabled";
                 $Hcorreo="enabled";
                 $Hfechados="enabled";
                 $Hnoimpresos="enabled";
-                $Hbitacora="enabled";
                 $estatus1=0;
                 $Hdisenador="disabled";
-                $Hordenservicio="disabled";
+                $Hordenservicio="enabled";
                 $Hcapturaservicio="disabled";
                 $Hobservaciones="disabled";
                 $Hautoriza="disabled";
@@ -153,7 +151,7 @@
             $Hinfo="disabled";$Hinfo="disabled";
             $Himagenes="disabled";
             $Hlogos="disabled";
-            $detalles="";$Hdetalles="disabled";
+            $Hdetalles="disabled";
             $Hresponsable="disabled";
             $Htel="disabled";
             $Harea="disabled";
