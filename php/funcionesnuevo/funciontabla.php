@@ -24,13 +24,13 @@
             modificando=fechad.innerText+"?FS.?"+tipoimpre.innerText+"?FS.?"+tipopa.innerText+"?FS.?"+nopa.innerText+"?FS.?"+noimpre.innerText+"?CFS.?";
             alert(modificando);
             
-            tipoimpre.innerHTML="<input id='impreval' name='"+fechad.innerText+"' type='text' value='"+tipoimpre.innerText+"'>";
-            
-            tipopa.innerHTML="<input id='papval' type='text' value='"+tipopa.innerText+"'>";
-           
+            // tipoimpre.innerHTML="<input id='impreval' name='"+fechad.innerText+"' type='text' value='"+tipoimpre.innerText+"'>";
+            tipoimpre.innerHTML='<select class="cselect" name="'+fechad.innerText+'" id="impreval"><?php $sql="SELECT NOMBRE FROM tipoimpre ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
+            // tipopa.innerHTML="<input id='papval' type='text' value='"+tipopa.innerText+"'>";
+            tipopa.innerHTML='<select class="cselect"  id="papval"><?php $sql="SELECT NOMBRE FROM tipopapel ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
             nopa.innerHTML="<input id='noimpreval' type='text' value='"+nopa.innerText+"'>";
-           
-            noimpre.innerHTML="<input id='nopapval' type='text' value='"+noimpre.innerText+"'>";
+                       noimpre.innerHTML="<input id='nopapval' type='text' value='"+noimpre.innerText+"'>";
+
             document.getElementById('boton'+fila).value="Aceptar";
             var table = document.getElementById("tablaimpresionescompleta");
             var rowtable=table.rows.length;
