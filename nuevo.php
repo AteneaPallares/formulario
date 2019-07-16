@@ -248,6 +248,24 @@ include 'php/funcionesnuevo/agregarvalores.php';
                     <div class=" col-sm-12 col-xs-12 encabezado">
                         <label class="titulo"> IMPRESIONES</label>
                     </div>
+                    <div class=" col-sm-6 col-xs-12 elementos"><label> Aplicativo </label>
+                        <select class="cselect" name="aplicativoid" id="aplicativoid" <?php echo $Htipopapel ?>>
+                            <?php
+                 $sql="SELECT NOMBRE FROM aplicativo ORDER BY NOMBRE";
+                        if ($result=mysqli_query($link,$sql))
+                        {
+                        while ($row=mysqli_fetch_row($result))
+                            {
+                               ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>>
+                                <?php echo $row[0]?>
+                            </option><?php
+                            }
+                        }
+                        ?>
+                        </select>
+                    </div>
+
+                    <br></br>
                     <div class=" col-sm-6 col-xs-12 elementos"><label> Tipo de impresión </label>
                         <select class="cselect" name="tipoimpresion" id="tipoimpresion" <?php echo $Htipoimpre ?>>
                             <?php
@@ -287,7 +305,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
                             name="cantidadimpre" id="cantidadimpresiones" value="<?php echo $noimpredos ?>"
                             <?php echo $Hnoimpredos ?>></div>
 
-                    <input type="text" onchange="reporte()" id="tablaimpresiones" name="tablaimpresiones"
+                    <input type="hidden" onchange="reporte()" id="tablaimpresiones" name="tablaimpresiones"
                         value="<?php echo $tablaimpre ?>" <?php echo $Htablaimpre ?> onchange="agregarfila()">
                     <div class=" col-sm-12 col-xs-12" style="display:flex;justify-content: center">
                         <input class="boton" type="button" value="Agregar" onclick="agregarfila('true');reporte();"
@@ -309,6 +327,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
                         <table id="tablaimpresionescompleta" <?php echo $Htablaimpre ?>>
                             <tr id="tablaimpresiones">
                                 <th>Fecha</th>
+                                <th>Applicativo</th>
                                 <th>Tipo Impresión</th>
                                 <th>Tipo de papel</th>
                                 <th>No. Papel</th>

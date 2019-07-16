@@ -36,6 +36,7 @@
             <div class="dropdown-menu">
               <a href="catalogo1.php" class="dropdown-item">Tipo de Impresión</a>
               <a href="catalogo2.php" class="dropdown-item">Tipo de Papel</a>
+              <a href="catalogo4.php" class="dropdown-item">Aplicativo</a>
               <a href="catalogo3.php" class="dropdown-item">Recibir</a>
             </div>
           </li>';

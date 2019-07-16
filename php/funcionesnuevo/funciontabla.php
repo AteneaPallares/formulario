@@ -16,14 +16,15 @@
             var texto=document.getElementById('boton'+fila).value;
             if(texto=="Modificar"){
             var fechad=document.getElementById("tablaimpresionescompleta").rows[fila].cells[0];
-            var tipoimpre=document.getElementById("tablaimpresionescompleta").rows[fila].cells[1];
-            var tipopa=document.getElementById("tablaimpresionescompleta").rows[fila].cells[2];
-            var nopa=document.getElementById("tablaimpresionescompleta").rows[fila].cells[3];
-            var noimpre=document.getElementById("tablaimpresionescompleta").rows[fila].cells[4];
+            var apli=document.getElementById("tablaimpresionescompleta").rows[fila].cells[1];
+            var tipoimpre=document.getElementById("tablaimpresionescompleta").rows[fila].cells[2];
+            var tipopa=document.getElementById("tablaimpresionescompleta").rows[fila].cells[3];
+            var nopa=document.getElementById("tablaimpresionescompleta").rows[fila].cells[4];
+            var noimpre=document.getElementById("tablaimpresionescompleta").rows[fila].cells[5];
 
-            modificando=fechad.innerText+"?FS.?"+tipoimpre.innerText+"?FS.?"+tipopa.innerText+"?FS.?"+nopa.innerText+"?FS.?"+noimpre.innerText+"?CFS.?";
+            modificando=fechad.innerText+"?FS.?"+apli.innerText+"?FS.?"+tipoimpre.innerText+"?FS.?"+tipopa.innerText+"?FS.?"+nopa.innerText+"?FS.?"+noimpre.innerText+"?CFS.?";
             alert(modificando);
-            
+            apli.innerHTML='<select class="cselect"  id="aplic"><?php $sql="SELECT NOMBRE FROM aplicativo ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
             // tipoimpre.innerHTML="<input id='impreval' name='"+fechad.innerText+"' type='text' value='"+tipoimpre.innerText+"'>";
             tipoimpre.innerHTML='<select class="cselect" name="'+fechad.innerText+'" id="impreval"><?php $sql="SELECT NOMBRE FROM tipoimpre ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
             // tipopa.innerHTML="<input id='papval' type='text' value='"+tipopa.innerText+"'>";
@@ -45,10 +46,11 @@
             var modic=document.getElementById("tablaimpresiones").value;
             var fecha=document.getElementById("impreval").name;
             var impreval=document.getElementById("impreval").value;
+            var aplic=document.getElementById("aplic").value;
             var papval=document.getElementById("papval").value;
             var noimpreval=document.getElementById("noimpreval").value;
             var nopapval=document.getElementById("nopapval").value;
-            var total=fecha+"?FS.?"+impreval+"?FS.?"+papval+"?FS.?"+noimpreval+"?FS.?"+nopapval+"?CFS.?";
+            var total=fecha+"?FS.?"+aplic+"?FS.?"+impreval+"?FS.?"+papval+"?FS.?"+noimpreval+"?FS.?"+nopapval+"?CFS.?";
             var res = modic.replace(modificando, total);
             document.getElementById("tablaimpresiones").value=res;
             var table = document.getElementById("tablaimpresionescompleta");
@@ -91,7 +93,7 @@
                     var nuevafila = $("#tablaimpresiones").val();
                 }
                 else {
-                    var nuevafila = $("#tablaimpresiones").val() + fecha + "?FS.?" + $("#tipoimpresion").val() + "?FS.?" + $("#tipopapel").val() + "?FS.?" + $("#cantidadpapel").val() + "?FS.?" + $("#cantidadimpresiones").val() + "?CFS.?";
+                    var nuevafila = $("#tablaimpresiones").val() + fecha + "?FS.?" +$("#aplicativoid").val()+"?FS.?"+ $("#tipoimpresion").val() + "?FS.?" + $("#tipopapel").val() + "?FS.?" + $("#cantidadpapel").val() + "?FS.?" + $("#cantidadimpresiones").val() + "?CFS.?";
                 }
                 separador = "?CFS.?", // un espacio en blanco
                     filas = nuevafila.split(separador);
@@ -125,23 +127,23 @@
 
                             var cell = row.insertCell(i);
                             cell.innerHTML = columna;
-                            if (i == 3) {
+                            if (i == 4) {
                                 sumapapel = sumapapel + parseInt(columna);
                             }
-                            if (i == 4) {
+                            if (i == 5) {
                                 sumaimpresiones = sumaimpresiones + parseInt(columna);
                             }
                             i++;
                         });
                         var numerodefila=indice+1;
-                        var cellimg = row.insertCell(5);
+                        var cellimg = row.insertCell(6);
                         var myvar = <?php echo json_encode($Htablaimpre); ?>;
                         if (myvar == "enabled") {
                             var input = "<input type='button' id='eli"+numerodefila+"' style='cursor: pointer' name='" + valor + "?CFS.?" + "' value='Eliminar' onclick='eliminarfila(this.name);reporte();'; >";
 
                             cellimg.innerHTML = input;
                         }
-                        var cellmodif=row.insertCell(6);
+                        var cellmodif=row.insertCell(7);
                         cellmodif.innerHTML="<input type='button' id='boton"+numerodefila+"'name='"+numerodefila+"'value='Modificar' onclick='modificartabla(this.name)'>"
                     }
                 });
@@ -152,12 +154,14 @@
                 vcell = row.insertCell(1);
                 vcell.innerHTML = "";
                 vcell = row.insertCell(2);
-                vcell.innerHTML = "Total";
+                vcell.innerHTML = "";
                 vcell = row.insertCell(3);
-                vcell.innerHTML = sumapapel;
+                vcell.innerHTML = "Total";
                 vcell = row.insertCell(4);
-                vcell.innerHTML = sumaimpresiones;
+                vcell.innerHTML = sumapapel;
                 vcell = row.insertCell(5);
+                vcell.innerHTML = sumaimpresiones;
+                vcell = row.insertCell(6);
                 vcell.innerHTML = "";
                 document.getElementById('tablaimpresiones').value = nuevafila;
                 document.getElementById('tipoimpresion').value = "";
