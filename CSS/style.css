@@ -36,6 +36,10 @@ html{
     display: block;
 }
 
+.status{
+    overflow-x: auto;
+    display: block;
+}
 .boton:hover{
     background-color: gray;
 }

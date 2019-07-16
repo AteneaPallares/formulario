@@ -1,8 +1,8 @@
 <script>
       var condicional = false;
+      var modificando="";
         var eliminandofila = false;
         function eliminarfila(fila) {
-
             var cadena = $("#tablaimpresiones").val();
             var res = cadena.replace(fila, "");
             document.getElementById('tablaimpresiones').value = res;
@@ -11,6 +11,55 @@
             agregarfila("false");
 
 
+        }
+        function modificartabla(fila){
+            var texto=document.getElementById('boton'+fila).value;
+            if(texto=="Modificar"){
+            var fechad=document.getElementById("tablaimpresionescompleta").rows[fila].cells[0];
+            var tipoimpre=document.getElementById("tablaimpresionescompleta").rows[fila].cells[1];
+            var tipopa=document.getElementById("tablaimpresionescompleta").rows[fila].cells[2];
+            var nopa=document.getElementById("tablaimpresionescompleta").rows[fila].cells[3];
+            var noimpre=document.getElementById("tablaimpresionescompleta").rows[fila].cells[4];
+
+            modificando=fechad.innerText+"?FS.?"+tipoimpre.innerText+"?FS.?"+tipopa.innerText+"?FS.?"+nopa.innerText+"?FS.?"+noimpre.innerText+"?CFS.?";
+            alert(modificando);
+            
+            tipoimpre.innerHTML="<input id='impreval' name='"+fechad.innerText+"' type='text' value='"+tipoimpre.innerText+"'>";
+            
+            tipopa.innerHTML="<input id='papval' type='text' value='"+tipopa.innerText+"'>";
+           
+            nopa.innerHTML="<input id='noimpreval' type='text' value='"+nopa.innerText+"'>";
+           
+            noimpre.innerHTML="<input id='nopapval' type='text' value='"+noimpre.innerText+"'>";
+            document.getElementById('boton'+fila).value="Aceptar";
+            var table = document.getElementById("tablaimpresionescompleta");
+            var rowtable=table.rows.length;
+             for (var j = 1; j < rowtable; j++) {
+             if(j!=fila){
+            document.getElementById('boton'+j).disabled=true;
+            document.getElementById('eli'+j).disabled=true;
+             }
+            }
+        
+             }else{
+            var modic=document.getElementById("tablaimpresiones").value;
+            var fecha=document.getElementById("impreval").name;
+            var impreval=document.getElementById("impreval").value;
+            var papval=document.getElementById("papval").value;
+            var noimpreval=document.getElementById("noimpreval").value;
+            var nopapval=document.getElementById("nopapval").value;
+            var total=fecha+"?FS.?"+impreval+"?FS.?"+papval+"?FS.?"+noimpreval+"?FS.?"+nopapval+"?CFS.?";
+            var res = modic.replace(modificando, total);
+            document.getElementById("tablaimpresiones").value=res;
+            var table = document.getElementById("tablaimpresionescompleta");
+            var rowtable=table.rows.length;
+            document.getElementById('boton'+fila).value="Modificar";
+            for (var j = 1; j < rowtable-1; j++) {
+            document.getElementById('boton'+j).disabled=false;
+            document.getElementById('eli'+j).disabled=false;
+            }
+            eliminarfila("");
+        }
         }
         function agregarfila(valor) {
 
@@ -84,14 +133,16 @@
                             }
                             i++;
                         });
-
+                        var numerodefila=indice+1;
                         var cellimg = row.insertCell(5);
                         var myvar = <?php echo json_encode($Htablaimpre); ?>;
                         if (myvar == "enabled") {
-                            var input = "<img style='cursor: pointer' name='" + valor + "?CFS.?" + "' src='Imagenes/tache.jpg' onclick='eliminarfila(this.name);reporte();'; >";
+                            var input = "<input type='button' id='eli"+numerodefila+"' style='cursor: pointer' name='" + valor + "?CFS.?" + "' value='Eliminar' onclick='eliminarfila(this.name);reporte();'; >";
 
                             cellimg.innerHTML = input;
                         }
+                        var cellmodif=row.insertCell(6);
+                        cellmodif.innerHTML="<input type='button' id='boton"+numerodefila+"'name='"+numerodefila+"'value='Modificar' onclick='modificartabla(this.name)'>"
                     }
                 });
                 rowCount = table.rows.length;
