@@ -52,7 +52,7 @@ if ($result=mysqli_query($link,$sql))
             $fecha1;
             $i=0;
             $arreglo[$i]=$comparar;
-            $nuevo="SELECT ID,NUMERO,PROYECTO,FECHA,OBSERVACIONES,FECHADOS,ESTATUS1,DISENADOR,ACTIVO FROM datos WHERE NUMERO=$arreglo[$i] ORDER BY FECHADOS";
+            $nuevo="SELECT ID,NUMERO,PROYECTO,FECHA,DETALLES,FECHADOS,ESTATUS1,DISENADOR,ACTIVO FROM datos WHERE NUMERO=$arreglo[$i] ORDER BY FECHADOS";
             if($rep=mysqli_query($link,$nuevo)){
               $filtrobool=false;
                 while($sele=mysqli_fetch_row($rep)){
@@ -118,7 +118,7 @@ if ($result=mysqli_query($link,$sql))
                     $estatus="Entregado";
                   }
                    ?> 
-                  <button class="btnhistorial"style="width:100%;" type="submit" name="id" value="<?php echo $seleccion[0]?>"><?php echo "<b>Fecha:</b> ".$seleccion[5]." <br><b> Diseñador:</b>  ".$seleccion[7]."<br><b>Estatus:</b> ".$estatus."<br><b>Observaciones:</b>".$seleccion[4]?></button>
+                  <button class="btnhistorial"style="width:100%;" type="submit" name="id" value="<?php echo $seleccion[0]?>"><?php echo "<b>Fecha:</b> ".$seleccion[5]." <br><b> Diseñador:</b>  ".$seleccion[7]."<br><b>Estatus:</b> ".$estatus."<br><b>DETALLES:</b>".$seleccion[4]?></button>
                 
                 
                    

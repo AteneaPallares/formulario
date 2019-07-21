@@ -21,6 +21,7 @@ if(isset($_POST['nombreusuarionuevo'])&& isset($_POST['passwordusuarionuevo']) &
          date_default_timezone_set('America/Mexico_City');
          $FECHA=date("Y-m-d H:i:s");
      }
+     
      if(isset($_POST['proyecto'])){$PROYECTO=$_POST['proyecto'];}else{$PROYECTO=$_POST['proyectodos'];}
      if(empty($PROYECTO)){$PROYECTO=$_POST['proyectodos'];}
      $MEMO=$_POST['memo'];if(empty($MEMO)){$MEMO=0;}
@@ -54,11 +55,23 @@ if(isset($_POST['nombreusuarionuevo'])&& isset($_POST['passwordusuarionuevo']) &
      $NOPAPEL=$_POST['cantidadpapel'];if(empty($NOPAPEL)){$NOPAPEL=0;}
      $NOIMPRESIONES=$_POST['cantidadimpre'];if(empty($NOIMPRESIONES)){$NOIMPRESIONES=0;}
      $tablaimpresiones=$_POST['tablaimpresiones'];if(empty($tablaimpresiones)){$tablaimpresiones="";}
-
+     if(isset($_POST['finalizar'])){$finalizar="6";}else{$finalizar="";}
+     $opciones="";
+     if($DISENADOR==""){
+         $opciones="1";
+     }
+     else{
+         $opciones="0";
+     }
+     if($finalizar=="6"){
+         $opciones="2";
+     }
+     
+     echo $finalizar;
 mysqli_multi_query($link,"INSERT INTO datos(NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,
-IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,NOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES,ACTIVO) 
+IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,NOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES,ACTIVO,OPCIONES) 
 VALUES('$numero','$FECHA','$MEMO','$ORDEN','$PROYECTO','$INFO','$IMAGEN','$LOGOS','$DETALLES','$RESPONSABLE','$TEL','$AREA','$CORREO','$FECHADOS',
-'$IMPRESO','$BITACORA','$ESTATUS1','$DISENADOR','$ORDENDOS','$NOPAPEL','$NOIMPRESIONES','$tablaimpresiones','1')") or die("<h2>Error Guardando los datos</h2>");
+'$IMPRESO','$BITACORA','$ESTATUS1','$DISENADOR','$ORDENDOS','$NOPAPEL','$NOIMPRESIONES','$tablaimpresiones','1','$opciones')") or die("<h2>Error Guardando los datos</h2>");
 
 echo'
     <script>

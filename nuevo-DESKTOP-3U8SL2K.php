@@ -27,6 +27,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
                     <div class="col-sm-12 col-xs-12 encabezado">
                         <label class="titulo">DATOS GENERALES</label>
                     </div>
+
                     <div class=" col-sm-6 col-xs-12 elementos"><label> No.Proyecto </label> <input type="number"
                             name="numero" id="numeroproyecto" onchange="reporte()" value="<?php echo $numero ?>"
                             <?php echo $Hnumero ?> required></div>
@@ -38,12 +39,8 @@ include 'php/funcionesnuevo/agregarvalores.php';
                     <div class=" col-sm-6 col-xs-12 elementos">
                         <label class="designer"> Diseñador</label>
                         <label class="designer"> <?php echo $disenador ?> </label>
-                        <select <?php echo $Hmemo;?> name="disenador" onchange="reporte()" ; id="disenador">
-                            <option value="<?php echo $disenador ?>">
-                                <?php echo $disenador;?>
-                            </option>
-                            <option value="">
-                            </option>
+                        <select <?php echo $Hmemo;?> name="disenador" onchange="agregarusuario();reporte()" ;
+                            id="disenador">
                             <?php
                 include 'php/conectar.php';
          $sql="SELECT NOMBRE,PASSWOR FROM usuario ORDER BY NOMBRE";
@@ -52,7 +49,6 @@ include 'php/funcionesnuevo/agregarvalores.php';
                 {
                 while ($row=mysqli_fetch_row($result))
                     {
-                        if($row[0]!="admin" && $row[0]!="gestor"){
                         if($row[0]==$_SESSION['nombre']){
                             $seleccionado="selected";
                         }
@@ -65,8 +61,9 @@ include 'php/funcionesnuevo/agregarvalores.php';
                             </option><?php
                     }
                 }
-                }
                 ?>
+                            <option value="AnAdIr123asd45gfdert76">Añadir</option>
+
                         </select>
                         <input type="hidden" name="nombreusuarionuevo" id="nombreusuarionuevo">
                         <input type="hidden" name="passwordsuarionuevo" id="passwordusuarionuevo">
@@ -98,23 +95,16 @@ include 'php/funcionesnuevo/agregarvalores.php';
                         <input type="number" name="memo" value="<?php echo $memo ?>" <?php echo $Hmemo ?>>
                     </div>
                     <div class=" col-sm-6 col-xs-12 elementos"><label> Recepción por: </label>
-
                         <select <?php echo $Hmemo ?> name="Orden" id="orden1" onchange="reporte()">
-                            <option value="<?php echo $orden?>">
-                                <?php echo $orden?></option>
                             <?php
-                        
         $sql="SELECT NOMBRE FROM recibir ORDER BY NOMBRE";
                 if ($result=mysqli_query($link,$sql))
                 {
-                    
                 while ($row=mysqli_fetch_row($result))
                     {
-                        if($row[0]!=$orden){
-                    ?>
-                            <option value="<?php echo $row[0]?>">
+                    ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>>
                                 <?php echo $row[0]?></option><?php
-                    }}
+                    }
                 }
                 ?>
                         </select>
@@ -122,17 +112,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
 
                     <input type="hidden" name="proyectodos" value="<?php echo $proyecto ?>">
                     <div class=" col-sm-6 col-xs-12 elementos"><label> Info Digital Completo
-                        </label> 
-                        <select name="info" <?php echo $Hinfo ?>>
-                        <?php if($info=="1"){
-                            echo '<option value="1" selected>Si</option>
-                            <option value="0">No</option>';
-                        }else{
-                            echo '<option value="1">Si</option>
-                            <option value="0" selected>No</option>';
-                        }?>
-                        </select>
-                        </div>
+                        </label><input type="text" name="info" value="<?php echo $info ?>" <?php echo $Hinfo ?>> </div>
                     <div class=" col-sm-6 col-xs-12 elementos"><label> Detalles del servicio
                         </label><textarea onchange="reporte()" type="text" name="detalles" id="detalles"
                             <?php echo $Hdetalles ?>><?php echo $detalles ?></textarea></div>
@@ -195,91 +175,50 @@ include 'php/funcionesnuevo/agregarvalores.php';
                         <label class="titulo">ESTATUS DELSERVICIO</label>
                     </div>
                     <!-- radio -->
-                    <div class="col-sm-12 col-xs-12 statusdad">
-                        <div class="status">
+                    <div class=" ">
 
-                            <div class="statusitem" id="1">
-                                <label class="labelstatus">Info<br><img id="radio" src="imagenes/info.png"><br><input class="centrado" type="radio"
-                                        name="estatus" id="rb1" value="1"
-                                        
-                                        onclick="
-                                        document.getElementById('1').style.backgroundColor='rgb(151, 146, 146)';
-                                        document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';"
-                                        
-                                        <?php if($estatus1=='1') {echo 'checked="checked"';}if($quitar==true){echo 'disabled=$activo';} ?>>
-                                </label>
-                            </div>
-                            <div class="statusitem" id="2">
-                                <label class="labelstatus">Propuesta<br><img id="radio" src="imagenes/propuesta.png"><br><input type="radio"
-                                        name="estatus" value="2" id="rb2" onclick="
-                                        document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('2').style.backgroundColor='rgb(151, 146, 146)';
-                                        document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';"
-                                        
-                                        <?php if($estatus1=='2') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>
-                                </label>
-                            </div>
-                            <div class="statusitem" id="3">
-                                <label class="labelstatus">Revisión<br><img id="radio" src="imagenes/revision.png"><br><input type="radio"
-                                        name="estatus" value="3" id="rb3" onclick="
-                                        document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('3').style.backgroundColor='rgb(151, 146, 146)';
-                                        document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';"
-                                        
-                                        <?php if($estatus1=='3') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>
-                                </label>
-                            </div>
-                            <div class="statusitem" id="4">
-                                <label class="labelstatus">Vobo<br><img id="radio" src="imagenes/vobo.png"><br><input type="radio" name="estatus"
-                                        value="4" id="rb4" onclick="
-                                        document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('4').style.backgroundColor='rgb(151, 146, 146)';
-                                        document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';"
-                                        
-                                        <?php if($estatus1=='4') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>
-                                </label>
-                            </div>
-                            <div class="statusitem" id="5">
-                                <label class="labelstatus">Impresión<br><img id="radio" src="imagenes/impresion.png"><br><input type="radio"
-                                        name="estatus" value="5" id="rb5" onclick="
-                                        document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('5').style.backgroundColor='rgb(151, 146, 146)';
-                                        document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';"
-                                        
-                                        <?php if($estatus1=='5') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>
-                                </label>
-                            </div>
-                            <div class="statusitem" id="6">
-                                <label class="labelstatus">Entregado<br><img id="radio" src="imagenes/entregado.png"><br><input type="radio"
-                                        name="estatus" value="6" id="rb6" onclick="
-                                        document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('6').style.backgroundColor='rgb(151, 146, 146)';
-                                        document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
-                                        document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';"
-                                        
-                                        <?php if($estatus1=='6') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>
-                                </label>
+                        <legend>Estado</legend>
+                        <div class="col-sm-12 col-xs-12 status">
+                            <div class="row">
+
+                                <div class="col-sm-2 col-xs-2">
+                                    <label>Info<img id="radio" src="imagenes/info.png"><input class="centrado"
+                                            type="radio" name="estatus" value="1"
+                                            <?php if($estatus1=='1') {echo 'checked="checked"';}if($quitar==true){echo 'disabled=$activo';} ?>>
+                                    </label>
+                                </div>
+                                <div class="col-sm-2 col-xs-2">
+                                    <label>Propuesta<img id="radio" src="imagenes/propuesta.png"><input type="radio"
+                                            name="estatus" value="2"
+                                            <?php if($estatus1=='2') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>
+                                    </label>
+                                </div>
+                                <div class="col-sm-2 col-xs-2">
+                                    <label>Revisión<img id="radio" src="imagenes/revision.png"><input type="radio"
+                                            name="estatus" value="3"
+                                            <?php if($estatus1=='3') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>
+                                    </label>
+                                </div>
+                                <div class="col-sm-2 col-xs-2">
+                                    <label>Vobo<img id="radio" src="imagenes/vobo.png"><input type="radio"
+                                            name="estatus" value="4"
+                                            <?php if($estatus1=='4') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>
+                                    </label>
+                                </div>
+                                <div class="col-sm-2 col-xs-2">
+                                    <label>Impresión<img id="radio" src="imagenes/impresion.png"><input type="radio"
+                                            name="estatus" value="5"
+                                            <?php if($estatus1=='5') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>\
+                                    </label>
+                                </div>
+                                <div class="col-sm-2 col-xs-2">
+                                    <label>Entregado<img id="radio" src="imagenes/entregado.png"><input type="radio"
+                                            name="estatus" value="6"
+                                            <?php if($estatus1=='6') {echo 'checked="checked"';} if($quitar==true){echo 'disabled=$activo';}?>>
+                                    </label>
+                                </div>
                             </div>
                         </div>
-
 
 
                     </div>
@@ -296,12 +235,9 @@ include 'php/funcionesnuevo/agregarvalores.php';
                     <div class=" col-sm-12 col-xs-12 encabezado">
                         <label class="titulo"> BITÁCORA</label>
                     </div>
-                    <div class=" col-sm-12 col-xs-12">
-                        <textarea onchange="reporte()"
-                            class="textarea" id="bitacora1" type="text"
-                            name="bitacora" <?php echo $Hbitacora ?>><?php echo $bitacora ?>
-                        </textarea>
-                    </div>
+                    <div class=" col-sm-12 col-xs-12"><textarea onchange="reporte()"
+                            style="width:100%;   text-align: center; height:100px" id="bitacora1" type="text"
+                            name="bitacora" <?php echo $Hbitacora ?>><?php echo $bitacora ?></textarea></div>
                 </div>
                 <div class=" col-sm-12 col-xs-12">
                     <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
@@ -312,24 +248,6 @@ include 'php/funcionesnuevo/agregarvalores.php';
                     <div class=" col-sm-12 col-xs-12 encabezado">
                         <label class="titulo"> IMPRESIONES</label>
                     </div>
-                    <div class=" col-sm-6 col-xs-12 elementos"><label> Aplicativo </label>
-                        <select class="cselect" name="aplicativoid" id="aplicativoid" <?php echo $Htipopapel ?>>
-                            <?php
-                 $sql="SELECT NOMBRE FROM aplicativo ORDER BY NOMBRE";
-                        if ($result=mysqli_query($link,$sql))
-                        {
-                        while ($row=mysqli_fetch_row($result))
-                            {
-                               ?> <option value="<?php echo $row[0]?>" >
-                                <?php echo $row[0]?>
-                            </option><?php
-                            }
-                        }
-                        ?>
-                        </select>
-                    </div>
-
-                    <br></br>
                     <div class=" col-sm-6 col-xs-12 elementos"><label> Tipo de impresión </label>
                         <select class="cselect" name="tipoimpresion" id="tipoimpresion" <?php echo $Htipoimpre ?>>
                             <?php
@@ -376,7 +294,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
                             <?php echo $Htablaimpre ?>>
                     </div>
                     <div class=" col-sm-12 col-xs-12">
-                        <center><label style="color:red; font-size:20px"id="estatusagregar"></label></center>
+                        <label id="estatusagregar"></label>
                     </div>
                     <div class=" col-sm-6 col-xs-12">
                         <label>Fecha Inicio-Fin</label>
@@ -391,7 +309,6 @@ include 'php/funcionesnuevo/agregarvalores.php';
                         <table id="tablaimpresionescompleta" <?php echo $Htablaimpre ?>>
                             <tr id="tablaimpresiones">
                                 <th>Fecha</th>
-                                <th>Applicativo</th>
                                 <th>Tipo Impresión</th>
                                 <th>Tipo de papel</th>
                                 <th>No. Papel</th>
@@ -407,10 +324,6 @@ include 'php/funcionesnuevo/agregarvalores.php';
                 <div class=" col-sm-12 col-xs-12">
                     <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
                         value="Guardar" <?php echo $registrarse ?> />
-                </div>
-                <div class=" col-sm-12 col-xs-12">
-                    <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="finalizar"
-                        value="Finalizar" <?php echo $registrarse ?> />
                 </div>
 
 
@@ -444,10 +357,10 @@ include 'php/funcionesnuevo/agregarvalores.php';
 
 
     <!-- FUNCIONES DE JAVASCRIPT -->
-    <?php include 'php/funcionesnuevo/funcionimagenes.php';?>
     <?php include 'php/funcionesnuevo/funcionreporte.php';?>
     <?php include 'php/funcionesnuevo/funciontabla.php';?>
-    
+    <?php include 'php/funcionesnuevo/emailnuevousuario.php';?>
+    <?php include 'php/funcionesnuevo/funcionimagenes.php';?>
     <script>
         // Este apartado es para hacer los calendarios de tipo datetimepicker
         $('#datetimedos').datetimepicker();

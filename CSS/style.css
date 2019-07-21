@@ -32,14 +32,39 @@ html{
     width: 20%;
 }
 .tabla{
-    overflow-x: scroll;
+    overflow-x: auto;
     display: block;
+
 }
 
 .status{
     overflow-x: auto;
-    display: block;
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+
 }
+
+.labelstatus{
+    width: 100%;
+    margin: 0px auto;
+}
+
+.textarea{
+    width:100%;
+    text-align: left;
+    height:200px
+}
+.statusitem{
+    display:inline-block;
+    text-align: center;
+    width: 10em;
+    margin:0px auto;
+    padding: 0%;
+    border-width: 5px;
+    border-style:solid;
+}
+
 .boton:hover{
     background-color: gray;
 }
@@ -48,6 +73,30 @@ html{
     border-style: solid;
     border-color: black;
     border-width: 3px;
+}
+
+.btndelete{
+    font-weight: bold;
+    float: left;
+    width: 100%;
+    text-align: center;
+    background-color: red;
+}
+
+.btnmodify{
+    font-weight: bold;
+    float: left;
+    width: 100%;
+    text-align: center;
+    background-color: green;
+}
+
+.impselect{
+    width: 100%;
+}
+
+.impinput{
+    width: 100%;
 }
 
 select{

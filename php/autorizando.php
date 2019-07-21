@@ -9,7 +9,6 @@
                             
                             <input type="hidden"  name="bitacora" value="'.$bitacora.'">
                            ';
-
                     }
                     elseif($username!="admin"){
                             ?>

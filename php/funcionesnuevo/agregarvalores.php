@@ -14,7 +14,7 @@
             $numero=$aux+1;$Hnumero="disabled";
             $fecha=date("Y/m/d H:i");$Hfecha="enabled";
             $memo=0;$Hmemo="enabled";
-            $orden=0;$Horden="enabled";
+            $orden="";$Horden="enabled";
             $proyecto="";$Hproyecto="enabled";
             $info="";$Hinfo="enabled";$Hinfo="enabled";
             $imagenes="";$Himagenes="enabled";
@@ -45,7 +45,7 @@
             $eliminar2="enabled";
             $correcto="enabled";
             $activo="enabled";
-            echo $username;
+            
            
             if((!empty($_POST['IDmenu'])) && (isset($_POST['IDmenu']))){
                 $registrarse=$activo;
@@ -67,7 +67,7 @@
                     $correcto="disabled";
                     $IDS=$_POST['id'];}
 
-           $sql="SELECT NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,CAPTURA,OBSERVACIONES,AUTORIZA,NOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES FROM datos WHERE ID=$IDS ORDER BY ID";
+           $sql="SELECT NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,NOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES FROM datos WHERE ID=$IDS ORDER BY ID";
             if ($result=mysqli_query($link,$sql))
             {
             while ($row=mysqli_fetch_row($result))
@@ -76,11 +76,11 @@
                     $fecha=$row[1];$Hfecha=$correcto;
                     $memo=$row[2];$Hmemo=$activo;
                     $orden=$row[3];$Horden=$activo;
+                    $sum=$row[3];
                     $proyecto=$row[4];$Hproyecto=$correcto;
                     $info=$row[5];$Hinfo=$activo;
                     $imagenes=$row[6];$Himagenes=$activo;
                     $logos=$row[7];$Hlogos=$activo;
-
                     $detalles=$row[8];$Hdetalles=$activo;
 
                     $responsable=$row[9];$Hresponsable=$activo;
@@ -93,13 +93,9 @@
                     $estatus1=$row[16];
                     $disenador=$row[17];$Hdisenador=$activo;
                     $ordenservicio=$row[18];$Hordenservicio=$activo;
-                    echo $ordenservicio;
-                    $capturaservicio=$row[19];$Hcapturaservicio=$activo;
-                    $observaciones=$row[20];$Hobservaciones=$activo;
-                    $autoriza=$row[21];$Hautoriza=$activo;
-                    $nopapel=$row[22];$Hnopapel=$activo;
-                    $noimpredos=$row[23];$Hnoimpredos=$activo;
-                    $tablaimpre=$row[24];$Htablaimpre=$activo;
+                    $nopapel=$row[19];$Hnopapel=$activo;
+                    $noimpredos=$row[20];$Hnoimpredos=$activo;
+                    $tablaimpre=$row[21];$Htablaimpre=$activo;
 
                 }
             mysqli_free_result($result);

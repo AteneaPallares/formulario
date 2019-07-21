@@ -10,6 +10,50 @@
             eliminarfila("");
             agregarfila("false");
             reporte();
+            if($("#rb1").is(':checked')){
+                document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('1').style.backgroundColor='rgb(151, 146, 146)';
+                document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
+            }else if($("#rb2").is(':checked')){
+                document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('2').style.backgroundColor='rgb(151, 146, 146)';
+                document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
+            }else if($("#rb3").is(':checked')){
+                document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('3').style.backgroundColor='rgb(151, 146, 146)';
+                document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
+            }else if($("#rb4").is(':checked')){
+                document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('4').style.backgroundColor='rgb(151, 146, 146)';
+                document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
+            }else if($("#rb5").is(':checked')){
+                document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('5').style.backgroundColor='rgb(151, 146, 146)';
+                document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
+            }else if($("#rb6").is(':checked')){
+                document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('6').style.backgroundColor='rgb(151, 146, 146)';
+                document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
+                document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
+            }
+            
         }
         // Esta función se encarga de eliminar todos los elementos de los div contenedores de imagenes
         function limpiar() {

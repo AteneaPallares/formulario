@@ -23,8 +23,9 @@ $numpro=0;
       <th >Fecha</th>
       <th >Nombre</th>
       <th >Estatus</th>
+      <th>Información</th>
       <th >Cliente</th>
-      <?php if($username=="admin"){
+      <?php if($username=="admin" || $username=="gestor"){
         echo '<th >Diseñador</th>';
       }
       ?>
@@ -57,8 +58,8 @@ if ($result=mysqli_query($link,$sql))
             $fecha1;
             $i=0;
             $arreglo[$i]=$comparar;
-           
-            $nuevo="SELECT ID,NUMERO,PROYECTO,FECHA,OBSERVACIONES,FECHADOS,ESTATUS1,DISENADOR,ACTIVO FROM datos WHERE NUMERO=$arreglo[$i] ORDER BY FECHADOS";
+           $comda="";
+            $nuevo="SELECT ID,NUMERO,PROYECTO,FECHA,OPCIONES,FECHADOS,ESTATUS1,DISENADOR,ACTIVO,INFO FROM datos WHERE NUMERO=$arreglo[$i] ORDER BY FECHADOS";
             if($rep=mysqli_query($link,$nuevo)){
               $filtrobool=false;
                 while($sele=mysqli_fetch_row($rep)){
@@ -67,48 +68,66 @@ if ($result=mysqli_query($link,$sql))
                     $filtrobool=true;
                     $aux=$sele[0];
                     $nomb=$sele[2];
+                    $comda=$sele[4];
                     $numero=$sele[1];
+                    $info=$sele[9];
                     $disenador=$sele[7];
+                    $estat=$sele[6];
                     $fecha=strftime("%d/%m/%Y", strtotime($sele[5]));
                   }
                   else{
                     $filtrobool=false;
                   }
                 }
+                
                 if($filtrobool==true){
                   $repetido=$repetido."+".$numero;
                 $ultimodato=$aux;
                 $numpro++;
                 $estatus="";
-                if($row[5]==1){
+                if($comda=="0"){
+                if($estat==1){
                   $estatus="Info";
                 }
-                if($row[5]==2){
+                if($estat==2){
                   $estatus="Propuesta";
                 }
-                if($row[5]==3){
+                if($estat==3){
                   $estatus="Revisión";
                 }
-                if($row[5]==4){
+                if($estat==4){
                   $estatus="Vobo";
                 }
-                if($row[5]==5){
+                if($estat==5){
                   $estatus="Impresión";
                 }
-                if($row[5]==6){
+                if($estat==6){
                   $estatus="Entregado";
                 }
+                }
+              elseif($comda=="2"){
+                $estatus="Finalizado";
+              }
+              else{
+                $estatus="No asignado";
+              }
                 ?>
                 
                 
                 <tr id="fila<?php echo $numero?>">
-                    <td ><?php echo $numero?></td>
+                    <td><?php echo $numero?></td>
                     <td ><?php echo $fecha?></td>
                     <td onclick="agre('proyecto<?php echo $numero?>','fila<?php echo $numero?>')" id="fila<?php echo $numero?>"><?php echo $nomb?></td>
                     <td ><?php echo  $estatus?></td>
+                    <td><?php if($info=="1"){echo 'Completa';}else{echo 'Incompleta';}?></td>
                     <td ><?php echo $row[6]?></td>
-                    <?php if($username=="admin"){
+                    <?php if($username=="admin" || $username=="gestor"){
+                      if($disenador!=""){
                   echo '<td >'.$disenador.'</td>';
+                      }
+                      else{
+                        echo '<td >------</td>';
+                      }
                   }?>
                     
                     <td>

@@ -21,16 +21,17 @@
             var tipopa=document.getElementById("tablaimpresionescompleta").rows[fila].cells[3];
             var nopa=document.getElementById("tablaimpresionescompleta").rows[fila].cells[4];
             var noimpre=document.getElementById("tablaimpresionescompleta").rows[fila].cells[5];
-
+              // declaración de la variable 
+    
             modificando=fechad.innerText+"?FS.?"+apli.innerText+"?FS.?"+tipoimpre.innerText+"?FS.?"+tipopa.innerText+"?FS.?"+nopa.innerText+"?FS.?"+noimpre.innerText+"?CFS.?";
-            alert(modificando);
-            apli.innerHTML='<select class="cselect"  id="aplic"><?php $sql="SELECT NOMBRE FROM aplicativo ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
+            
+            apli.innerHTML='<select class="impselect"  id="aplic"><option value="'+apli.innerText+'">'+apli.innerText+'</option><?php $sql="SELECT NOMBRE FROM aplicativo ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?><option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }}?></select>';
             // tipoimpre.innerHTML="<input id='impreval' name='"+fechad.innerText+"' type='text' value='"+tipoimpre.innerText+"'>";
-            tipoimpre.innerHTML='<select class="cselect" name="'+fechad.innerText+'" id="impreval"><?php $sql="SELECT NOMBRE FROM tipoimpre ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
+            tipoimpre.innerHTML='<select class="impselect" name="'+fechad.innerText+'" id="impreval"><?php $sql="SELECT NOMBRE FROM tipoimpre ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
             // tipopa.innerHTML="<input id='papval' type='text' value='"+tipopa.innerText+"'>";
-            tipopa.innerHTML='<select class="cselect"  id="papval"><?php $sql="SELECT NOMBRE FROM tipopapel ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
-            nopa.innerHTML="<input id='noimpreval' type='text' value='"+nopa.innerText+"'>";
-                       noimpre.innerHTML="<input id='nopapval' type='text' value='"+noimpre.innerText+"'>";
+            tipopa.innerHTML='<select class="impselect"  id="papval"><?php $sql="SELECT NOMBRE FROM tipopapel ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
+            nopa.innerHTML="<input class='impinput' id='noimpreval' type='text' value='"+nopa.innerText+"'>";
+                       noimpre.innerHTML="<input class='impinput'  id='nopapval' type='text' value='"+noimpre.innerText+"'>";
 
             document.getElementById('boton'+fila).value="Aceptar";
             var table = document.getElementById("tablaimpresionescompleta");
@@ -64,8 +65,8 @@
         }
         }
         function agregarfila(valor) {
-
-            if ((($("#tipoimpresion").val() != null) && ($("#tipopapel").val() != null)) || condicional == true) {
+            
+            if ((($("#aplicativoid").val() != null) && ($("#tipoimpresion").val() != null) && ($("#tipopapel").val() != null)) || condicional == true ) {
 
                 var hoy = new Date();
                 var dd = hoy.getDate();
@@ -121,7 +122,6 @@
                     var fecha1 = Date.parse(fecha1a);
                     var fecha2a=$("#fechados").val();
                     var fecha2 = Date.parse(fecha2a);
-
                     if (fechafila >= fecha1 && fechafila <= fecha2) {
                         filas.forEach(function (columna, indice, array) {
 
@@ -139,12 +139,12 @@
                         var cellimg = row.insertCell(6);
                         var myvar = <?php echo json_encode($Htablaimpre); ?>;
                         if (myvar == "enabled") {
-                            var input = "<input type='button' id='eli"+numerodefila+"' style='cursor: pointer' name='" + valor + "?CFS.?" + "' value='Eliminar' onclick='eliminarfila(this.name);reporte();'; >";
+                            var input = "<input type='button' class='btndelete' id='eli"+numerodefila+"' style='cursor: pointer' name='" + valor + "?CFS.?" + "' value='Eliminar' onclick='eliminarfila(this.name);reporte();'; >";
 
                             cellimg.innerHTML = input;
                         }
                         var cellmodif=row.insertCell(7);
-                        cellmodif.innerHTML="<input type='button' id='boton"+numerodefila+"'name='"+numerodefila+"'value='Modificar' onclick='modificartabla(this.name)'>"
+                        cellmodif.innerHTML="<input type='button' class='btnmodify' id='boton"+numerodefila+"'name='"+numerodefila+"'value='Modificar' onclick='modificartabla(this.name)'>"
                     }
                 });
                 rowCount = table.rows.length;
@@ -166,6 +166,7 @@
                 document.getElementById('tablaimpresiones').value = nuevafila;
                 document.getElementById('tipoimpresion').value = "";
                 document.getElementById('tipopapel').value = "";
+                document.getElementById('aplicativoid').value = "";
                 document.getElementById('cantidadpapel').value = 0;
                 document.getElementById('cantidadimpresiones').value = 0;
                 eliminandofila = false;
@@ -173,7 +174,9 @@
 
             }
             else {
+                if(valor=="true"){
                 document.getElementById('estatusagregar').innerHTML = "Faltan datos por llenar ";
+                }
 
             }
 
