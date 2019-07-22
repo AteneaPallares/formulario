@@ -2,6 +2,7 @@
             
             $sql="SELECT ID,NUMERO FROM datos  ORDER BY NUMERO ASC";
             $aux=0;
+            
             if ($result=mysqli_query($link,$sql))
             {
                 while ($row=mysqli_fetch_row($result))
@@ -9,7 +10,7 @@
                         $aux=$row[1];
                     }
             }
-
+            $hboton="";
             $urlimagen="https://www.loboswiki.com/Imagenes/imagen-tierna-de-lobos.jpg";
             date_default_timezone_set('America/Mexico_City');
             $numero=$aux+1;$Hnumero="disabled";
@@ -116,7 +117,9 @@
             mysqli_free_result($result);
             }
             mysqli_close($link);}
+            
             if($username=="gestor"){
+                $hboton="hidden";
                 $desactivar="enabled";
                 $Hnumero="disabled";
                 $Hmemo="enabled";
@@ -186,4 +189,40 @@
             $correcto="disabled";
             $activo="enabled";
     }
+    if(isset($_POST['histo']))
+            {
+                $Htablaimpre="disabled";
+            $Hnumero="disabled";
+            $Hfecha="disabled";
+            $Hmemo="disabled";
+            $Horden="disabled";
+            $Hproyecto="disabled";
+            $Hinfo="disabled";$Hinfo="disabled";
+            $Himagenes="disabled";
+            $Hlogos="disabled";
+            $Hdetalles="disabled";
+            $Hresponsable="disabled";
+            $Htel="disabled";
+            $Harea="disabled";
+            $Hcorreo="disabled";
+            $Hfechados="disabled";
+            $Hnoimpresos="disabled";
+            $Hbitacora="enabled";
+            $Hdisenador="disabled";
+            $Hordenservicio="disabled";
+            $Hcapturaservicio="disabled";
+            $Hobservaciones="disabled";
+            $Hautoriza="disabled";
+            $Htipoimpre="disabled";
+            $Hnopapel="disabled";
+            $Htipopapel="disabled";
+            $Hnoimpredos="disabled";
+            $registrarse="disabled";
+            $borrar="disabled";
+            $quitar=false;
+            $eliminar1="disabled";
+            $eliminar2="disabled";
+            $correcto="disabled";
+            $activo="disabled";
+            }
             ?>

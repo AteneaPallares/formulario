@@ -25,11 +25,11 @@
     
             modificando=fechad.innerText+"?FS.?"+apli.innerText+"?FS.?"+tipoimpre.innerText+"?FS.?"+tipopa.innerText+"?FS.?"+nopa.innerText+"?FS.?"+noimpre.innerText+"?CFS.?";
             
-            apli.innerHTML='<select class="impselect"  id="aplic"><option value="'+apli.innerText+'">'+apli.innerText+'</option><?php $sql="SELECT NOMBRE FROM aplicativo ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?><option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }}?></select>';
+            apli.innerHTML='<select class="impselect"  id="aplic"><option value="'+apli.innerText+'" selected>'+apli.innerText+'</option><?php $sql="SELECT NOMBRE FROM aplicativo ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?><option value="<?php echo $row[0]?>" > <?php echo $row[0]?></option><?php }}?></select>';
             // tipoimpre.innerHTML="<input id='impreval' name='"+fechad.innerText+"' type='text' value='"+tipoimpre.innerText+"'>";
-            tipoimpre.innerHTML='<select class="impselect" name="'+fechad.innerText+'" id="impreval"><?php $sql="SELECT NOMBRE FROM tipoimpre ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
+            tipoimpre.innerHTML='<select class="impselect" name="'+fechad.innerText+'" id="impreval"><option value="'+tipoimpre.innerText+'" selected>'+tipoimpre.innerText+'</option><?php $sql="SELECT NOMBRE FROM tipoimpre ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" > <?php echo $row[0]?></option><?php }} ?></select>';
             // tipopa.innerHTML="<input id='papval' type='text' value='"+tipopa.innerText+"'>";
-            tipopa.innerHTML='<select class="impselect"  id="papval"><?php $sql="SELECT NOMBRE FROM tipopapel ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" <?php echo $seleccionado ?>> <?php echo $row[0]?></option><?php }} ?></select>';
+            tipopa.innerHTML='<select class="impselect"  id="papval"><option value="'+tipopa.innerText+'" selected>'+tipopa.innerText+'</option><?php $sql="SELECT NOMBRE FROM tipopapel ORDER BY NOMBRE";if ($result=mysqli_query($link,$sql)){while ($row=mysqli_fetch_row($result)){ ?> <option value="<?php echo $row[0]?>" > <?php echo $row[0]?></option><?php }} ?></select>';
             nopa.innerHTML="<input class='impinput' id='noimpreval' type='text' value='"+nopa.innerText+"'>";
                        noimpre.innerHTML="<input class='impinput'  id='nopapval' type='text' value='"+noimpre.innerText+"'>";
 
@@ -65,8 +65,6 @@
         }
         }
         function agregarfila(valor) {
-            var de=document.getElementById("tablaimpresiones1").value;
-            alert(de);
             if ((($("#aplicativoid").val() != null) && ($("#tipoimpresion").val() != null) && ($("#tipopapel").val() != null)) || condicional == true ) {
 
                 var hoy = new Date();
@@ -140,12 +138,12 @@
                         var cellimg = row.insertCell(6);
                         var myvar = <?php echo json_encode($Htablaimpre); ?>;
                         if (myvar == "enabled") {
-                            var input = "<input type='button' class='btndelete' id='eli"+numerodefila+"' style='cursor: pointer' name='" + valor + "?CFS.?" + "' value='Eliminar' onclick='eliminarfila(this.name);reporte();'; >";
+                            var input = "<input type='button' class='btndelete' id='eli"+numerodefila+"' style='cursor: pointer' name='" + valor + "?CFS.?" + "' value='Eliminar' onclick='eliminarfila(this.name);reporte();'; <?php echo $hboton?>>";
 
                             cellimg.innerHTML = input;
                         }
                         var cellmodif=row.insertCell(7);
-                        cellmodif.innerHTML="<input type='button' class='btnmodify' id='boton"+numerodefila+"'name='"+numerodefila+"'value='Modificar' onclick='modificartabla(this.name)'>"
+                        cellmodif.innerHTML="<input type='button' class='btnmodify' id='boton"+numerodefila+"'name='"+numerodefila+"'value='Modificar' onclick='modificartabla(this.name)' <?php echo $hboton?>>"
                     }
                 });
                 rowCount = table.rows.length;

@@ -42,7 +42,10 @@ if ($result=mysqli_query($link,$sql))
   {
   while ($row=mysqli_fetch_row($result))
     {
+      $estatus="No asignado";
+      $disenador="";
        if($PROYECTONO==$row[1] && ($PROYECTONO!="")){
+        $disenador=$row[7];
                 if($row[5]==1){
                   $estatus="Info";
                 }
@@ -61,12 +64,17 @@ if ($result=mysqli_query($link,$sql))
                 if($row[5]==6){
                   $estatus="Entregado";
                 }
+
+                if($disenador==""){
+                  $disenador="---";
+                }
                 ?>
                 <tr>
                     <td ><?php echo $row[4]?></td>
                     <td ><?php echo  $estatus?></td>
                     <td ><?php echo $row[6]?></td>
-                    <td ><?php echo $row[7]?></td>
+
+                    <td ><?php echo $disenador?></td>
                     <td>
                         <table>
                         <tr><td>Impresiones: <?php echo $row[9]?><td><td>Usuario:<?php echo $row[6]?><td><td>Recibido:<?php echo $row[11]?><td><tr>
@@ -79,6 +87,7 @@ if ($result=mysqli_query($link,$sql))
                     <form action="nuevo.php" method="post" target="_blank" enctype="multipart/form-data">
                     <input type="hidden" id="IDmenu" name="IDmenu" value="<?php echo $row[0]?>">
                     <input type="hidden" id="id2f" name="id" value="<?php echo $row[0]?>">
+                    <input type="hidden" id="histo" name="histo" value="true">
                     <input type="submit" class="btn btn-success" value="Ver más">
                     </form>
                </label>

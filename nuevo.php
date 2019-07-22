@@ -405,7 +405,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
 
 
                 <div class=" col-sm-12 col-xs-12">
-                <input class="boton guardar" style="width:30%;   text-align: center;" type="button" value="Guardar" onclick="enviarregistro()"><label style="font-size:20; color:blue;" id="estadoenviar3"></label>
+                <input class="boton guardar" style="width:30%;   text-align: center;" type="button" value="Guardar" onclick="enviarregistro()" <?php echo $registrarse;?>><label style="font-size:20; color:blue;" id="estadoenviar3"></label>
                 
                 </div>
 

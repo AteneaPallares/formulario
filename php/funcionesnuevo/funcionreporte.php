@@ -13,7 +13,7 @@ function reporte() {
             document.getElementById('correo').value = $("#correo1").val();
             document.getElementById('ordenservicio').value = $("#orden1").val();
             document.getElementById('cantidadimpresos').value = $("#cantidadimpresos1").val();
-            document.getElementById('tabla').value = $("#tablaimpresiones").val();
+            document.getElementById('tabla').value = $("#tablaimpresiones1").val();
             document.getElementById('bitacora').value = $("#bitacora1").val();
         }
 </script>

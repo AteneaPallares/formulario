@@ -34,7 +34,7 @@
     }
      $IMPRESO=$_POST['impreso'];if(empty($IMPRESO)){$IMPRESO=0;}
      $BITACORA=$_POST['bitacora'];if(empty($BITACORA)){$BITACORA="";}
-     if (isset($_POST['estatus']))$ESTATUS1=$_POST['estatus'];else $ESTATUS1=1;
+     if (isset($_POST['estatus']))$ESTATUS1=$_POST['estatus'];else {$ESTATUS1=1;}
      $DISENADOR=$_POST['disenador'];if(empty($DISENADOR)){$DISENADOR="";}
      if($DISENADOR=="AnAdIr123asd45gfdert76")
      {
