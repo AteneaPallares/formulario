@@ -10,6 +10,12 @@
             eliminarfila("");
             agregarfila("false");
             reporte();
+            document.getElementById('1').style.backgroundColor='rgb(216, 208, 208)';
+            document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
+            document.getElementById('3').style.backgroundColor='rgb(216, 208, 208)';
+            document.getElementById('4').style.backgroundColor='rgb(216, 208, 208)';
+            document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
+            document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';
             if($("#rb1").is(':checked')){
                 document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';
                 document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';

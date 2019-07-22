@@ -135,6 +135,7 @@ if ($result=mysqli_query($link,$sql))
                     <form id="enviaranuevo"action="nuevo.php" method="post" enctype="multipart/form-data">
                     <input type="hidden" id="IDmenu" name="IDmenu" value="<?php echo $ultimodato ?>">
                     <input type="hidden" id="id2f" name="id" value="<?php echo $sele[0]?>">
+                    <input type="hidden" id="ultimovalor" name="ultimovalor" value="<?php echo $numero?>">
                     <input  type="hidden" id="submitmenu" name="submitmenu" value="<?php echo $nomb?>">
                     <input type="submit" class="btn btn-primary" value="Ir">
                     </form>

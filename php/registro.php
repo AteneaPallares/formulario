@@ -1,13 +1,6 @@
  <!-- conecta con la base de datos para insertar los datos del formulario nuevo.php  -->
     <?php
    include 'conectar.php';
- // Crear nuevo usuario
-if(isset($_POST['nombreusuarionuevo'])&& isset($_POST['passwordusuarionuevo']) &&isset($_POST['correousuarionuevo'])){
- if(($_POST['nombreusuarionuevo']!=null)&&($_POST['passwordusuarionuevo']!=null)&&($_POST['correousuarionuevo']!=null)){
-   
-
-}
-}
 
 // Fin crear nuevo usuario 
 

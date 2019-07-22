@@ -17,7 +17,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
 ?>
 
     <!-- Código para crear el nuevo registro -->
-    <form action="php/registro.php" method="POST" enctype="multipart/form-data" id="completo">
+    <form action="php/registro.php" method="post" enctype="multipart/form-data" id="completo">
         <div class="container">
 
 
@@ -85,8 +85,8 @@ include 'php/funcionesnuevo/agregarvalores.php';
                 </div>
 
                 <div class=" col-sm-12 col-xs-12">
-                    <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
-                        value="Guardar" <?php echo $registrarse ?> />
+                <input class="boton guardar" style="width:30%;   text-align: center;" type="button" value="Guardar" onclick="enviarregistro()" <?php echo $registrarse;?>><label style="font-size:20; color:blue;" id="estadoenviar"></label>
+                
                 </div>
 
 
@@ -186,8 +186,8 @@ include 'php/funcionesnuevo/agregarvalores.php';
                 </div>
 
                 <div class=" col-sm-12 col-xs-12">
-                    <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
-                        value="Guardar" <?php echo $registrarse ?> />
+                <input class="boton guardar" style="width:30%;   text-align: center;" type="button" value="Guardar" onclick="enviarregistro()" <?php echo $registrarse;?>><label style="font-size:20; color:blue;" id="estadoenviar1"></label>
+                
                 </div>
 
                 <div class="col-sm-12 col-xs-12 seccion">
@@ -201,7 +201,6 @@ include 'php/funcionesnuevo/agregarvalores.php';
                             <div class="statusitem" id="1">
                                 <label class="labelstatus">Info<br><img id="radio" src="imagenes/info.png"><br><input class="centrado" type="radio"
                                         name="estatus" id="rb1" value="1"
-                                        
                                         onclick="
                                         document.getElementById('1').style.backgroundColor='rgb(151, 146, 146)';
                                         document.getElementById('2').style.backgroundColor='rgb(216, 208, 208)';
@@ -210,7 +209,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
                                         document.getElementById('5').style.backgroundColor='rgb(216, 208, 208)';
                                         document.getElementById('6').style.backgroundColor='rgb(216, 208, 208)';"
                                         
-                                        <?php if($estatus1=='1') {echo 'checked="checked"';}if($quitar==true){echo 'disabled=$activo';} ?>>
+                                        <?php if($estatus1=='1') {echo 'checked="checked"';}else{}if($quitar==true){echo 'disabled=$activo';} ?>>
                                 </label>
                             </div>
                             <div class="statusitem" id="2">
@@ -288,8 +287,8 @@ include 'php/funcionesnuevo/agregarvalores.php';
                 </div>
 
                 <div class=" col-sm-12 col-xs-12">
-                    <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
-                        value="Guardar" <?php echo $registrarse ?> />
+                <input class="boton guardar" style="width:30%;   text-align: center;" type="button" value="Guardar" onclick="enviarregistro()" <?php echo $registrarse;?>><label style="font-size:20; color:blue;" id="estadoenviar2"></label>
+                
                 </div>
 
                 <div class="seccion col-sm-12 col-xs-12">
@@ -304,8 +303,8 @@ include 'php/funcionesnuevo/agregarvalores.php';
                     </div>
                 </div>
                 <div class=" col-sm-12 col-xs-12">
-                    <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
-                        value="Guardar" <?php echo $registrarse ?> />
+                <input class="boton guardar" style="width:30%;   text-align: center;" type="button" value="Guardar" onclick="enviarregistro()" <?php echo $registrarse;?>><label style="font-size:20; color:blue;" id="estadoenviar4"></label>
+                
                 </div>
 
                 <div class="col-sm-12 col-xs-12 seccion">
@@ -404,13 +403,12 @@ include 'php/funcionesnuevo/agregarvalores.php';
 
                 </div>
 
+               
+
+
                 <div class=" col-sm-12 col-xs-12">
-                    <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="submitdos"
-                        value="Guardar" <?php echo $registrarse ?> />
-                </div>
-                <div class=" col-sm-12 col-xs-12">
-                    <input class="boton guardar" style="width:30%;   text-align: center;" type="submit" name="finalizar"
-                        value="Finalizar" <?php echo $registrarse ?> />
+                <input class="boton guardar" style="width:30%;   text-align: center;" type="button" value="Guardar" onclick="enviarregistro()"><label style="font-size:20; color:blue;" id="estadoenviar3"></label>
+                
                 </div>
 
 
@@ -449,6 +447,105 @@ include 'php/funcionesnuevo/agregarvalores.php';
     <?php include 'php/funcionesnuevo/funciontabla.php';?>
     
     <script>
+    function enviarregistro(){
+        var valorestatus=0;
+        var estat=document.getElementsByName("proyecto")[0].value;
+        if(estat!=""){
+            document.getElementById("estadoenviar").innerText="";
+            document.getElementById("estadoenviar1").innerText="";
+            document.getElementById("estadoenviar2").innerText="";
+            document.getElementById("estadoenviar3").innerText="";
+            document.getElementById("estadoenviar4").innerText="";
+        if($("#rb1").is(':checked')){
+            valorestatus=1;
+            }else if($("#rb2").is(':checked')){
+                valorestatus=2;
+            }else if($("#rb3").is(':checked')){
+                valorestatus=3;
+            }else if($("#rb4").is(':checked')){
+                valorestatus=4;
+            }else if($("#rb5").is(':checked')){
+                valorestatus=5;
+            }else if($("#rb6").is(':checked')){
+                valorestatus=6;
+            }
+        // var numerosa=document.getElementsByName("numero")[0].value;
+        // alert(numerosa);
+        var parametros2 = {
+                    "numero":document.getElementsByName("numero")[0].value,
+                    "fechad":document.getElementsByName("fechad")[0].value,
+                    "proyecto":document.getElementsByName("proyecto")[0].value,
+                    "proyectodos":document.getElementsByName("proyectodos")[0].value,
+                    "memo":document.getElementsByName("memo")[0].value,
+                    "Orden":document.getElementsByName("Orden")[0].value,
+                    "info":document.getElementsByName("info")[0].value,
+                    "imagennueva":document.getElementsByName("imagennueva")[0].value,
+                    "imagennuevados":document.getElementsByName("imagennuevados")[0].value,
+                    "detalles":document.getElementsByName("detalles")[0].value,
+                    "usuario":document.getElementsByName("usuario")[0].value,
+                    "tel":document.getElementsByName("tel")[0].value,
+                    "area":document.getElementsByName("area")[0].value,
+                    "correo":document.getElementsByName("correo")[0].value,
+                    "time":document.getElementsByName("time")[0].value,
+                    "impreso":document.getElementsByName("impreso")[0].value,
+                    "bitacora":document.getElementsByName("bitacora")[0].value,
+                    "estatus":valorestatus,
+                    "disenador":document.getElementsByName("disenador")[0].value,
+                    "ordenservicio":document.getElementsByName("ordenservicio")[0].value,
+                    "cantidadpapel":document.getElementsByName("cantidadpapel")[0].value,
+                    "cantidadimpre":document.getElementsByName("cantidadimpre")[0].value,
+                    "numerodos":document.getElementsByName("numerodos")[0].value,
+                    "proyectodos":document.getElementsByName("proyectodos")[0].value,
+                    "img":document.getElementsByName("img")[0].value,
+                    "log":document.getElementsByName("log")[0].value,
+                    "impreso":document.getElementsByName("impreso")[0].value,
+                    "fechauno":document.getElementsByName("fechauno")[0].value,
+                    "fechados":document.getElementsByName("fechados")[0].value,
+                    "tablaimpresiones":document.getElementsByName("tablaimpresiones")[0].value
+        };
+        $.ajax({
+                data:  parametros2,
+                url:   'php/registro.php',
+                type:  'post',
+                beforeSend: function () {
+            document.getElementById("estadoenviar").innerText="Guardando";
+            document.getElementById("estadoenviar1").innerText="Guardando";
+            document.getElementById("estadoenviar2").innerText="Guardando";
+            document.getElementById("estadoenviar3").innerText="Guardando";
+            document.getElementById("estadoenviar4").innerText="Guardando";
+            
+            
+
+                },
+                success:  function (response) {
+                    
+            document.getElementById("estadoenviar").innerText="Guardado";
+            document.getElementById("estadoenviar").style.color="black";
+            document.getElementById("estadoenviar1").innerText="Guardado";
+            document.getElementById("estadoenviar1").style.color="black";
+            document.getElementById("estadoenviar2").innerText="Guardado";
+            document.getElementById("estadoenviar2").style.color="black";
+            document.getElementById("estadoenviar3").innerText="Guardado";
+            document.getElementById("estadoenviar3").style.color="black";
+            document.getElementById("estadoenviar4").innerText="Guardado";
+            document.getElementById("estadoenviar4").style.color="black";
+                }
+        });
+        }
+        else{
+            document.getElementById("estadoenviar").innerText="Llenar el nombre del proyecto";
+            document.getElementById("estadoenviar").style.color="red";
+            document.getElementById("estadoenviar1").innerText="Llenar el nombre del proyecto";
+            document.getElementById("estadoenviar1").style.color="red";
+            document.getElementById("estadoenviar2").innerText="Llenar el nombre del proyecto";
+            document.getElementById("estadoenviar2").style.color="red";
+            document.getElementById("estadoenviar3").innerText="Llenar el nombre del proyecto";
+            document.getElementById("estadoenviar3").style.color="red";
+            document.getElementById("estadoenviar4").innerText="Llenar el nombre del proyecto";
+            document.getElementById("estadoenviar4").style.color="red";
+
+        }
+    }
         // Este apartado es para hacer los calendarios de tipo datetimepicker
         $('#datetimedos').datetimepicker();
         $('#datetime').datetimepicker();

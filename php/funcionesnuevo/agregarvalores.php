@@ -9,6 +9,7 @@
                         $aux=$row[1];
                     }
             }
+
             $urlimagen="https://www.loboswiki.com/Imagenes/imagen-tierna-de-lobos.jpg";
             date_default_timezone_set('America/Mexico_City');
             $numero=$aux+1;$Hnumero="disabled";
@@ -66,6 +67,21 @@
                     $borrar="disabled";
                     $correcto="disabled";
                     $IDS=$_POST['id'];}
+               if(isset($_POST['ultimovalor'])&& (!empty($_POST['ultimovalor']))){
+                   $ultimovalor=$_POST['ultimovalor'];
+                   $sql="SELECT ID,NUMERO FROM datos WHERE NUMERO=$ultimovalor ORDER BY ID DESC";
+
+                   if ($result=mysqli_query($link,$sql))
+                   {
+                   while ($row=mysqli_fetch_row($result))
+                       {
+                           $IDS=$row[0];
+                           break;
+                       }
+                    }
+          
+            
+               }
 
            $sql="SELECT NUMERO,FECHA,MEMO,ORDEN,PROYECTO,INFO,IMAGENES,LOGOS,DETALLES,RESPONSABLE,TEL,AREA,CORREO,FECHADOS,IMPRESO,BITACORA,ESTATUS1,DISENADOR,ORDENDOS,NOPAPEL,NOIMPRESIONES,TABLAIMPRESIONES FROM datos WHERE ID=$IDS ORDER BY ID";
             if ($result=mysqli_query($link,$sql))
@@ -96,7 +112,6 @@
                     $nopapel=$row[19];$Hnopapel=$activo;
                     $noimpredos=$row[20];$Hnoimpredos=$activo;
                     $tablaimpre=$row[21];$Htablaimpre=$activo;
-
                 }
             mysqli_free_result($result);
             }
@@ -116,7 +131,6 @@
                 $Hcorreo="enabled";
                 $Hfechados="enabled";
                 $Hnoimpresos="enabled";
-                $estatus1=0;
                 $Hdisenador="disabled";
                 $Hordenservicio="enabled";
                 $Hcapturaservicio="disabled";
