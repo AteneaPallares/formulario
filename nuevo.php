@@ -22,7 +22,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
 
 
             <div class="row">
-                <?php include 'php/autorizando.php';?>
+                <?php include 'php/autorizando.php'?>
                 <div class="col-sm-12 col-xs-12 seccion">
                     <div class="col-sm-12 col-xs-12 encabezado">
                         <label class="titulo">DATOS GENERALES</label>
@@ -39,9 +39,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
                         <label class="designer"> Diseñador</label>
                         <label class="designer"> <?php echo $disenador ?> </label>
                         <select <?php echo $Hmemo;?> name="disenador" onchange="reporte()" ; id="disenador">
-                            <option value="<?php echo $disenador ?>">
-                                <?php echo $disenador;?>
-                            </option>
+                            
                             <option value="">
                             </option>
                             <?php
@@ -53,7 +51,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
                 while ($row=mysqli_fetch_row($result))
                     {
                         if($row[0]!="admin" && $row[0]!="gestor"){
-                        if($row[0]==$_SESSION['nombre']){
+                        if($row[0]==$disenador){
                             $seleccionado="selected";
                         }
                         else{
@@ -368,8 +366,8 @@ include 'php/funcionesnuevo/agregarvalores.php';
                             name="cantidadimpre" id="cantidadimpresiones" value="<?php echo $noimpredos ?>"
                             <?php echo $Hnoimpredos ?>></div>
 
-                    <input type="hidden" onchange="reporte()" id="tablaimpresiones" name="tablaimpresiones"
-                        value="<?php echo $tablaimpre ?>" <?php echo $Htablaimpre ?> onchange="agregarfila()">
+                    <input type="hidden" onchange="reporte()" id="tablaimpresiones1" name="tablaimpresiones1"
+                        value="<?php echo $tablaimpre?>"  onchange="agregarfila()">
                     <div class=" col-sm-12 col-xs-12" style="display:flex;justify-content: center">
                         <input class="boton" type="button" value="Agregar" onclick="agregarfila('true');reporte();"
                             <?php echo $Htablaimpre ?>>
@@ -501,7 +499,7 @@ include 'php/funcionesnuevo/agregarvalores.php';
                     "impreso":document.getElementsByName("impreso")[0].value,
                     "fechauno":document.getElementsByName("fechauno")[0].value,
                     "fechados":document.getElementsByName("fechados")[0].value,
-                    "tablaimpresiones":document.getElementsByName("tablaimpresiones")[0].value
+                    "tablaimpresiones":document.getElementsByName("tablaimpresiones1")[0].value
         };
         $.ajax({
                 data:  parametros2,

@@ -121,7 +121,7 @@
                 $Hnumero="disabled";
                 $Hmemo="enabled";
                 $Horden="enabled";
-                $Hinfo="enabled";$Hinfo="enabled";
+                $Hinfo="enabled";
                 $Himagenes="enabled";
                 $Hlogos="enabled";
                 $Hdetalles="enabled";
@@ -169,7 +169,6 @@
             $Hfechados="disabled";
             $Hnoimpresos="disabled";
             $Hbitacora="enabled";
-            $estatus1=0;
             $Hdisenador="disabled";
             $Hordenservicio="disabled";
             $Hcapturaservicio="disabled";

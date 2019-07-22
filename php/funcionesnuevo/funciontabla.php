@@ -3,9 +3,9 @@
       var modificando="";
         var eliminandofila = false;
         function eliminarfila(fila) {
-            var cadena = $("#tablaimpresiones").val();
+            var cadena = $("#tablaimpresiones1").val();
             var res = cadena.replace(fila, "");
-            document.getElementById('tablaimpresiones').value = res;
+            document.getElementById('tablaimpresiones1').value = res;
             eliminandofila = true;
             condicional = true;
             agregarfila("false");
@@ -44,7 +44,7 @@
             }
         
              }else{
-            var modic=document.getElementById("tablaimpresiones").value;
+            var modic=document.getElementById("tablaimpresiones1").value;
             var fecha=document.getElementById("impreval").name;
             var impreval=document.getElementById("impreval").value;
             var aplic=document.getElementById("aplic").value;
@@ -53,7 +53,7 @@
             var nopapval=document.getElementById("nopapval").value;
             var total=fecha+"?FS.?"+aplic+"?FS.?"+impreval+"?FS.?"+papval+"?FS.?"+noimpreval+"?FS.?"+nopapval+"?CFS.?";
             var res = modic.replace(modificando, total);
-            document.getElementById("tablaimpresiones").value=res;
+            document.getElementById("tablaimpresiones1").value=res;
             var table = document.getElementById("tablaimpresionescompleta");
             var rowtable=table.rows.length;
             document.getElementById('boton'+fila).value="Modificar";
@@ -65,7 +65,8 @@
         }
         }
         function agregarfila(valor) {
-            
+            var de=document.getElementById("tablaimpresiones1").value;
+            alert(de);
             if ((($("#aplicativoid").val() != null) && ($("#tipoimpresion").val() != null) && ($("#tipopapel").val() != null)) || condicional == true ) {
 
                 var hoy = new Date();
@@ -91,10 +92,10 @@
                 if ($("#cantidadimpresiones").val() == "") { document.getElementById('cantidadimpresiones').value = 0; }
                 document.getElementById('estatusagregar').innerHTML = "";
                 if (eliminandofila == true) {
-                    var nuevafila = $("#tablaimpresiones").val();
+                    var nuevafila = $("#tablaimpresiones1").val();
                 }
                 else {
-                    var nuevafila = $("#tablaimpresiones").val() + fecha + "?FS.?" +$("#aplicativoid").val()+"?FS.?"+ $("#tipoimpresion").val() + "?FS.?" + $("#tipopapel").val() + "?FS.?" + $("#cantidadpapel").val() + "?FS.?" + $("#cantidadimpresiones").val() + "?CFS.?";
+                    var nuevafila = $("#tablaimpresiones1").val() + fecha + "?FS.?" +$("#aplicativoid").val()+"?FS.?"+ $("#tipoimpresion").val() + "?FS.?" + $("#tipopapel").val() + "?FS.?" + $("#cantidadpapel").val() + "?FS.?" + $("#cantidadimpresiones").val() + "?CFS.?";
                 }
                 separador = "?CFS.?", // un espacio en blanco
                     filas = nuevafila.split(separador);
@@ -163,7 +164,7 @@
                 vcell.innerHTML = sumaimpresiones;
                 vcell = row.insertCell(6);
                 vcell.innerHTML = "";
-                document.getElementById('tablaimpresiones').value = nuevafila;
+                document.getElementById('tablaimpresiones1').value = nuevafila;
                 document.getElementById('tipoimpresion').value = "";
                 document.getElementById('tipopapel').value = "";
                 document.getElementById('aplicativoid').value = "";
